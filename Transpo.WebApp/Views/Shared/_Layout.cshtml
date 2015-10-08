@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/components/site.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <link href="~/Content/semantic.min.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/semantic.min.js"></script>
+    <script src='//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places'></script>
+    <script src="~/Scripts/global.js"></script>
     <script src="~/Scripts/layout.js"></script>
+    <link href="~/Content/Index.css" rel="stylesheet" />
 </head>
 <body>
-
-    <div class="ui inverted vertical center aligned segment">
-        <div class="ui fixed inverted pointing secondary menu">
+    
+    <div class="ui pointing secondary menu">
+        <div class="ui container">
             @{ Html.RenderPartial("_MenuContent"); }
         </div>
     </div>
 
-    <div>
-        @RenderBody()
-    </div>
+    @RenderBody()
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/semantic.min.js"></script>
+
 </body>
 </html>

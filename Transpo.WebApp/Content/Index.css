@@ -8,10 +8,43 @@
     margin-left: 0.5em;
 }
 
-.main-header.segment {
+.main-header {
+    margin-top: 0 !important;
+    background-color: #000000 !important;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
     min-height: 700px;
     padding: 1em 0em;
 }
+
+.main-header, .main-header:after {
+    -ms-transition: background 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    -moz-transition: background 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    -webkit-transition: background 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    transition: background 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 6s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+}
+
+.main-header:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    opacity: 0.35;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.zoomed.main-header:after {
+    opacity: 0;
+}
+
+.zoomed.main-header {
+    background-color: #25282A;
+}
+
 .main-header .logo.item img {
     margin-right: 1em;
 }

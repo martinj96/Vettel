@@ -1,0 +1,113 @@
+﻿@using Transpo.WebApp.Models
+@model SearchResultModel
+@{
+    ViewBag.Title = "Index";
+}
+<div class="ui container">
+    <div class="ui segment">
+        @{ Html.RenderPartial("_SearchBar", Model as SearchModel); }
+    </div>
+
+    <div class="ui segment">
+        <div class="ui grid">
+            <div class="three wide column">
+                <div class="ui vertical segment">
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="chkHideFull" />
+                        <label>Hide full rides</label>
+                    </div>
+
+                    <h4 class="ui horizontal divider header">
+                        Date
+                    </h4>
+                    <div class="inline field">
+                        <div class="ui input">
+                            <input type="date" id="dtDate" />
+                        </div>
+                    </div>
+
+                    <h4 class="ui horizontal divider header">
+                        Cost
+                    </h4>
+                    <div class="ui form">
+                        <div class="inline field">
+                            <div class="ui slider checkbox">
+                                <input type="checkbox" class="hidden" checked>
+                                <label>Average Cost</label>
+                            </div>
+                            <label></label>
+                        </div>
+                        <div class="inline field">
+                            <div class="ui slider checkbox">
+                                <input type="checkbox"  class="hidden" checked>
+                                <label>Higher Cost</label>
+                            </div>
+                            <label></label>
+                        </div>
+                    </div>
+
+                    <h4 class="ui horizontal divider header">
+                        Photo
+                    </h4>
+                    <div class="ui form">
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="photo" class="hidden">
+                                    <label>All</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="photo" class="hidden">
+                                    <label>Only With Photo</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="ui horizontal divider header">
+                        Vehicle comfort
+                    </h4>
+                    <div class="ui form">
+                        <div class="grouped fields">
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="vehicle" class="hidden">
+                                    <label>Luxurious</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="vehicle" class="hidden">
+                                    <label>Comfortable +</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="vehicle" class="hidden">
+                                    <label>Normal +</label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui radio checkbox">
+                                    <input type="radio" name="vehicle" class="hidden">
+                                    <label>All +</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="thirteen wide column">
+                <div class="ui vertical segment">
+                    @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides); }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.ui.checkbox').checkbox();
+</script>

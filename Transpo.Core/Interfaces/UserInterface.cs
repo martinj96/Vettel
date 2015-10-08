@@ -24,12 +24,12 @@ namespace Transpo.Core.Facades
         /// <param name="from">The starting point of the route.</param>
         /// <param name="to">The ending point of the route</param>
         /// <returns>Collection of riddes that pass the asked route.</returns>
-        public ICollection<Ride> getRides(CriticalPoint from, CriticalPoint to);
+        ICollection<Ride> getRides(CriticalPoint from, CriticalPoint to);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns>Your id.</returns>
-        public int getMyID();
+        int getMyID();
     }
 }

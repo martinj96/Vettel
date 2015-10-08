@@ -1,0 +1,40 @@
+﻿@using Transpo.WebApp.Models
+@model SearchModel
+
+@using (Html.BeginForm("PerformSearch", "Search", FormMethod.Post))
+{
+    <div class="ui form">
+        <div class="ui grid">
+            <div class="fourteen wide column">
+                <div class="two fields">
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="text" id="searchbox-from" placeholder="From" value="@Model.FromCityName (@Model.FromCountryShortCode)">
+                            @Html.HiddenFor(model => model.FromLongitude)
+                            @Html.HiddenFor(model => model.FromLatitude)
+                            @Html.HiddenFor(model => model.FromCityName)
+                            @Html.HiddenFor(model => model.FromCountryShortCode)
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="text" id="searchbox-to" placeholder="To" value="@Model.ToCityName (@Model.ToCountryShortCode)">
+                            @Html.HiddenFor(model => model.ToLongitude)
+                            @Html.HiddenFor(model => model.ToLatitude)
+                            @Html.HiddenFor(model => model.ToCityName)
+                            @Html.HiddenFor(model => model.ToCountryShortCode)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="two wide column">
+                <input type="submit" id="submitSearch" hidden />
+                <div class="ui big primary button" id="btnSubmitSearch">Go<i class="right arrow icon"></i></div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/places-searchbox.js"></script>
+<script>
+    initMapsSearch();
+</script>

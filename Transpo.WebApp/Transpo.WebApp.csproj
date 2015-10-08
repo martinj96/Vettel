@@ -239,6 +239,17 @@
     <Content Include="Content\themes\default\assets\images\flags.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\11695809_10205724801732941_1586343326522175925_n.jpg" />
+    <Content Include="Images\Backgrounds\1.jpg" />
+    <Content Include="Images\Backgrounds\10.jpg" />
+    <Content Include="Images\Backgrounds\2.jpg" />
+    <Content Include="Images\Backgrounds\3.jpg" />
+    <Content Include="Images\Backgrounds\4.jpg" />
+    <Content Include="Images\Backgrounds\5.jpg" />
+    <Content Include="Images\Backgrounds\6.jpg" />
+    <Content Include="Images\Backgrounds\7.jpg" />
+    <Content Include="Images\Backgrounds\8.jpg" />
+    <Content Include="Images\Backgrounds\9.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\themes\default\assets\fonts\icons.woff2" />
@@ -250,6 +261,8 @@
     <Content Include="Content\themes\basic\assets\fonts\icons.ttf" />
     <Content Include="Content\themes\basic\assets\fonts\icons.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\global.js" />
+    <Content Include="Scripts\home.index.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\layout.js" />
@@ -263,9 +276,13 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RideModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\SearchResultModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +295,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Shared\_MenuContent.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchBar.cshtml" />
+    <Content Include="Views\Search\_SearchResultsGrid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -287,7 +307,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Transpo.AppServices\Transpo.AppServices.csproj">

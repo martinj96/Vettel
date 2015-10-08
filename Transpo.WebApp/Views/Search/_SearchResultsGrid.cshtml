@@ -1,0 +1,47 @@
+﻿@using Transpo.WebApp.Models
+@model IEnumerable<RideModel>
+
+<div class="ui divided items">
+    @foreach (var ride in Model)
+    {
+        <div class="ui item">
+            <div class="ui grid" style="position:relative;">
+                <div class="eight wide column">
+                    <div class="ui card">
+                        <div class="content">
+                            <img class="left floated tiny circular ui image" src="~/Images/11695809_10205724801732941_1586343326522175925_n.jpg">
+                            <div class="ui medium header">
+                                Martin J
+                            </div>
+                            <div class="meta">
+                                20 years
+                            </div>
+                            <div class="description">
+                                <div class="ui star rating" data-rating="2" data-max-rating="5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui vertical divider"></div>
+                <div class="eight wide column">
+                    <div class="content">
+                        <a class="header">Header</a>
+                        <div class="meta">
+                            <span>Description</span>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                        </div>
+                        <div class="extra">
+                            Additional Details
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    $('.rating').rating();
+</script>

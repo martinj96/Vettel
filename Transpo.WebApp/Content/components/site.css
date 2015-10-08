@@ -153,7 +153,36 @@ input::selection {
         Global Overrides
 *******************************/
 
-
+.bg1:after {
+  background-image: url("/images/backgrounds/1.jpg");
+}
+.bg2:after {
+  background-image: url("/images/backgrounds/2.jpg");
+}
+.bg3:after {
+  background-image: url("/images/backgrounds/3.jpg");
+}
+.bg4:after {
+  background-image: url("/images/backgrounds/4.jpg");
+}
+.bg5:after {
+  background-image: url("/images/backgrounds/5.jpg");
+}
+.bg6:after {
+  background-image: url("/images/backgrounds/6.jpg");
+}
+.bg7:after {
+  background-image: url("/images/backgrounds/7.jpg");
+}
+.bg8:after {
+  background-image: url("/images/backgrounds/8.jpg");
+}
+.bg9:after {
+  background-image: url("/images/backgrounds/9.jpg");
+}
+.bg10:after {
+  background-image: url("/images/backgrounds/10.jpg");
+}
 
 /*******************************
          Site Overrides

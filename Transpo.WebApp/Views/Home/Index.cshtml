@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Transpo.WebApp.Models
+@model SearchModel
+@{
     ViewBag.Title = "Index";
     Layout = null;
 }
@@ -16,7 +18,7 @@
 </head>
 <body>
 
-    <div class="ui inverted vertical main-header center aligned segment">
+    <div class="ui zoomed main-header center aligned segment">
         <div class="ui large secondary inverted pointing menu">
             <div class="ui container">
                 @{ Html.RenderPartial("_MenuContent"); }
@@ -28,49 +30,44 @@
                 Transpo
             </h1>
             <h2>Find you ride.</h2>
-            <div class="ui form">
-                <div class="two fields">
-                    <div class="field">
-                        <div class="ui big icon input">
-                            <input type="text" id="searchbox-from" placeholder="From">
+            @using (Html.BeginForm("PerformSearch", "Search", FormMethod.Post))
+            { 
+                <div class="ui form">
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui big icon input">
+                                <input type="text" id="searchbox-from" placeholder="From">
+                                @Html.HiddenFor(model => model.FromLongitude)
+                                @Html.HiddenFor(model => model.FromLatitude)
+                                @Html.HiddenFor(model => model.FromCityName)
+                                @Html.HiddenFor(model => model.FromCountryShortCode)
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui big icon input">
+                                <input type="text" id="searchbox-to" placeholder="To">
+                                @Html.HiddenFor(model => model.ToLongitude)
+                                @Html.HiddenFor(model => model.ToLatitude)
+                                @Html.HiddenFor(model => model.ToCityName)
+                                @Html.HiddenFor(model => model.ToCountryShortCode)
+                            </div>
                         </div>
                     </div>
-                    <div class="field">
-                        <div class="ui big icon input">
-                            <input type="text" id="searchbox-to" placeholder="To">
-                        </div>
-                    </div>
+                    <input type="submit" id="submitSearch" hidden />
+                    <div class="ui massive primary button" id="btnSubmitSearch">Go<i class="right arrow icon"></i></div>
                 </div>
-                <div class="ui massive primary button">Go<i class="right arrow icon"></i></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="ui vertical stripe segment">
-        <div class="ui middle aligned stackable grid container">
-            <div class="row">
-                <div class="eight wide column">
-                    <h3 class="ui header">We Help Companies and Companions</h3>
-                    <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
-                    <h3 class="ui header">We Make Bananas That Can Dance</h3>
-                    <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="center aligned column">
-                    <a class="ui huge button">Check Them Out</a>
-                </div>
-            </div>
+            }
         </div>
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/global.js"></script>
     <script src='//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places'></script>
+    <script src="~/Scripts/home.index.js"></script>
     <script src="~/Scripts/places-searchbox.js"></script>
     <script src="~/Scripts/layout.js"></script>
     <script>
-        debugger;
         initMapsSearch();
     </script>
 </body>
