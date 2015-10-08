@@ -9,6 +9,7 @@ namespace Transpo.Core.Entities
     public class Characteristic : BaseEntity
     {
         public string Name { get; set; }
+        public virtual ICollection<User> UsersWithCharacteristic { get; set; }
 
     }
 }

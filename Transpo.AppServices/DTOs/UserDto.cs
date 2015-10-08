@@ -9,8 +9,11 @@ namespace Transpo.AppServices.DTOs
     public class UserDto
     {
         public string Name { get; set; }
+        public string Surname { get; set; }
         public int Gender { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public string Link { get; set; }
+        public long FacebookId { get; set; }
     }
 }

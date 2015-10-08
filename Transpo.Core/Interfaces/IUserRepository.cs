@@ -9,6 +9,6 @@ namespace Transpo.Core.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-
+        User GetUserByFacebookId(long facebookId);
     }
 }

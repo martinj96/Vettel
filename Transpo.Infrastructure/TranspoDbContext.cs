@@ -38,7 +38,7 @@ namespace Transpo.Infrastructure.Data
                 .WithOptionalDependent();
             modelBuilder.Entity<User>()
                 .HasMany<Characteristic>(u => u.Characteristics)
-                .WithOptional();
+                .WithMany(c => c.UsersWithCharacteristic);
             modelBuilder.Entity<User>()
                 .HasMany<Ride>(u => u.Rides)
                 .WithMany(r => r.Riders);
@@ -48,6 +48,9 @@ namespace Transpo.Infrastructure.Data
             modelBuilder.Entity<User>()
                 .HasOptional<Car>(u => u.Car)
                 .WithOptionalPrincipal();
+            modelBuilder.Entity<Ride>()
+                .HasMany<User>(r => r.UsersWithAccess)
+                .WithMany(u => u.HasAccessToRides);
         } 
     }
 }
