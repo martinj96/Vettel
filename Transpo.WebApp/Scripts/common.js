@@ -6,10 +6,6 @@
         xfbml: false  // parse XFBML
     });
 
-    FB.Event.subscribe('auth.authResponseChange', function (response) {
-        checkLoginState();
-    });
-
 };
 
 // Load the SDK Asynchronously
@@ -52,6 +48,7 @@ function statusChangeCallback(response) {
                     var model = JSON.stringify(data);
                     $.ajax({
                         type: "POST",
+                        async: false,
                         url: "../Home/Login",
                         data: { model: model },
                         success: function () {
@@ -61,9 +58,13 @@ function statusChangeCallback(response) {
                                 if (response && !response.error) {
                                     var pictureUrl = response.data.url;
                                     $.ajax({
+                                        async: false,
                                         type: "POST",
                                         url: "../Home/UpdateProfilePicture",
-                                        data: { pictureUrl: pictureUrl, facebookId : uid }
+                                        data: { pictureUrl: pictureUrl, facebookId: uid },
+                                        success: function(){
+                                            location.reload();
+                                        }
                                     })
                                 }
                             });
@@ -80,3 +81,11 @@ function Logout() {
         $("#logoutForm").submit();
     });
 }
+function Login() {
+    FB.login(function (response) {
+        checkLoginState();
+    });
+}
+$("#login").on("click", function () {
+    Login();
+});
