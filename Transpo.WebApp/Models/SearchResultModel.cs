@@ -21,5 +21,10 @@ namespace Transpo.WebApp.Models
             this.ToLatitude = searchModel.ToLatitude;
             this.ToLongitude = searchModel.ToLongitude;
         }
+
+        public SearchResultModel() 
+        {
+            Rides = new List<RideModel>();
+        }
     }
 }

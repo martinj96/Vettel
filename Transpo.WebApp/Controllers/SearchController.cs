@@ -12,7 +12,7 @@ namespace Transpo.WebApp.Controllers
         // GET: Search
         public ActionResult Index()
         {
-            return View();
+            return View(new SearchResultModel());
         }
 
         public ActionResult PerformSearch(SearchModel searchModel)

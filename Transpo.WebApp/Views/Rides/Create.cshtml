@@ -1,0 +1,119 @@
+﻿<div class="ui container">
+    <div class="ui two column divided grid">
+        <div class="ten wide column">
+            <div class="ui large header">Enter Ride Details</div>
+
+            <div class="ui dividing medium header">Destination and Origin</div>
+            <div class="ui form">
+                <div class="two fields">
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="text" id="searchbox-from" placeholder="From">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui icon input">
+                            <input type="text" id="searchbox-to" placeholder="To">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui dividing medium header">Waypoints</div>
+            <div class="ui form waypoints">
+                <div class="field">
+                    <div class="ui icon input">
+                        <input type="text" class="waypoint" placeholder="Add a Waypoint">
+                    </div>
+                </div>
+                <div class="ui basic button" id="btnAddMoreWaypoints"><i class="plus icon"></i> Add More</div>
+            </div>
+
+            <div class="ui dividing medium header">Date and Time</div>
+            <div class="ui form">
+                <div class="field">
+                    <div class="ui toggle checkbox">
+                        <label>Return ride?</label>
+                        <input type="checkbox" name="return" id="return" tabindex="0" class="hidden" checked>
+                    </div>
+                </div>
+
+                <div class="ui header tiny">Departure Date:</div>
+                <div class="ui grid">
+                    <div class="eight wide column">
+                        <div class="field">
+                            <div class="ui icon input">
+                                <input type="date" id="date-origin" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <div class="two fields">
+                            <div class="field">
+                                <select class="ui fluid search dropdown hour" name="hour-origin">
+                                    <option value="">Hour</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <select class="ui fluid search dropdown minutes" name="minutes-origin">
+                                    <option value="">Minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui header tiny return-date-header">Return Date:</div>
+                <div class="ui grid return-date">
+                    <div class="eight wide column">
+                        <div class="field">
+                            <div class="ui icon input">
+                                <input type="date" id="date-destination" placeholder="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <div class="two fields">
+                            <div class="field">
+                                <select class="ui fluid search dropdown hour" name="hour-destination">
+                                    <option value="">Hour</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <select class="ui fluid search dropdown minutes" name="minutes-destination">
+                                    <option value="">Minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui dividing medium header">Frequency</div>
+            <div class="ui form">
+                <div class="inline fields">
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="frequency" checked="" tabindex="0" class="hidden">
+                            <label>One-off ride</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="frequency" tabindex="0" class="hidden">
+                            <label>Repeat ride</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="ui huge positive right floated button" type="submit">Submit</button>
+        </div>
+        <div class="six wide column">
+            <div id="map" style="height:450px;width:450px;"></div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/mapsDirections.js"></script>
+<script src="~/Scripts/rides.create.js"></script>
