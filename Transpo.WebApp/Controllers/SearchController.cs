@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Transpo.WebApp.Models;
 
 namespace Transpo.WebApp.Controllers
-{
+{   
     public class SearchController : Controller
     {
         // GET: Search

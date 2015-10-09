@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="CarService.cs" />
     <Compile Include="DTOs\CarDto.cs" />
+    <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Models\CustomPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

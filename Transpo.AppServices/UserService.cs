@@ -9,6 +9,10 @@ using Transpo.Core.Interfaces;
 
 namespace Transpo.AppServices
 {
+    public enum Gender
+    {
+        male=1, female
+    }
     public class UserService
     {
         private IUserRepository _userRepository;
@@ -23,19 +27,19 @@ namespace Transpo.AppServices
                 return false;
             return true;
         }
-        public User CreateUser(UserDto u)
+        public void CreateUser(LoginDto u)
         {
             User user = new User();
             user.Email = u.Email;
-            user.Gender = u.Gender;
+            if (u.Gender == "male")
+                user.Gender = (int)Gender.male;
+            else
+                user.Gender = (int)Gender.female;
             user.Name = u.Name;
-            user.Surname = u.Surname;
-            user.Phone = u.Phone;
             user.Link = u.Link;
             user.FacebookId = u.FacebookId;
             _userRepository.Add(user);
             _userRepository.Save();
-            return user;
         }
         public User GetUserById(int id)
         {
@@ -44,6 +48,17 @@ namespace Transpo.AppServices
         public User GetUserByFacebookId(long id)
         {
             return _userRepository.GetUserByFacebookId(id);
+        }
+
+        public void UpdateProfilePicture(string pictureUrl, long facebookId)
+        {
+            var user = GetUserByFacebookId(facebookId);
+            if (user != null)
+            {
+                _userRepository.Edit(user);
+                user.PictureUrl = pictureUrl;
+                _userRepository.Save();
+            }
         }
     }
 }

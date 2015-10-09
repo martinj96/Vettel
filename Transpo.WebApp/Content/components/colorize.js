@@ -93,7 +93,8 @@
 
               module.async(function() {
                 module.getMetadata();
-                module.canvas.create();
+                module.canvas.
+();
 
                 module.draw.image(function() {
                   module.draw.colors();

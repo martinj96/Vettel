@@ -56,7 +56,9 @@ $.fn.checkbox = function(parameters) {
         initialize: function() {
           module.verbose('Initializing checkbox', settings);
 
-          module.create.label();
+          module.
+
+.label();
           module.bind.events();
 
           module.set.tabbable();

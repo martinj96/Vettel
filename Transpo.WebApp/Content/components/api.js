@@ -49,7 +49,8 @@ $.api = $.fn.api = function(parameters) {
         eventNamespace  = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
 
-        // element that creates request
+        // element that 
+s request
         $module         = $(this),
         $form           = $module.closest(selector.form),
 

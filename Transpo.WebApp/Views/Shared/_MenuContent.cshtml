@@ -1,6 +1,19 @@
 ﻿@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "item active" })
 @Html.ActionLink("Second name", "Index", "Home", new { area = "" }, new { @class = "item" })
 <div class="right item">
-    <a class="ui inverted button">Sign Up</a>
-    <a class="ui inverted button">Login</a>
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <span>@Html.ActionLink("Hi " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</span>
+            <a onclick="Logout()" class="ui inverted button">Log off</a>
+        }
+    }
+    else
+    {
+        <a class="ui inverted button" href=@String.Format("https://www.facebook.com/dialog/oauth?redirect_uri={0}&client_id=106037976420549&scope=public_profile,email",Request.Url.AbsoluteUri)>Login</a>
+
+    }
 </div>

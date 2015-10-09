@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
 
 namespace Transpo.WebApp.Controllers
@@ -16,9 +17,39 @@ namespace Transpo.WebApp.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public void Login(string model)
+        {
+            if (ModelState.IsValid && !Request.IsAuthenticated)
+            {
+                var login = new JavaScriptSerializer().Deserialize<LoginDto>(model);
+                if (_userService.GetUserByFacebookId(login.FacebookId) == null)
+                {
+                    _userService.CreateUser(login);
+                }
+                CreateAuthenticationTicket(login.FacebookId);
+            } 
+        }
+        public void UpdateProfilePicture(string pictureUrl, long facebookId)
+        {
+            _userService.UpdateProfilePicture(pictureUrl, facebookId);
+        }
+        public bool IsLoggedIn()
+        {
+            if (Request.IsAuthenticated)
+                return true;
+            else
+                return false;
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
         public void CreateAuthenticationTicket(long facebookId)
         {
-
             var authUser = _userService.GetUserByFacebookId(facebookId);
             CustomPrincipalSerializedModel serializeModel = new CustomPrincipalSerializedModel();
 
@@ -29,7 +60,7 @@ namespace Transpo.WebApp.Controllers
             string userData = serializer.Serialize(serializeModel);
 
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-              1, serializeModel.Name, DateTime.Now, DateTime.Now.AddHours(2), false, userData);
+              1, authUser.Name, DateTime.Now, DateTime.Now.AddHours(2), false, userData);
             string encTicket = FormsAuthentication.Encrypt(authTicket);
             HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
             Response.Cookies.Add(faCookie);
