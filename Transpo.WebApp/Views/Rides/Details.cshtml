@@ -1,0 +1,23 @@
+﻿@model Transpo.WebApp.Models.RideDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<img src="@Model.Driver.PictureUrl" width="150" height="150" style="border-radius:10px" /><br />
+Name : @Model.Driver.Name <br />
+Email : @Model.Driver.Email<br />
+Gender : @Model.Driver.Gender<br />
+Link : @Model.Driver.Link<br />
+Departure : @Model.Ride.Departure.ToString()<br />
+Description : @Model.Ride.Description<br />
+Detour : @Model.Ride.Detour<br />
+Length : @Model.Ride.Length<br />
+PricePerPassenger : @Model.Ride.PricePerPassenger<br />
+SeatsLeft : @Model.Ride.SeatsLeft<br />
+@if (Model.UserIsRider)
+{
+    foreach(var rider in Model.Riders){
+        <div>Rider: @rider.Name <br /> Link: @rider.Link</div>
+    }
+}

@@ -11,6 +11,6 @@ namespace Transpo.Core.Entities
         public Decimal Latitude { get; set; }
         public Decimal Longitude { get; set; }
         public String Name { get; set; }
-        public virtual ICollection<Ride> Rides { get; set; }
+        public virtual ICollection<OrderedCriticalPoint> OrderedCriticalPoints { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Transpo.AppServices
         }
 
         public Ride AddRide(RideDto r)
-        {
+        {/*
             var ride = new Ride();
             ride.Departure = r.Departure;
             ride.Driver = r.Driver;
@@ -36,7 +36,9 @@ namespace Transpo.AppServices
             }
             _rideRepository.Add(ride);
             _rideRepository.Save();
-            return ride;
+            return ride;*/
+            var Ride = new Ride();
+            return Ride;
         }
 
         public void DeleteRide(int id)

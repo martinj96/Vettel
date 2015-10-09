@@ -16,7 +16,6 @@ namespace Transpo.WebApp.Models
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public ICollection<Point> Waypoints { get; set; }
-
         public DateTime DepartureDate { get; set; }
     }
 }

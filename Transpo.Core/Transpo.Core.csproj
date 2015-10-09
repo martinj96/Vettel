@@ -50,6 +50,7 @@
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\Characteristic.cs" />
     <Compile Include="Entities\CriticalPoint.cs" />
+    <Compile Include="Entities\OrderedCriticalPoint.cs" />
     <Compile Include="Facades\StandardUserInterface.cs" />
     <Compile Include="Interfaces\UserInterface.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />

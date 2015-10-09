@@ -44,6 +44,15 @@ for (var i = 0; i < 46; i+=15) {
 }
 
 $('#return').on('change', function () {
+    if ($('#date-destination').attr('required')) {
+        $('#date-destination').removeAttr('required');
+        $('#hour-destination').removeAttr('required');
+        $('#minute-destination').removeAttr('required');
+    } else {
+        $('#date-destination').attr('required', requred);
+        $('#hour-destination').attr('required', requred);
+        $('#minute-destination').attr('required', requred);
+    }
     $('.return-date-header').fadeToggle();
     $('.return-date').fadeToggle();
 });

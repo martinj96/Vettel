@@ -26,6 +26,7 @@ namespace Transpo.Infrastructure.Data
         public DbSet<CriticalPoint> CriticalPoints { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Ride> Rides { get; set; }
+        public DbSet<OrderedCriticalPoint> CriticalPointsRides { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -42,9 +43,6 @@ namespace Transpo.Infrastructure.Data
             modelBuilder.Entity<User>()
                 .HasMany<Ride>(u => u.Rides)
                 .WithMany(r => r.Riders);
-            modelBuilder.Entity<Ride>()
-                .HasMany<CriticalPoint>(r => r.CriticalPoints)
-                .WithMany(u => u.Rides);
             modelBuilder.Entity<User>()
                 .HasOptional<Car>(u => u.Car)
                 .WithOptionalPrincipal();

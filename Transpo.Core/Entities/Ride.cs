@@ -18,7 +18,7 @@ namespace Transpo.Core.Entities
         public string Description { get; set; }
         public virtual User Driver { get; set; }
         public virtual ICollection<User> Riders { get; set; }
-        public virtual ICollection<CriticalPoint> CriticalPoints { get; set; }
+        public virtual ICollection<OrderedCriticalPoint> OrderedCriticalPoints { get; set; }
         public virtual ICollection<User> UsersWithAccess { get; set; }
 
     }

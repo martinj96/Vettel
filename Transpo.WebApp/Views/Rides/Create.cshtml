@@ -10,14 +10,14 @@
                 <div class="two fields">
                     <div class="field">
                         <div class="ui icon input">
-                            <input type="text" id="searchbox-from" placeholder="From">
+                            <input required type="text" id="searchbox-from" placeholder="From">
                             <input type="hidden" name="StartPoint.Latitude" />
                             <input type="hidden" name="StartPoint.Longitude" />
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui icon input">
-                            <input type="text" id="searchbox-to" placeholder="To">
+                            <input required type="text" id="searchbox-to" placeholder="To">
                             <input type="hidden" name="EndPoint.Latitude" />
                             <input type="hidden" name="EndPoint.Longitude" />
                         </div>
@@ -51,19 +51,19 @@
                     <div class="eight wide column">
                         <div class="field">
                             <div class="ui icon input">
-                                <input type="date" id="date-origin" placeholder="" name="DepartureDate">
+                                <input required type="date" id="date-origin" placeholder="" name="DepartureDate">
                             </div>
                         </div>
                     </div>
                     <div class="eight wide column">
                         <div class="two fields">
                             <div class="field">
-                                <select class="ui fluid search dropdown hour" name="hour-origin">
+                                <select required class="ui fluid search dropdown hour" name="hour-origin">
                                     <option value="">Hour</option>
                                 </select>
                             </div>
                             <div class="field">
-                                <select class="ui fluid search dropdown minutes" name="minutes-origin">
+                                <select required class="ui fluid search dropdown minutes" name="minutes-origin">
                                     <option value="">Minutes</option>
                                 </select>
                             </div>
@@ -76,19 +76,19 @@
                     <div class="eight wide column">
                         <div class="field">
                             <div class="ui icon input">
-                                <input type="date" id="date-destination" placeholder="">
+                                <input required type="date" id="date-destination" placeholder="">
                             </div>
                         </div>
                     </div>
                     <div class="eight wide column">
                         <div class="two fields">
                             <div class="field">
-                                <select class="ui fluid search dropdown hour" name="hour-destination">
+                                <select required class="ui fluid search dropdown hour" id="hour-destination" name="hour-destination">
                                     <option value="">Hour</option>
                                 </select>
                             </div>
                             <div class="field">
-                                <select class="ui fluid search dropdown minutes" name="minutes-destination">
+                                <select required class="ui fluid search dropdown minutes" id="minute-destination" name="minutes-destination">
                                     <option value="">Minutes</option>
                                 </select>
                             </div>
