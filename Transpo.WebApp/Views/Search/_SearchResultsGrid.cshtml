@@ -5,6 +5,7 @@
     @foreach (var ride in Model)
     {
         <div class="ui item">
+            @Html.HiddenFor(x => ride.RideId)
             <div class="ui grid" style="position:relative;">
                 <div class="eight wide column">
                     <div class="ui card">

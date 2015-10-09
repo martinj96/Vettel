@@ -7,7 +7,7 @@ using Transpo.WebApp.Models;
 
 namespace Transpo.WebApp.Controllers
 {   
-    public class SearchController : Controller
+    public class SearchController : BaseController
     {
         // GET: Search
         public ActionResult Index()

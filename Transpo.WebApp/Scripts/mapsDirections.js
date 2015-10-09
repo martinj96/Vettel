@@ -1,5 +1,6 @@
 ﻿var directionsService = new google.maps.DirectionsService;
 var directionsDisplay = new google.maps.DirectionsRenderer;
+var waypointsCounter = 0;
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -76,6 +77,8 @@ function initMapsSearch(directionsService, directionsDisplay) {
         if (!place.geometry) {
             return;
         }
+        document.getElementsByName("StartPoint.Longitude")[0].value = place.geometry.location.J;
+        document.getElementsByName("StartPoint.Latitude")[0].value = place.geometry.location.M;
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });
 
@@ -84,6 +87,8 @@ function initMapsSearch(directionsService, directionsDisplay) {
         if (!place.geometry) {
             return;
         }
+        document.getElementsByName("EndPoint.Longitude")[0].value = place.geometry.location.J;
+        document.getElementsByName("EndPoint.Latitude")[0].value = place.geometry.location.M;
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });
 }
@@ -100,7 +105,11 @@ function addSearchboxToElement(input) {
         if (!place.geometry) {
             return;
         }
+        debugger;
+        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Longitude")[0].value = place.geometry.location.J;
+        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Latitude")[0].value = place.geometry.location.M;
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });
+    waypointsCounter++;
 
 }

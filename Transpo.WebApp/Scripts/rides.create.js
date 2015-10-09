@@ -8,7 +8,9 @@ $('#btnAddMoreWaypoints').on('click', function () {
         .after(
             '<div class="field">' +
                 '<div class="ui icon input">' +
-                    '<input type="text" class="waypoint" placeholder="Add a Waypoint">' + 
+                    '<input type="text" class="waypoint" placeholder="Add a Waypoint">' +
+                    '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Latitude" />' +
+                    '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Longitude" />' +
                 '</div>' +
             '</div>'
         )
@@ -47,3 +49,8 @@ $('#return').on('change', function () {
 });
 
 addSearchboxToElement($('.waypoint')[0]);
+
+$('#btnSubmitRide').on('click', function () {
+    $('#submitCreateRide').submit();
+})
+

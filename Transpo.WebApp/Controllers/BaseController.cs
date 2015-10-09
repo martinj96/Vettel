@@ -14,6 +14,7 @@ namespace Transpo.WebApp.Controllers
     {
         protected CarService _carService;
         protected UserService _userService;
+        protected RideService _rideService;
 
         public BaseController()
         {
@@ -25,6 +26,7 @@ namespace Transpo.WebApp.Controllers
             _carService = new CarService(carRepository);
             var critialPointRepository = new CriticalPointRepository(dbContext);
             var rideRepository = new RideRepository(dbContext);
+            _rideService = new RideService(rideRepository);
             var characteristicsRepository = new CharacteristicRepository(dbContext);
         }
     }
