@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic.MatchRide;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,35 @@ namespace Transpo.AppServices
     public class RideService
     {
         private IRideRepository _rideRepository;
+        private User user;
+        public IRadiusCalculator RadiusCalculator { get; set; }
         private IUserRepository _userRepository;
         private ICriticalPointRepository _criticalPointRepository;
 
         public RideService(IRideRepository rideRepository, IUserRepository userRepository)
         {
             _rideRepository = rideRepository;
-            _userRepository = userRepository;
+            RadiusCalculator = new RadiusCalculator5Percent();
+        }
+
+        public ICollection<Ride> GetRides(ICollection<CriticalPointDto> points)
+        {
+            ICollection<CriticalPoint> criticalPoints = new LinkedList<CriticalPoint>();
+            foreach (CriticalPointDto point in points)
+            {
+                CriticalPoint criticalPoint = new CriticalPoint();
+                criticalPoint.Longitude = point.Longitude;
+                criticalPoint.Latitude = point.Latitude;
+                criticalPoint.Name = point.Name;
+                criticalPoints.Add(criticalPoint);
+            }
+            decimal radius = RadiusCalculator.GetRadius(criticalPoints);
+            return _rideRepository.getRides(criticalPoints, radius);
+        }
+
+        public ICollection<Ride> GetMyRides()
+        {
+            return _rideRepository.getRides(user);
         }
 
         public Ride AddRide(RideDto r)
