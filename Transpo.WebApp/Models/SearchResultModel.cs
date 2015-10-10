@@ -49,13 +49,7 @@ namespace Transpo.WebApp.Models
 
             foreach (Ride ride in col)
             {
-                RideModel rideModel = new RideModel();
-                rideModel.DepartureDate = ride.Departure;
-                rideModel.Description = ride.Description;
-                rideModel.Detour = ride.Detour;
-                rideModel.Length = ride.Length;
-                rideModel.PricePerPassenger = ride.PricePerPassenger;
-                rideModel.SeatsLeft = ride.SeatsLeft;
+                RideModel rideModel = new RideModel(service.GetById(ride.id));
                 rs.Add(rideModel);
             }
             Rides = rs;
