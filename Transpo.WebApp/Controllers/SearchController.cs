@@ -24,7 +24,7 @@ namespace Transpo.WebApp.Controllers
         public ActionResult PerformSearchPartial(SearchModel searchModel)
         {
             var model = new SearchResultModel(searchModel);
-            return PartialView("_SearchResultsGrid", model);
+            return PartialView("_SearchResultsGrid", model.Rides);
         }
 
         private IEnumerable<RideModel> MockRides()
