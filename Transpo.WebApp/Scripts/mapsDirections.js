@@ -105,7 +105,6 @@ function addSearchboxToElement(input) {
         if (!place.geometry) {
             return;
         }
-        debugger;
         document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Longitude")[0].value = place.geometry.location.J;
         document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Latitude")[0].value = place.geometry.location.M;
         calculateAndDisplayRoute(directionsService, directionsDisplay);

@@ -69,7 +69,9 @@
     <script src="~/Scripts/layout.js"></script>
     <script src="~/Scripts/common.js"></script>
     <script>
-        initMapsSearch();
+        (function () {
+            initMapsSearch();
+        })
         $('.menu .item.home').addClass('active');
     </script>
 </body>

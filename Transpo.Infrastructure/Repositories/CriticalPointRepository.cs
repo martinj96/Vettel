@@ -13,7 +13,10 @@ namespace Transpo.Infrastructure.Data.Repositories
         public CriticalPointRepository(TranspoDbContext context)
             : base(context)
         {
-
+        }
+        public CriticalPoint getByLatLon(decimal lat, decimal lon)
+        {
+            return _context.CriticalPoints.FirstOrDefault(c => c.Latitude == lat && c.Longitude == lon);
         }
     }
 }

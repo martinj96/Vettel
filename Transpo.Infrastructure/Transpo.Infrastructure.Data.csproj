@@ -58,12 +58,15 @@
     <Compile Include="Repositories\CarRepository.cs" />
     <Compile Include="Repositories\CharacteristicsRepository.cs" />
     <Compile Include="Repositories\CriticalPointRepository.cs" />
+    <Compile Include="Repositories\OrderedCriticalPointRepository.cs" />
     <Compile Include="Repositories\RideRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="TranspoDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
