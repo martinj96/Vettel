@@ -31,6 +31,7 @@ namespace Transpo.WebApp.Controllers
             var viewModel = new RideDetailsViewModel();
             viewModel.Driver = new UserViewModel(ride.Driver);
             viewModel.Ride = new RideViewModel(ride);
+            viewModel.Ride.CriticalPoints = _rideService.GetRidesSortedCriticalPoints(id);
 
             var user = (HttpContext.User as CustomPrincipal);
             /*if( userId has access){
@@ -62,55 +63,78 @@ namespace Transpo.WebApp.Controllers
             }
             return View(viewModel);
         }
-        public ActionResult CreateRide(RideModel ride)
+        public ActionResult CreateRide(RideModel ride, string returnR)
         {
-            string cookieName = FormsAuthentication.FormsCookieName;
-            HttpCookie authCookie = Request.Cookies[cookieName];
-            
-            if (authCookie == null)
+            var user = (HttpContext.User as CustomPrincipal);
+
+            if (user == null)
                 throw new UnauthorizedAccessException();
 
-            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-            CustomPrincipalSerializedModel userModel = new JavaScriptSerializer().Deserialize<CustomPrincipalSerializedModel>(authTicket.UserData);
-            var userId = userModel.UserId;
-
-            var rdto = ConvertRideModelToDto(userId, ride);
-            _rideService.AddRide(rdto);
+            var dto = ConvertRideModelToDto(ride, user.UserId, returnR);
+            _rideService.AddRide(dto);
 
             return View("Create");
         }
 
-        private RideDto ConvertRideModelToDto(int userId, RideModel ride)
+        private RideDto ConvertRideModelToDto(RideModel ride, int userId, string returnRide)
         {
-            User user = _userService.GetUserById(userId);
+            var dto = new RideDto();
             
-            ICollection<CriticalPointDto> cpdto = new List<CriticalPointDto>();
-            cpdto.Add(new CriticalPointDto {
-                Latitude = ride.StartPoint.Latitude,
-                Longitude = ride.StartPoint.Longitude
-            });
+            dto.Length = ride.Length;
+            dto.Description = ride.Description;
+            dto.Detour = ride.Detour;
+            dto.DriverId = userId;
+            dto.PricePerPassenger = ride.PricePerPassenger;
+            dto.SeatsLeft = ride.SeatsLeft;
 
+            if (returnRide == "true")
+                dto.ReturnRide = true;
+            else
+                dto.ReturnRide = false;
+
+            var time = new TimeSpan(ride.TimeDeparture.Hour, ride.TimeDeparture.Minutes, 0);
+            dto.DepartureDate = ride.DepartureDate.Add(time);
+
+            if (dto.ReturnRide)
+            {
+                time = new TimeSpan(ride.ReturnTimeDeparture.Hour, ride.ReturnTimeDeparture.Minutes, 0);
+                dto.ReturnDepartureDate = ride.ReturnDepartureDate.Add(time);
+            }
+
+
+            int o = 0;
+            var cp = new CriticalPointDto {
+                Latitude = ride.StartPoint.Latitude,
+                Longitude = ride.StartPoint.Longitude,
+            };
+            var ocpDto = new List<OrderedCriticalPointDto>();
+            ocpDto.Add(new OrderedCriticalPointDto {
+                CriticalPoint = cp,
+                Order = o
+            });
+            o++;
             foreach (var point in ride.Waypoints)
 	        {
-		        cpdto.Add(new CriticalPointDto {
-                    Latitude = point.Latitude,
-                    Longitude = point.Longitude
+                if(point.Latitude == 0 && point.Latitude == 0)
+                    continue;
+                cp.Latitude = point.Latitude;
+                cp.Longitude = point.Longitude;
+		        ocpDto.Add(new OrderedCriticalPointDto {
+                    CriticalPoint = cp,
+                    Order = o
                 });
+                o++;
 	        }
-            
-            cpdto.Add(new CriticalPointDto {
-                Latitude = ride.EndPoint.Latitude,
-                Longitude = ride.EndPoint.Longitude
-            });
-
-            RideDto rdto = new RideDto
+            cp.Latitude = ride.EndPoint.Latitude;
+            cp.Longitude = ride.EndPoint.Longitude;
+            ocpDto.Add(new OrderedCriticalPointDto
             {
-                Driver = user,
-                Departure = ride.DepartureDate,
-                CriticalPoints = cpdto
-            };
-
-            return rdto;
+                CriticalPoint = cp,
+                Order = o
+            });
+            dto.Waypoints = ocpDto;
+            
+            return dto;
         }
     }
 }

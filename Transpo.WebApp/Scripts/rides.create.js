@@ -48,10 +48,12 @@ $('#return').on('change', function () {
         $('#date-destination').removeAttr('required');
         $('#hour-destination').removeAttr('required');
         $('#minute-destination').removeAttr('required');
+        $("#returnRide").attr("value", "false")
     } else {
-        $('#date-destination').attr('required', requred);
-        $('#hour-destination').attr('required', requred);
-        $('#minute-destination').attr('required', requred);
+        $('#date-destination').attr('required', 'required');
+        $('#hour-destination').attr('required', 'required');
+        $('#minute-destination').attr('required', 'required');
+        $("#returnRide").attr("value", "true")
     }
     $('.return-date-header').fadeToggle();
     $('.return-date').fadeToggle();

@@ -50,6 +50,7 @@
     <Compile Include="DTOs\CarDto.cs" />
     <Compile Include="DTOs\CriticalPointDto.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
+    <Compile Include="DTOs\OrderedCriticalPoint.cs" />
     <Compile Include="DTOs\RideDto.cs" />
     <Compile Include="Models\CustomPrincipal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
