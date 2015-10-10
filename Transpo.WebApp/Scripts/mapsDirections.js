@@ -110,7 +110,7 @@ function addSearchboxToElement(input) {
         }
         document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Longitude")[0].value = place.geometry.location.J;
         document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Latitude")[0].value = place.geometry.location.M;
-        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Latitude")[0].value = $(place.adr_address).text();
+        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Name")[0].value = $(place.adr_address).text();
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });
     waypointsCounter++;

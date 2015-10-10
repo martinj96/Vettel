@@ -127,18 +127,24 @@ namespace Transpo.WebApp.Controllers
 	        {
                 if(point.Latitude == 0 && point.Latitude == 0)
                     continue;
-                cp.Latitude = point.Latitude;
-                cp.Longitude = point.Longitude;
-                cp.Name = point.Name;
+                cp = new CriticalPointDto
+                {
+                    Latitude = point.Latitude,
+                    Longitude = point.Longitude,
+                    Name = point.Name
+                };
 		        ocpDto.Add(new OrderedCriticalPointDto {
                     CriticalPoint = cp,
                     Order = o
                 });
                 o++;
 	        }
-            cp.Latitude = ride.EndPoint.Latitude;
-            cp.Longitude = ride.EndPoint.Longitude;
-            cp.Name = ride.EndPoint.Name;
+            cp = new CriticalPointDto
+            {
+                Latitude = ride.EndPoint.Latitude,
+                Longitude = ride.EndPoint.Longitude,
+                Name = ride.EndPoint.Name
+            };
             ocpDto.Add(new OrderedCriticalPointDto
             {
                 CriticalPoint = cp,

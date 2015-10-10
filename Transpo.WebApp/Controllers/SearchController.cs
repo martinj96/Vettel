@@ -18,14 +18,12 @@ namespace Transpo.WebApp.Controllers
         public ActionResult PerformSearch(SearchModel searchModel)
         {
             var model = new SearchResultModel(searchModel);
-            model.Rides = MockRides();
             return View("Index", model);
         }
 
         public ActionResult PerformSearchPartial(SearchModel searchModel)
         {
             var model = new SearchResultModel(searchModel);
-            model.Rides = MockRides();
             return PartialView("_SearchResultsGrid", model);
         }
 
