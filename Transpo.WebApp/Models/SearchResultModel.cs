@@ -16,13 +16,10 @@ namespace Transpo.WebApp.Models
         public IEnumerable<RideModel> Rides { get; set; }
         public IServiceFactory serviceFactory;
 
-        public SearchResultModel()
-        {
-            serviceFactory = new ServiceFactory();
-        }
-
         public SearchResultModel(SearchModel searchModel)
         {
+            serviceFactory = new ServiceFactory();
+            List<RideModel> rs = new List<RideModel>();
             this.FromCityName = searchModel.FromCityName;
             this.FromCountryShortCode = searchModel.FromCountryShortCode;
             this.FromLatitude = searchModel.FromLatitude;
@@ -57,12 +54,15 @@ namespace Transpo.WebApp.Models
                 rideModel.Length = ride.Length;
                 rideModel.PricePerPassenger = ride.PricePerPassenger;
                 rideModel.SeatsLeft = ride.SeatsLeft;
+                rs.Add(rideModel);
             }
+            Rides = rs;
         }
 
         public SearchResultModel() 
         {
             Rides = new List<RideModel>();
+            serviceFactory = new ServiceFactory();
         }
     }
 }
