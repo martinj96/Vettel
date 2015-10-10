@@ -49,6 +49,10 @@ namespace Transpo.Infrastructure.Data
             modelBuilder.Entity<Ride>()
                 .HasMany<User>(r => r.UsersWithAccess)
                 .WithMany(u => u.HasAccessToRides);
+
+            // Set Critical Points precision
+            modelBuilder.Entity<CriticalPoint>().Property(p => p.Longitude).HasPrecision(10, 5);
+            modelBuilder.Entity<CriticalPoint>().Property(p => p.Latitude).HasPrecision(10, 5);
         } 
     }
 }
