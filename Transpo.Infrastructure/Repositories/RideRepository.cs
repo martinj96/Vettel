@@ -27,7 +27,7 @@ namespace Transpo.Infrastructure.Data.Repositories
         {
             ArrayList parameters = new ArrayList();
             string selectPoints = "select id from CriticalPoints where ";
-            string selectRides = "select r.*, oc.Order from Rides as r join OrderedCriticalPoints as oc on r.id=oc.Ride.id where r.Departure>@Now AND r.Active=1 AND ";
+            string selectRides = "select r.*, oc.[Order] from Rides as r join OrderedCriticalPoints as oc on r.id=oc.Ride_id where r.Departure>@Now AND r.Active=1 AND ";
             string finalSelect = "select r0.id as id, r0.PricePerPassenger as PricePerPassenger, r0.SeatsLeft as SeatsLeft, r0.Length as Length, r0.MinPrice as MinPrice, r0.MaxPrice as MaxPrice,  r0.Detour as Detour, r0.Departure as Departure, r0.Description as Description, r0.DateCreated as DateCreated, r0.Active as Active, r0.Driver_id as Driver_id from ";
             string join = "";
             string where = " where";
@@ -49,7 +49,7 @@ namespace Transpo.Infrastructure.Data.Repositories
                 if (i != 0)
                 {
                     join += " on r" + i + ".id=r" + (i - 1) + ".id";
-                    where += "r" + (i - 1) + ".Order<r" + i + ".Order";
+                    where += "r" + (i - 1) + ".[Order]<r" + i + ".[Order]";
                     if (i != criticalPoints.Count - 1)
                         where += " AND ";
                 }
