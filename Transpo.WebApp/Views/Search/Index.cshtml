@@ -100,7 +100,7 @@
                 </div>
             </div>
             <div class="thirteen wide column">
-                <div class="ui vertical segment">
+                <div class="ui vertical segment" id="rideSearchGrid">
                     @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides); }
                 </div>
             </div>
@@ -108,7 +108,7 @@
     </div>
 </div>
 
+<script src="~/Scripts/search.index.js"></script>
 <script>
     $('.ui.checkbox').checkbox();
-    $('.menu .item.search').addClass('active');
 </script>

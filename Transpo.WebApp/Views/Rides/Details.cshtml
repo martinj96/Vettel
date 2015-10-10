@@ -4,30 +4,6 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-<img src="@Model.Driver.PictureUrl" width="150" height="150" style="border-radius:10px" /><br />
-Name : @Model.Driver.Name <br />
-Email : @Model.Driver.Email<br />
-Gender : @Model.Driver.Gender<br />
-Link : @Model.Driver.Link<br />
-Departure : @Model.Ride.Departure.ToString()<br />
-Description : @Model.Ride.Description<br />
-Detour : @Model.Ride.Detour<br />
-Length : @Model.Ride.Length<br />
-PricePerPassenger : @Model.Ride.PricePerPassenger<br />
-SeatsLeft : @Model.Ride.SeatsLeft<br />
-@if (Model.UserIsRider)
-{
-    if (Model.Riders != null)
-    {
-        foreach (var rider in Model.Riders)
-        {
-            <div>Rider: @rider.Name <br /> Link: @rider.Link</div>
-        }
-    }
-
-}
-
 <div class="ui container">
     <h4 class="ui header">
         @for (int i = 0; i < Model.Points.Count; i++)
@@ -65,7 +41,15 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Date of Departure
                         </div>
                         <div class="ten wide column">
-                            @Model.Ride.Departure.ToString();
+                            @Model.Ride.Departure
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="six wide column">
+                            Detour
+                        </div>
+                        <div class="ten wide column">
+                            @Model.Ride.Detour
                         </div>
                     </div>
                     <div class="row">
@@ -76,12 +60,30 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             @Model.Ride.Description
                         </div>
                     </div>
+                    @if (Model.UserIsRider)
+                    {
+                        <div class="row">
+                            @if (Model.Riders != null)
+                            {
+                                foreach (var rider in Model.Riders)
+                                {
+                                    <div>Rider: @rider.Name - Link: @rider.Link</div>
+                                }
+                            }
+                        </div>
+                    }
                 </div>
             </div>
             <div class="four wide column">
                 <div class="ui dividing medium header">Info</div>
                 <div class="row">
-                    @Model.Ride.PricePerPassenger MKD per passenger
+                    <div>@Model.Ride.PricePerPassenger MKD per passenger.</div>
+                    <div>@Model.Ride.SeatsLeft seats left.</div>
+
+                    @if (Model.UserIsRider != true)
+                    {
+                        <div><button id="letsride" class="ui positive button huge">Let's ride together! <i class="car icon"></i></button></div>
+                    }
                 </div>
                 <div class="ui dividing medium header">Driver</div>
                 <div class="row">
@@ -95,16 +97,14 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                                 @Model.Driver.Gender
                             </div>
                             <div class="description">
+                                @Model.Driver.Email
                                 <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @if (Model.UserIsRider != true)
-            {
-                <button id="Les's ride!'">Let's ride together!</button>
-            }
+
         </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 ﻿@using Transpo.WebApp.Models
 @model SearchModel
 
-@using (Html.BeginForm("PerformSearch", "Search", FormMethod.Post))
+@using (Ajax.BeginForm("PerformSearchPartial", "Search", new AjaxOptions { UpdateTargetId = "rideSearchGrid" }, new { @id = "performsearchform" }))
 {
     <div class="ui form">
         <div class="ui grid">

@@ -100,11 +100,35 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" name="Description">
-                <input type="text" name="Length">
-                <input type="text" name="SeatsLeft">
-                <input type="text" name="PricePerPassenger">
-                <input type="text" name="detour">
+
+                <div class="ui dividing medium header">Additional Information</div>
+                <div class="ui form">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="Description">Description</label>
+                            <input type="text" name="Description">
+                        </div>
+                        <div class="field">
+                            <label for="Length">Distance</label>
+                            <input type="text" name="Length">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label for="SeatsLeft">Available Seats</label>
+                            <input type="text" name="SeatsLeft">
+                        </div>
+                        <div class="field">
+                            <label for="PricePerPassenger">Price per passenger</label>
+                            <input type="text" name="PricePerPassenger">
+                        </div>
+                        <div class="field">
+                            <label for="detour">Detour</label>
+                            <input type="text" name="detour">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Commented out, for future
                 <div class="ui dividing medium header">Frequency</div>
                 <div class="ui form">
@@ -123,7 +147,7 @@
                         </div>
                     </div>
                 </div>-->
-
+                <div class="ui divider"></div>
                 <input type="submit" id="submitCreateRide" hidden />
                 <button class="ui huge positive right floated button" type="submit" id="btnSubmitRide">Submit</button>
             </div>
