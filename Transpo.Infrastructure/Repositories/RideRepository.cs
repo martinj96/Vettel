@@ -49,14 +49,14 @@ namespace Transpo.Infrastructure.Data.Repositories
                 if (i != 0)
                 {
                     join += " on r" + i + ".id=r" + (i - 1) + ".id";
-                    where += "r" + (i - 1) + ".[Order]<r" + i + ".[Order]";
+                    where += " r" + (i - 1) + ".[Order]<r" + i + ".[Order]";
                     if (i != criticalPoints.Count - 1)
                         where += " AND ";
                 }
             }
 
             string query = finalSelect + join + where;
-            return _context.Database.SqlQuery<Ride>(query, parameters).ToList();
+            return _context.Database.SqlQuery<Ride>(query, parameters.ToArray()).ToList();
         }
     }
 }
