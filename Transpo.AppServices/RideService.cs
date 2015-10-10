@@ -18,10 +18,12 @@ namespace Transpo.AppServices
         private IUserRepository _userRepository;
         private ICriticalPointRepository _criticalPointRepository;
 
-        public RideService(IRideRepository rideRepository, IUserRepository userRepository)
+        public RideService(IRideRepository rideRepository, IUserRepository userRepository, ICriticalPointRepository criticalPointRepository)
         {
             _rideRepository = rideRepository;
             RadiusCalculator = new RadiusCalculator5Percent();
+            _userRepository = userRepository;
+            _criticalPointRepository = criticalPointRepository;
         }
 
         public ICollection<Ride> GetRides(ICollection<CriticalPointDto> points)
@@ -57,9 +59,7 @@ namespace Transpo.AppServices
             _rideRepository.Add(ride);
             _rideRepository.Save();
 
-            _rideRepository.Edit(ride);
             ride.OrderedCriticalPoints = AddCriticalPoints(r.Waypoints, ride);
-            _rideRepository.Save();
             return ride;
         }
         private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points, Ride r){
@@ -74,10 +74,13 @@ namespace Transpo.AppServices
                     cp.Latitude = p.CriticalPoint.Latitude;
                     cp.Longitude = p.CriticalPoint.Longitude;
                     _criticalPointRepository.Add(cp);
+                    _criticalPointRepository.Save();
                 }
                 ocp.CriticalPoint = cp;
                 ocp.Order = p.Order;
                 ocp.Ride = r;
+                result.Add(ocp);
+                _criticalPointRepository.AddOrderedCriticalPoint(ocp);
             }
             return result;
         }

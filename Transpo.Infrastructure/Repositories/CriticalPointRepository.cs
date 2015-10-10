@@ -18,5 +18,10 @@ namespace Transpo.Infrastructure.Data.Repositories
         {
             return _context.CriticalPoints.FirstOrDefault(c => c.Latitude == lat && c.Longitude == lon);
         }
+        public void AddOrderedCriticalPoint(OrderedCriticalPoint entity)
+        {
+            _context.CriticalPointsRides.Add(entity);
+            _context.SaveChanges();
+        }
     }
 }

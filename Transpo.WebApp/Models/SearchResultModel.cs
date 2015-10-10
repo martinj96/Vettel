@@ -60,9 +60,9 @@ namespace Transpo.WebApp.Models
             }
         }
 
-        public SearchResultModel() 
+        /*public SearchResultModel() 
         {
             Rides = new List<RideModel>();
-        }
+        }*/
     }
 }

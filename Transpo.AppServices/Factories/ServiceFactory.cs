@@ -20,7 +20,7 @@ namespace Transpo.AppServices.Factories
 
         public RideService getRideService()
         {
-            return new RideService(new RideRepository(DbContext), new UserRepository(DbContext));
+            return new RideService(new RideRepository(DbContext), new UserRepository(DbContext), new CriticalPointRepository(DbContext));
         }
 
         public UserService getUserService()

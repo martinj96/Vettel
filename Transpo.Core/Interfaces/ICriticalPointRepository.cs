@@ -10,5 +10,6 @@ namespace Transpo.Core.Interfaces
     public interface ICriticalPointRepository : IBaseRepository<CriticalPoint>
     {
         CriticalPoint getByLatLon(decimal lat, decimal lon);
+        void AddOrderedCriticalPoint(OrderedCriticalPoint entity);
     }
 }
