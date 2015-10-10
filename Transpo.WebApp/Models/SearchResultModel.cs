@@ -41,6 +41,8 @@ namespace Transpo.WebApp.Models
             end.Name = ToCityName;
 
             ICollection<CriticalPointDto> criticalPoints = new LinkedList<CriticalPointDto>();
+            criticalPoints.Add(start);
+            criticalPoints.Add(end);
 
             RideService service = serviceFactory.getRideService();
             ICollection<Ride> col = service.GetRides(criticalPoints);
