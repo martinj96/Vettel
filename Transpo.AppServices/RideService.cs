@@ -53,17 +53,16 @@ namespace Transpo.AppServices
             ride.Driver = _userRepository.GetById(r.DriverId);
             ride.Length = r.Length;
             ride.PricePerPassenger = r.PricePerPassenger;
-            ride.SeatsLeft = r.SeatsLeft;
-            ride = CreateRide(ride);
+            ride.SeatsLeft = r.SeatsLeft; 
+            _rideRepository.Add(ride);
+            _rideRepository.Save();
 
             _rideRepository.Edit(ride);
-            ride.OrderedCriticalPoints = AddCriticalPoints(r.Waypoints, ride.id);
-
-            _rideRepository.Add(ride);
+            ride.OrderedCriticalPoints = AddCriticalPoints(r.Waypoints, ride);
             _rideRepository.Save();
             return ride;
         }
-        private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points, int rideId){
+        private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points, Ride r){
             var result = new List<OrderedCriticalPoint>();
             var ocp = new OrderedCriticalPoint();
             foreach (var p in points)
@@ -78,14 +77,9 @@ namespace Transpo.AppServices
                 }
                 ocp.CriticalPoint = cp;
                 ocp.Order = p.Order;
+                ocp.Ride = r;
             }
             return result;
-        }
-        private Ride CreateRide(Ride r)
-        {
-            _rideRepository.Add(r);
-            _rideRepository.Save();
-            return r;
         }
 
         public void DeleteRide(int id)
