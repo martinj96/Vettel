@@ -11,5 +11,6 @@ namespace Transpo.Core.Interfaces
     {
         CriticalPoint getByLatLon(decimal lat, decimal lon);
         void AddOrderedCriticalPoint(OrderedCriticalPoint entity);
+        List<OrderedCriticalPoint> getRidesCriticalPoints(int rideId);
     }
 }

@@ -23,5 +23,9 @@ namespace Transpo.Infrastructure.Data.Repositories
             _context.CriticalPointsRides.Add(entity);
             _context.SaveChanges();
         }
+        public List<OrderedCriticalPoint> getRidesCriticalPoints(int rideId)
+        {
+            return _context.CriticalPointsRides.Where(cp => cp.Ride.id == rideId).ToList();
+        }
     }
 }

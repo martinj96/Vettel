@@ -290,11 +290,11 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="Controllers\RideDetailsViewModel.cs" />
     <Compile Include="Controllers\RidesController.cs" />
-    <Compile Include="Controllers\RideViewModel.cs" />
+    <Compile Include="Models\RideDetailsViewModel.cs" />
+    <Compile Include="Models\RideViewModel.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\UserViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -16,13 +16,10 @@ namespace Transpo.WebApp.Models
         public IEnumerable<RideModel> Rides { get; set; }
         public IServiceFactory serviceFactory;
 
-        public SearchResultModel()
-        {
-            serviceFactory = new ServiceFactory();
-        }
-
         public SearchResultModel(SearchModel searchModel)
         {
+            serviceFactory = new ServiceFactory();
+            List<RideModel> rs = new List<RideModel>();
             this.FromCityName = searchModel.FromCityName;
             this.FromCountryShortCode = searchModel.FromCountryShortCode;
             this.FromLatitude = searchModel.FromLatitude;
@@ -44,6 +41,8 @@ namespace Transpo.WebApp.Models
             end.Name = ToCityName;
 
             ICollection<CriticalPointDto> criticalPoints = new LinkedList<CriticalPointDto>();
+            criticalPoints.Add(start);
+            criticalPoints.Add(end);
 
             RideService service = serviceFactory.getRideService();
             ICollection<Ride> col = service.GetRides(criticalPoints);
@@ -57,12 +56,15 @@ namespace Transpo.WebApp.Models
                 rideModel.Length = ride.Length;
                 rideModel.PricePerPassenger = ride.PricePerPassenger;
                 rideModel.SeatsLeft = ride.SeatsLeft;
+                rs.Add(rideModel);
             }
+            Rides = rs;
         }
 
-        /*public SearchResultModel() 
+        public SearchResultModel() 
         {
             Rides = new List<RideModel>();
-        }*/
+            serviceFactory = new ServiceFactory();
+        }
     }
 }

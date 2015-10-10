@@ -98,8 +98,7 @@ namespace Transpo.AppServices
         }
         public List<CriticalPointDto> GetRidesSortedCriticalPoints(int id)
         {
-            var ride = GetById(id);
-            var originalList = new List<OrderedCriticalPoint>();
+            var originalList = _criticalPointRepository.getRidesCriticalPoints(id);
             originalList.Sort(delegate(OrderedCriticalPoint x, OrderedCriticalPoint y)
             {
                 if (x.Order > y.Order)
