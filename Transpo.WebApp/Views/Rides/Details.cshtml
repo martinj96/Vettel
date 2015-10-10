@@ -33,7 +33,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Place of Departure
                         </div>
                         <div class="ten wide column">
-                            Skopje
+                            @Model.Ride.CriticalPoints.FirstOrDefault()
                         </div>
                     </div>
                     <div class="row">
@@ -41,7 +41,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Place of Arrival
                         </div>
                         <div class="ten wide column">
-                            Kumanovo
+                            @Model.Ride.CriticalPoints.LastOrDefault()
                         </div>
                     </div>
                     <div class="row">
@@ -49,7 +49,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Date of Departure
                         </div>
                         <div class="ten wide column">
-                            Vtornik
+                            @Model.Ride.Departure
                         </div>
                     </div>
                     <div class="row">
@@ -65,15 +65,15 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
             <div class="four wide column">
                 <div class="ui dividing medium header">Info</div>
                 <div class="row">
-                    Row row row row
+                    @Model.Ride.PricePerPassenger per passenger
                 </div>
                 <div class="ui dividing medium header">Driver</div>
                 <div class="row">
                     <div class="ui card">
                         <div class="content">
-                            <img class="left floated tiny circular ui image" />
+                            <img class="left floated tiny circular ui image" src="@Model.Driver.PictureUrl" />
                             <div class="ui medium header">
-                                Martin J
+                                @Model.Driver.Name
                             </div>
                             <div class="meta">
                                 20 years
