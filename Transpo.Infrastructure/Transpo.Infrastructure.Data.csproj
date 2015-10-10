@@ -48,25 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201510081738019_first.cs" />
-    <Compile Include="Migrations\201510081738019_first.Designer.cs">
-      <DependentUpon>201510081738019_first.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510082332161_second.cs" />
-    <Compile Include="Migrations\201510082332161_second.Designer.cs">
-      <DependentUpon>201510082332161_second.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510082342105_second1.cs" />
-    <Compile Include="Migrations\201510082342105_second1.Designer.cs">
-      <DependentUpon>201510082342105_second1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510091852356_second2.cs" />
-    <Compile Include="Migrations\201510091852356_second2.Designer.cs">
-      <DependentUpon>201510091852356_second2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510091901010_second3.cs" />
-    <Compile Include="Migrations\201510091901010_second3.Designer.cs">
-      <DependentUpon>201510091901010_second3.cs</DependentUpon>
+    <Compile Include="Migrations\201510100011210_1.cs" />
+    <Compile Include="Migrations\201510100011210_1.Designer.cs">
+      <DependentUpon>201510100011210_1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,20 +73,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510081738019_first.resx">
-      <DependentUpon>201510081738019_first.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510082332161_second.resx">
-      <DependentUpon>201510082332161_second.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510082342105_second1.resx">
-      <DependentUpon>201510082342105_second1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510091852356_second2.resx">
-      <DependentUpon>201510091852356_second2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510091901010_second3.resx">
-      <DependentUpon>201510091901010_second3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510100011210_1.resx">
+      <DependentUpon>201510100011210_1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
