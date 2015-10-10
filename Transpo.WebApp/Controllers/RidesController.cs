@@ -25,43 +25,8 @@ namespace Transpo.WebApp.Controllers
         }
         public ActionResult Details(int id)
         {
-            var ride = _rideService.GetById(id);
-            if (ride == null || ride.Active == false)
-                return Content("Invalid ride.. Place make sure you request an existing ride.");
-            var viewModel = new RideDetailsViewModel();
-            viewModel.Driver = new UserViewModel(ride.Driver);
-            viewModel.Ride = new RideViewModel(ride);
-            viewModel.Ride.CriticalPoints = _rideService.GetRidesSortedCriticalPoints(id);
-
-            var user = (HttpContext.User as CustomPrincipal);
-            /*if( userId has access){
-                viewModel.UserHasPermission = true;
-                we give one view
-            }else{
-                viewModel.UserHasPermission = false;
-                return View(DetailsPermissionsView, ViewModel())
-            }
-             */
-            if (user.UserId == ride.Driver.id)
-            {
-                foreach (var rider in ride.Riders)
-                {
-                    viewModel.Riders.Add(new UserViewModel(rider));
-                }
-                /*
-                foreach (var requeser in ...){
-                    vieModel.RideRequesters.Add(new UserViewModel(requester))
-                }
-                 */
-                // return View("DriverView", viewModel)
-            }
-            viewModel.UserIsRider = false;
-            foreach (var rider in ride.Riders)
-            {
-                if (rider.id == user.UserId)
-                    viewModel.UserIsRider = true;
-            }
-            return View(viewModel);
+            
+            return View();
         }
         public ActionResult CreateRide(RideModel ride, string returnR)
         {

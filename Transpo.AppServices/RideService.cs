@@ -34,16 +34,13 @@ namespace Transpo.AppServices
             ride = CreateRide(ride);
 
             _rideRepository.Edit(ride);
-
-            foreach (var point in r.Waypoints)
-            {
-            }
+            ride.OrderedCriticalPoints = AddCriticalPoints(r.Waypoints, ride.id);
 
             _rideRepository.Add(ride);
             _rideRepository.Save();
             return ride;
         }
-        private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points){
+        private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points, int rideId){
             var result = new List<OrderedCriticalPoint>();
             var ocp = new OrderedCriticalPoint();
             foreach (var p in points)
