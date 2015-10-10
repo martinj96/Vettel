@@ -115,6 +115,7 @@ namespace Transpo.WebApp.Controllers
             var cp = new CriticalPointDto {
                 Latitude = ride.StartPoint.Latitude,
                 Longitude = ride.StartPoint.Longitude,
+                Name = ride.StartPoint.Name
             };
             var ocpDto = new List<OrderedCriticalPointDto>();
             ocpDto.Add(new OrderedCriticalPointDto {
@@ -128,6 +129,7 @@ namespace Transpo.WebApp.Controllers
                     continue;
                 cp.Latitude = point.Latitude;
                 cp.Longitude = point.Longitude;
+                cp.Name = point.Name;
 		        ocpDto.Add(new OrderedCriticalPointDto {
                     CriticalPoint = cp,
                     Order = o
@@ -136,6 +138,7 @@ namespace Transpo.WebApp.Controllers
 	        }
             cp.Latitude = ride.EndPoint.Latitude;
             cp.Longitude = ride.EndPoint.Longitude;
+            cp.Name = ride.EndPoint.Name;
             ocpDto.Add(new OrderedCriticalPointDto
             {
                 CriticalPoint = cp,

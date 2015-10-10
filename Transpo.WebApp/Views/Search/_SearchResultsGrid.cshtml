@@ -10,12 +10,12 @@
                 <div class="eight wide column">
                     <div class="ui card">
                         <div class="content">
-                            <img class="left floated tiny circular ui image" src="~/Images/11695809_10205724801732941_1586343326522175925_n.jpg">
+                            <img class="left floated tiny circular ui image" src="@ride.Driver.PictureUrl">
                             <div class="ui medium header">
-                                Martin J
+                                @ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].
                             </div>
                             <div class="meta">
-                                20 years
+                                @ride.Driver.Gender
                             </div>
                             <div class="description">
                                 <div class="ui star rating" data-rating="2" data-max-rating="5"></div>
@@ -26,15 +26,15 @@
                 <div class="ui vertical divider"></div>
                 <div class="eight wide column">
                     <div class="content">
-                        <a class="header">Header</a>
+                        <a class="header" href='@Url.Action("Details", "Rides", new { @id = @ride.RideId })'>@ride.StartPoint.Name - @ride.EndPoint.Name</a>
                         <div class="meta">
-                            <span>Description</span>
+                            <span>@ride.PricePerPassenger MKD</span>
                         </div>
                         <div class="description">
-                            <p></p>
+                            <p>@ride.SeatsLeft seats left.</p>
                         </div>
                         <div class="extra">
-                            Additional Details
+                            Departure: @ride.DepartureDate
                         </div>
                     </div>
                 </div>

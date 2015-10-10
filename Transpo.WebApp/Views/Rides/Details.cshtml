@@ -1,4 +1,5 @@
-﻿@model Transpo.WebApp.Models.RideDetailsViewModel
+﻿@using Transpo.WebApp.Models
+@model RideDetailsViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -28,7 +29,17 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
 }
 
 <div class="ui container">
-    <h4 class="ui header">@Model.Ride</h4>
+    <h4 class="ui header">
+        @for (int i = 0; i < Model.Points.Count; i++)
+        {
+            <span>
+                @if (i != 0) { 
+                    <i class="long arrow right icon"></i>
+                }
+                @Model.Points[i].Name
+            </span>
+        }
+    </h4>
     <div class="ui segment">
         <div class="ui two column divided grid">
             <div class="twelve wide column">
@@ -62,7 +73,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Details
                         </div>
                         <div class="ten wide column">
-                            No details
+                            @Model.Ride.Description
                         </div>
                     </div>
                 </div>
@@ -70,7 +81,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
             <div class="four wide column">
                 <div class="ui dividing medium header">Info</div>
                 <div class="row">
-                    @Model.Ride.PricePerPassenger per passenger
+                    @Model.Ride.PricePerPassenger MKD per passenger
                 </div>
                 <div class="ui dividing medium header">Driver</div>
                 <div class="row">
@@ -81,10 +92,10 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                                 @Model.Driver.Name
                             </div>
                             <div class="meta">
-                                20 years
+                                @Model.Driver.Gender
                             </div>
                             <div class="description">
-                                <div class="ui star rating" data-rating="2" data-max-rating="5"></div>
+                                <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
                             </div>
                         </div>
                     </div>

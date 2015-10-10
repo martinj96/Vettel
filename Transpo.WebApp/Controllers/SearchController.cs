@@ -26,12 +26,9 @@ namespace Transpo.WebApp.Controllers
         {
             List<RideModel> rides = new List<RideModel>();
 
-            rides.Add(new RideModel());
-            rides.Add(new RideModel());
-            rides.Add(new RideModel());
-            rides.Add(new RideModel());
-            rides.Add(new RideModel());
-
+            var lar = _rideService.GetById(20);
+            var mockride = new RideModel(lar);
+            rides.Add(mockride);
             return rides;
         }
     }

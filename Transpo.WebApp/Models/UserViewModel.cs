@@ -13,6 +13,7 @@ namespace Transpo.WebApp.Models
             Name = u.Name;
             Link = u.Link;
             Email = u.Email;
+            UserId = u.id;
             PictureUrl = u.PictureUrl;
             if (u.Gender == (int)Transpo.AppServices.Gender.male)
                 Gender = "Male";
@@ -24,5 +25,6 @@ namespace Transpo.WebApp.Models
         public string Link { get; set; }
         public string Email { get; set; }
         public string PictureUrl { get; set; }
+        public int UserId { get; set; }
     }
 }

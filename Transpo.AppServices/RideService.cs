@@ -73,6 +73,7 @@ namespace Transpo.AppServices
                     cp = new CriticalPoint();
                     cp.Latitude = p.CriticalPoint.Latitude;
                     cp.Longitude = p.CriticalPoint.Longitude;
+                    cp.Name = p.CriticalPoint.Name;
                     _criticalPointRepository.Add(cp);
                     _criticalPointRepository.Save();
                 }

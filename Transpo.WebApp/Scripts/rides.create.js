@@ -11,6 +11,7 @@ $('#btnAddMoreWaypoints').on('click', function () {
                     '<input type="text" class="waypoint" placeholder="Add a Waypoint">' +
                     '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Latitude" />' +
                     '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Longitude" />' +
+                    '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Name" />' +
                 '</div>' +
             '</div>'
         )
