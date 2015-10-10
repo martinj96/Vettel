@@ -7,7 +7,7 @@ using Transpo.Core.Entities;
 
 namespace BusinessLogic.Distances
 {
-    interface IDistance
+    public interface IDistance
     {
         decimal GetDistanice(CriticalPoint p1, CriticalPoint p2);
     }
