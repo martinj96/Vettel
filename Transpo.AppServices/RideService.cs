@@ -113,5 +113,20 @@ namespace Transpo.AppServices
             }
             return result;
         }
+        public void AddMeToRide(User u, Ride r)
+        {
+            var alreadyIn = false;
+            foreach (var rider in r.Riders)
+            {
+                if (u.id == rider.id)
+                    alreadyIn = true;
+            }
+            if (!alreadyIn)
+            {
+                _rideRepository.Edit(r);
+                r.Riders.Add(u);
+                _rideRepository.Save();
+            }
+        }
     }
 }

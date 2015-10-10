@@ -17,9 +17,14 @@ PricePerPassenger : @Model.Ride.PricePerPassenger<br />
 SeatsLeft : @Model.Ride.SeatsLeft<br />
 @if (Model.UserIsRider)
 {
-    foreach(var rider in Model.Riders){
-        <div>Rider: @rider.Name <br /> Link: @rider.Link</div>
+    if (Model.Riders != null)
+    {
+        foreach (var rider in Model.Riders)
+        {
+            <div>Rider: @rider.Name <br /> Link: @rider.Link</div>
+        }
     }
+
 }
 
 <div class="ui container">
@@ -33,7 +38,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Place of Departure
                         </div>
                         <div class="ten wide column">
-                            @Model.Ride.CriticalPoints.FirstOrDefault()
+                            @Model.Points.First().Name
                         </div>
                     </div>
                     <div class="row">
@@ -41,7 +46,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Place of Arrival
                         </div>
                         <div class="ten wide column">
-                            @Model.Ride.CriticalPoints.LastOrDefault()
+                            @Model.Points.Last().Name
                         </div>
                     </div>
                     <div class="row">
@@ -49,7 +54,7 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                             Date of Departure
                         </div>
                         <div class="ten wide column">
-                            @Model.Ride.Departure
+                            @Model.Ride.Departure.ToString();
                         </div>
                     </div>
                     <div class="row">
@@ -85,6 +90,16 @@ SeatsLeft : @Model.Ride.SeatsLeft<br />
                     </div>
                 </div>
             </div>
+            @if (Model.UserIsRider != true)
+            {
+                <button id="Les's ride!'">Let's ride together!</button>
+            }
         </div>
     </div>
 </div>
+<script>
+    $.ajax({
+        url : @String.Format("{0}/{1}", HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority), "Rides/AddMeToUser"),
+        data : { rideId : @Model.RideId }
+    })
+</script>

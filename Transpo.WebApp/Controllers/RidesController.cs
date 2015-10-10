@@ -31,6 +31,7 @@ namespace Transpo.WebApp.Controllers
             var viewModel = new RideDetailsViewModel();
             viewModel.Driver = new UserViewModel(ride.Driver);
             viewModel.Ride = new RideViewModel(ride);
+            viewModel.RideId = id;
             viewModel.Points = _rideService.GetRidesSortedCriticalPoints(id);
             var user = (HttpContext.User as CustomPrincipal);
             /*if( userId has access){
@@ -41,8 +42,11 @@ namespace Transpo.WebApp.Controllers
                 return View(DetailsPermissionsView, ViewModel())
             }
              */
+
+            viewModel.UserIsRider = false;
             if (user.UserId == ride.Driver.id)
             {
+                viewModel.UserIsRider = true;
                 foreach (var rider in ride.Riders)
                 {
                     viewModel.Riders.Add(new UserViewModel(rider));
@@ -54,7 +58,6 @@ namespace Transpo.WebApp.Controllers
                  */
                 // return View("DriverView", viewModel)
             }
-            viewModel.UserIsRider = false;
             foreach (var rider in ride.Riders)
             {
                 if (rider.id == user.UserId)
@@ -62,6 +65,12 @@ namespace Transpo.WebApp.Controllers
             }
             
             return View(viewModel);
+        }
+        public void AddMeToRide(int rideId)
+        {
+            var ride = _rideService.GetById(rideId);
+            var user = _userService.GetUserById((HttpContext.User as CustomPrincipal).UserId);
+            _rideService.AddMeToRide(user, ride);
         }
         public ActionResult CreateRide(RideModel ride, string returnR)
         {

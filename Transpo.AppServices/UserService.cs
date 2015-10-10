@@ -49,7 +49,6 @@ namespace Transpo.AppServices
         {
             return _userRepository.GetUserByFacebookId(id);
         }
-
         public void UpdateProfilePicture(string pictureUrl, long facebookId)
         {
             var user = GetUserByFacebookId(facebookId);
