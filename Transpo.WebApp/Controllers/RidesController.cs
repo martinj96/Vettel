@@ -125,7 +125,7 @@ namespace Transpo.WebApp.Controllers
             o++;
             foreach (var point in ride.Waypoints)
 	        {
-                if(point.Latitude == 0 && point.Latitude == 0)
+                if(point.Latitude.CompareTo(Decimal.Zero) == 0 && point.Latitude.CompareTo(Decimal.Zero) == 0)
                     continue;
                 cp = new CriticalPointDto
                 {

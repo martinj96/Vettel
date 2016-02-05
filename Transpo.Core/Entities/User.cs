@@ -8,6 +8,12 @@ namespace Transpo.Core.Entities
 {
     public class User : BaseEntity
     {
+        public User()
+        {
+            Reviews = new List<Review>();
+            Rides = new List<Ride>();
+            HasAccessToRides = new List<Ride>();
+        }
         public string Name { get; set; }
         public int Gender { get; set; }
         public string Link { get; set; }
@@ -18,7 +24,9 @@ namespace Transpo.Core.Entities
         public string PictureUrl { get; set; }
         public virtual Car Car { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
-        public virtual ICollection<Characteristic> Characteristics { get; set; }
+        public virtual ICollection<Review> GivenReviews { get; set; }
+       // public virtual ICollection<Characteristic> Characteristics { get; set; }
+        public virtual ICollection<Ride> MyRides { get; set; }
         public virtual ICollection<Ride> Rides { get; set; }
         public virtual ICollection<Ride> HasAccessToRides { get; set; }
 

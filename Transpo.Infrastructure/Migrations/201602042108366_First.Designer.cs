@@ -7,13 +7,13 @@ namespace Transpo.Infrastructure.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class precisions_1 : IMigrationMetadata
+    public sealed partial class First : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(precisions_1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(First));
         
         string IMigrationMetadata.Id
         {
-            get { return "201510100400560_precisions_1"; }
+            get { return "201602042108366_First"; }
         }
         
         string IMigrationMetadata.Source

@@ -13,6 +13,7 @@ namespace Transpo.Infrastructure.Data.Repositories
         public UserRepository(TranspoDbContext context)
             : base(context)
         {
+
         }
 
         public User GetUserByFacebookId(long facebookId){

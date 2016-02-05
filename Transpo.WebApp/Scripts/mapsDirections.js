@@ -77,8 +77,8 @@ function initMapsSearch(directionsService, directionsDisplay) {
         if (!place.geometry) {
             return;
         }
-        document.getElementsByName("StartPoint.Longitude")[0].value = place.geometry.location.J;
-        document.getElementsByName("StartPoint.Latitude")[0].value = place.geometry.location.M;
+        document.getElementsByName("StartPoint.Longitude")[0].value = place.geometry.location.lng();
+        document.getElementsByName("StartPoint.Latitude")[0].value = place.geometry.location.lat();
         document.getElementsByName("StartPoint.Name")[0].value = $(place.adr_address).text();
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });
@@ -88,9 +88,8 @@ function initMapsSearch(directionsService, directionsDisplay) {
         if (!place.geometry) {
             return;
         }
-        console.log(place);
-        document.getElementsByName("EndPoint.Longitude")[0].value = place.geometry.location.J;
-        document.getElementsByName("EndPoint.Latitude")[0].value = place.geometry.location.M;
+        document.getElementsByName("EndPoint.Longitude")[0].value = place.geometry.location.lng();
+        document.getElementsByName("EndPoint.Latitude")[0].value = place.geometry.location.lat();
         document.getElementsByName("EndPoint.Name")[0].value = $(place.adr_address).text();
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });
@@ -108,8 +107,8 @@ function addSearchboxToElement(input) {
         if (!place.geometry) {
             return;
         }
-        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Longitude")[0].value = place.geometry.location.J;
-        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Latitude")[0].value = place.geometry.location.M;
+        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Longitude")[0].value = place.geometry.location.lng();
+        document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Latitude")[0].value = place.geometry.location.lat();
         document.getElementsByName("Waypoints[" + (waypointsCounter - 1) + "].Name")[0].value = $(place.adr_address).text();
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     });

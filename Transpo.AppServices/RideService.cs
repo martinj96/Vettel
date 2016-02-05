@@ -17,13 +17,16 @@ namespace Transpo.AppServices
         public IRadiusCalculator RadiusCalculator { get; set; }
         private IUserRepository _userRepository;
         private ICriticalPointRepository _criticalPointRepository;
+        private IOrderedCriticalPointRepository _orderedCriticalPointRepository;
 
-        public RideService(IRideRepository rideRepository, IUserRepository userRepository, ICriticalPointRepository criticalPointRepository)
+        public RideService(IRideRepository rideRepository, IUserRepository userRepository, 
+            ICriticalPointRepository criticalPointRepository, IOrderedCriticalPointRepository orderedCriticalPoint)
         {
-            _rideRepository = rideRepository;
             RadiusCalculator = new RadiusCalculator5Percent();
+            _rideRepository = rideRepository;
             _userRepository = userRepository;
             _criticalPointRepository = criticalPointRepository;
+            _orderedCriticalPointRepository = orderedCriticalPoint;
         }
 
         public ICollection<Ride> GetRides(ICollection<CriticalPointDto> points)
@@ -55,35 +58,46 @@ namespace Transpo.AppServices
             ride.Driver = _userRepository.GetById(r.DriverId);
             ride.Length = r.Length;
             ride.PricePerPassenger = r.PricePerPassenger;
-            ride.SeatsLeft = r.SeatsLeft; 
+            ride.SeatsLeft = r.SeatsLeft;
             _rideRepository.Add(ride);
             _rideRepository.Save();
-
             ride.OrderedCriticalPoints = AddCriticalPoints(r.Waypoints, ride);
             return ride;
         }
         private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points, Ride r){
+            AddNonExistingCriticalPoints(points);
             var result = new List<OrderedCriticalPoint>();
-            var ocp = new OrderedCriticalPoint();
-            foreach (var p in points)
+            foreach (var point in points)
             {
-                CriticalPoint cp = _criticalPointRepository.getByLatLon(p.CriticalPoint.Latitude, p.CriticalPoint.Longitude);
-                if (cp == null)
-                {
-                    cp = new CriticalPoint();
-                    cp.Latitude = p.CriticalPoint.Latitude;
-                    cp.Longitude = p.CriticalPoint.Longitude;
-                    cp.Name = p.CriticalPoint.Name;
-                    _criticalPointRepository.Add(cp);
-                    _criticalPointRepository.Save();
-                }
+                var ocp = new OrderedCriticalPoint();
+                CriticalPoint cp = _criticalPointRepository.getByLatLon(point.CriticalPoint.Latitude, point.CriticalPoint.Longitude);
                 ocp.CriticalPoint = cp;
-                ocp.Order = p.Order;
+                ocp.Order = point.Order;
                 ocp.Ride = r;
                 result.Add(ocp);
-                _criticalPointRepository.AddOrderedCriticalPoint(ocp);
+                _orderedCriticalPointRepository.Add(ocp);
             }
+            _orderedCriticalPointRepository.Save();
             return result;
+        }
+        private void AddNonExistingCriticalPoints(List<OrderedCriticalPointDto> points)
+        {
+            Boolean pointProcessed = false;
+            foreach (var point in points)
+            {
+                CriticalPoint cp = _criticalPointRepository.getByLatLon(point.CriticalPoint.Latitude, point.CriticalPoint.Longitude);
+                if (cp == null)
+                {
+                    pointProcessed = true;
+                    cp = new CriticalPoint();
+                    cp.Latitude = decimal.Round(point.CriticalPoint.Latitude, 5);
+                    cp.Longitude = decimal.Round(point.CriticalPoint.Longitude, 5);
+                    cp.Name = point.CriticalPoint.Name;
+                    _criticalPointRepository.Add(cp);
+                }
+            }
+            if (pointProcessed)
+                _criticalPointRepository.Save();
         }
 
         public void DeleteRide(int id)
@@ -99,7 +113,7 @@ namespace Transpo.AppServices
         }
         public List<CriticalPointDto> GetRidesSortedCriticalPoints(int id)
         {
-            var originalList = _criticalPointRepository.getRidesCriticalPoints(id);
+            var originalList = _orderedCriticalPointRepository.getCriticalPointsByRideId(id);
             originalList.Sort(delegate(OrderedCriticalPoint x, OrderedCriticalPoint y)
             {
                 if (x.Order > y.Order)

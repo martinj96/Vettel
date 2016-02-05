@@ -16,6 +16,7 @@ namespace Transpo.Core.Entities
         public int Detour { get; set; }
         public DateTime Departure { get; set; }
         public string Description { get; set; }
+        public int DriverId { get; set; }
         public virtual User Driver { get; set; }
         public virtual ICollection<User> Riders { get; set; }
         public virtual ICollection<OrderedCriticalPoint> OrderedCriticalPoints { get; set; }

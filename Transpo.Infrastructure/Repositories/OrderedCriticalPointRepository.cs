@@ -5,44 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transpo.Core.Entities;
+using Transpo.Core.Interfaces;
 
 namespace Transpo.Infrastructure.Data.Repositories
 {
-    public class OrderedCriticalPointRepository
+    public class OrderedCriticalPointRepository : BaseRepository<OrderedCriticalPoint>, IOrderedCriticalPointRepository
     {
-        protected TranspoDbContext _context;
         public OrderedCriticalPointRepository(TranspoDbContext context)
+            : base(context)
         {
-            _context = context;
         }
-        public void Add(OrderedCriticalPoint entity)
-        {
-            _context.CriticalPointsRides.Add(entity);
-        }
-
-        public OrderedCriticalPoint GetById(int id)
-        {
-            return _context.CriticalPointsRides.Find(id);
-        }
-
-        public List<OrderedCriticalPoint> GetAll()
-        {
-            return _context.CriticalPointsRides.ToList();
-        }
-
-        public void Delete(OrderedCriticalPoint entity)
-        {
-            entity.Active = false;
-            _context.Entry(entity).State = EntityState.Modified;
-        }
-        public void Edit(OrderedCriticalPoint entity)
-        {
-            _context.Entry(entity).State = EntityState.Modified;
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
+        public List<OrderedCriticalPoint> getCriticalPointsByRideId(int rideId){
+            return _context.OrderedCriticalPoints.Where(cp => cp.RideId == rideId).ToList();
         }
     }
 }

@@ -26,7 +26,8 @@ namespace Transpo.WebApp.Controllers
             _carService = new CarService(carRepository);
             var critialPointRepository = new CriticalPointRepository(dbContext);
             var rideRepository = new RideRepository(dbContext);
-            _rideService = new RideService(rideRepository, userRepository, critialPointRepository);
+            var orderedCriticalPointRepository = new OrderedCriticalPointRepository(dbContext);
+            _rideService = new RideService(rideRepository, userRepository, critialPointRepository, orderedCriticalPointRepository);
             var characteristicsRepository = new CharacteristicRepository(dbContext);
         }
     }

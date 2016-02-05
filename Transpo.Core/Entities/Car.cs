@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,5 +13,6 @@ namespace Transpo.Core.Entities
         public int Comfort { get; set; }
         public string Color { get; set; }
         public string Brand { get; set; }
+        public virtual User User { get; set; }
     }
 }

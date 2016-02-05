@@ -16,16 +16,9 @@ namespace Transpo.Infrastructure.Data.Repositories
         }
         public CriticalPoint getByLatLon(decimal lat, decimal lon)
         {
-            return _context.CriticalPoints.FirstOrDefault(c => c.Latitude == lat && c.Longitude == lon);
-        }
-        public void AddOrderedCriticalPoint(OrderedCriticalPoint entity)
-        {
-            _context.CriticalPointsRides.Add(entity);
-            _context.SaveChanges();
-        }
-        public List<OrderedCriticalPoint> getRidesCriticalPoints(int rideId)
-        {
-            return _context.CriticalPointsRides.Where(cp => cp.Ride.id == rideId).ToList();
+            lat = decimal.Round(lat, 5);
+            lon = decimal.Round(lon, 5);
+            return _context.CriticalPoints.FirstOrDefault(c => c.Latitude.CompareTo(lat) == 0 && c.Longitude.CompareTo(lon) == 0);
         }
     }
 }

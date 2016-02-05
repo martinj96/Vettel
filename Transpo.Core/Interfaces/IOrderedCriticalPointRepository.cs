@@ -7,8 +7,8 @@ using Transpo.Core.Entities;
 
 namespace Transpo.Core.Interfaces
 {
-    public interface ICriticalPointRepository : IBaseRepository<CriticalPoint>
+    public interface IOrderedCriticalPointRepository : IBaseRepository<OrderedCriticalPoint>
     {
-        CriticalPoint getByLatLon(decimal lat, decimal lon);
+        List<OrderedCriticalPoint> getCriticalPointsByRideId(int rideId);
     }
 }

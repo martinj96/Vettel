@@ -25,12 +25,15 @@ namespace Transpo.Infrastructure.Data.Repositories
 
         public TEntity GetById(int id)
         {
-            return _context.Set<TEntity>().Find(id);
+            TEntity entity = _context.Set<TEntity>().Find(id);
+            if (entity == null || entity.Active == false)
+                return null;
+            return entity;
         }
 
         public List<TEntity> GetAll()
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>().Where(e => e.Active == true).ToList();
         }
 
         public void Delete(TEntity entity)
