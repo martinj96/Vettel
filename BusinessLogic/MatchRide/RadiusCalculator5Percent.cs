@@ -10,6 +10,7 @@ namespace BusinessLogic.MatchRide
     public class RadiusCalculator5Percent : IRadiusCalculator
     {
         public IDistance DistanceMetric { get; set; }
+        private const decimal RadiusMargin = 5 / 100;
 
         public RadiusCalculator5Percent()
         {
@@ -21,10 +22,10 @@ namespace BusinessLogic.MatchRide
             decimal length = 0;
             for (int i = 1; i < criticalPoints.Count; i++)
             {
-                length += DistanceMetric.GetDistanice(criticalPoints.ElementAt(i - 1), criticalPoints.ElementAt(i));
+                length += DistanceMetric.GetDistance(criticalPoints.ElementAt(i - 1), criticalPoints.ElementAt(i));
             }
 
-            return length * 5 / 100;
+            return length * RadiusMargin;
         }
     }
 }

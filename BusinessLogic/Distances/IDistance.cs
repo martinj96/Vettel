@@ -9,6 +9,6 @@ namespace BusinessLogic.Distances
 {
     public interface IDistance
     {
-        decimal GetDistanice(CriticalPoint p1, CriticalPoint p2);
+        decimal GetDistance(CriticalPoint p1, CriticalPoint p2);
     }
 }

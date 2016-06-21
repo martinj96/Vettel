@@ -8,10 +8,10 @@ namespace Transpo.AppServices.Interfaces
 {
     public interface IServiceFactory
     {
-        RideService getRideService();
+        RideService GetRideService();
 
-        UserService getUserService();
+        UserService GetUserService();
 
-        CarService getCarService();
+        CarService GetCarService();
     }
 }

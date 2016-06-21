@@ -44,7 +44,7 @@ namespace Transpo.WebApp.Models
             criticalPoints.Add(start);
             criticalPoints.Add(end);
 
-            RideService service = serviceFactory.getRideService();
+            RideService service = serviceFactory.GetRideService();
             ICollection<Ride> col = service.GetRides(criticalPoints);
 
             foreach (Ride ride in col)
