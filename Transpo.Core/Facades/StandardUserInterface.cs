@@ -16,12 +16,12 @@ namespace Transpo.Core.Facades
             this.user = user;
         }
 
-        public int getMyID()
+        public int GetMyID()
         {
             return user.id;
         }
 
-        public ICollection<Ride> getRides(CriticalPoint from, CriticalPoint to)
+        public ICollection<Ride> GetRides(CriticalPoint from, CriticalPoint to)
         {
             throw new NotImplementedException();
         }

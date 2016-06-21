@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Distances\Euclidean.cs" />
+    <Compile Include="Distances\Haversine.cs" />
     <Compile Include="Distances\IDistance.cs" />
     <Compile Include="MatchRide\IRadiusCalculator.cs" />
+    <Compile Include="MatchRide\RadiusCalculator5Kilometers.cs" />
     <Compile Include="MatchRide\RadiusCalculator5Percent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

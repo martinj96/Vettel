@@ -9,6 +9,6 @@ namespace Transpo.Core.Interfaces
 {
     public interface ICriticalPointRepository : IBaseRepository<CriticalPoint>
     {
-        CriticalPoint getByLatLon(decimal lat, decimal lon);
+        CriticalPoint GetByLatLon(decimal lat, decimal lon);
     }
 }

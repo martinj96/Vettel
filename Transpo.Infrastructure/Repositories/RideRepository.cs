@@ -18,14 +18,15 @@ namespace Transpo.Infrastructure.Data.Repositories
 
         }
 
-        public ICollection<Ride> getRides(User user)
+        public ICollection<Ride> GetRides(User user)
         {
             return _context.Rides.Where(r => r.Driver.id == user.id).ToList();
         }
 
-        public ICollection<Ride> getRides(ICollection<CriticalPoint> criticalPoints, decimal radius)
+        public ICollection<Ride> GetRides(ICollection<CriticalPoint> criticalPoints, decimal radius)
         {
             ArrayList parameters = new ArrayList();
+            
             string selectPoints = "select id from CriticalPoints where ";
             string selectRides = "select r.*, oc.[Order] from Rides as r join OrderedCriticalPoints as oc on r.id=oc.RideId where r.Departure>@Now AND r.Active=1 AND ";
             string finalSelect = "select r0.id as id, r0.PricePerPassenger as PricePerPassenger, r0.SeatsLeft as SeatsLeft, r0.Length as Length, r0.MinPrice as MinPrice, r0.MaxPrice as MaxPrice,  r0.Detour as Detour, r0.Departure as Departure, r0.Description as Description, r0.DateCreated as DateCreated, r0.Active as Active, r0.DriverId as DriverId from ";
@@ -37,8 +38,18 @@ namespace Transpo.Infrastructure.Data.Repositories
             for (int i = 0; i < criticalPoints.Count; i++)
             {
                 CriticalPoint point = criticalPoints.ElementAt(i);
-                string points = selectPoints + "(Longitude-@Longitude" + i + ")*(Longitude-@Longitude" + i +
-                    ")+(Latitude-@Latitude" + i + ")*(Latitude-@Latitude" + i + ")<=@Radius*@Radius";
+
+                string points = selectPoints +
+                                "(6371 * acos(" +
+                                      "cos(radians(@Latitude" + i + "))" +
+                                      "* cos(radians(Latitude))" +
+                                      "* cos(radians(Longitude) - radians(@Longitude" + i + "))" +
+                                      "+ sin(radians(@Latitude" + i + "))" +
+                                      "* sin(radians(Latitude))" +
+                                      ") <= @Radius )";
+
+                //string points = selectPoints + "(Longitude-@Longitude" + i + ")*(Longitude-@Longitude" + i +
+                //    ")+(Latitude-@Latitude" + i + ")*(Latitude-@Latitude" + i + ")<=@Radius*@Radius";
                 parameters.Add(new SqlParameter("@Longitude" + i, point.Longitude));
                 parameters.Add(new SqlParameter("@Latitude" + i, point.Latitude));
 

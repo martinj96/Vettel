@@ -10,11 +10,11 @@ namespace BusinessLogic.MatchRide
     public class RadiusCalculator5Percent : IRadiusCalculator
     {
         public IDistance DistanceMetric { get; set; }
-        private const decimal RadiusMargin = 5 / 100;
+        private static decimal RadiusMargin = 0.05M;
 
         public RadiusCalculator5Percent()
         {
-            DistanceMetric = new Euclidean();
+            DistanceMetric = new Haversine();
         }
 
         public decimal GetRadius(ICollection<Transpo.Core.Entities.CriticalPoint> criticalPoints)

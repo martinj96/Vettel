@@ -15,7 +15,7 @@ namespace Transpo.Infrastructure.Data.Repositories
             : base(context)
         {
         }
-        public List<OrderedCriticalPoint> getCriticalPointsByRideId(int rideId){
+        public List<OrderedCriticalPoint> GetCriticalPointsByRideId(int rideId){
             return _context.OrderedCriticalPoints.Where(cp => cp.RideId == rideId).ToList();
         }
     }

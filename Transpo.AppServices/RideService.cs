@@ -41,12 +41,12 @@ namespace Transpo.AppServices
                 criticalPoints.Add(criticalPoint);
             }
             decimal radius = RadiusCalculator.GetRadius(criticalPoints);
-            return _rideRepository.getRides(criticalPoints, radius);
+            return _rideRepository.GetRides(criticalPoints, radius);
         }
 
         public ICollection<Ride> GetMyRides()
         {
-            return _rideRepository.getRides(user);
+            return _rideRepository.GetRides(user);
         }
 
         public Ride AddRide(RideDto r)
@@ -70,7 +70,7 @@ namespace Transpo.AppServices
             foreach (var point in points)
             {
                 var ocp = new OrderedCriticalPoint();
-                CriticalPoint cp = _criticalPointRepository.getByLatLon(point.CriticalPoint.Latitude, point.CriticalPoint.Longitude);
+                CriticalPoint cp = _criticalPointRepository.GetByLatLon(point.CriticalPoint.Latitude, point.CriticalPoint.Longitude);
                 ocp.CriticalPoint = cp;
                 ocp.Order = point.Order;
                 ocp.Ride = r;
@@ -85,7 +85,7 @@ namespace Transpo.AppServices
             Boolean pointProcessed = false;
             foreach (var point in points)
             {
-                CriticalPoint cp = _criticalPointRepository.getByLatLon(point.CriticalPoint.Latitude, point.CriticalPoint.Longitude);
+                CriticalPoint cp = _criticalPointRepository.GetByLatLon(point.CriticalPoint.Latitude, point.CriticalPoint.Longitude);
                 if (cp == null)
                 {
                     pointProcessed = true;
@@ -113,7 +113,7 @@ namespace Transpo.AppServices
         }
         public List<CriticalPointDto> GetRidesSortedCriticalPoints(int id)
         {
-            var originalList = _orderedCriticalPointRepository.getCriticalPointsByRideId(id);
+            var originalList = _orderedCriticalPointRepository.GetCriticalPointsByRideId(id);
             originalList.Sort(delegate(OrderedCriticalPoint x, OrderedCriticalPoint y)
             {
                 if (x.Order > y.Order)

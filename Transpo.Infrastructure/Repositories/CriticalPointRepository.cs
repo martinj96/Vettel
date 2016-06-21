@@ -14,7 +14,7 @@ namespace Transpo.Infrastructure.Data.Repositories
             : base(context)
         {
         }
-        public CriticalPoint getByLatLon(decimal lat, decimal lon)
+        public CriticalPoint GetByLatLon(decimal lat, decimal lon)
         {
             lat = decimal.Round(lat, 5);
             lon = decimal.Round(lon, 5);

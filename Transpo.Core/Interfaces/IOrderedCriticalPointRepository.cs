@@ -9,6 +9,6 @@ namespace Transpo.Core.Interfaces
 {
     public interface IOrderedCriticalPointRepository : IBaseRepository<OrderedCriticalPoint>
     {
-        List<OrderedCriticalPoint> getCriticalPointsByRideId(int rideId);
+        List<OrderedCriticalPoint> GetCriticalPointsByRideId(int rideId);
     }
 }
