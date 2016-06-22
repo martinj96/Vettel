@@ -46,7 +46,6 @@
     <Compile Include="MatchRide\RadiusCalculator5Kilometers.cs" />
     <Compile Include="MatchRide\RadiusCalculator5Percent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Transpo\Infrastructure\Data\CriticalPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Transpo.Infrastructure\Transpo.Infrastructure.Data.csproj">
