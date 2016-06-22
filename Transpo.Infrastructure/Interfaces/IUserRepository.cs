@@ -10,6 +10,6 @@ namespace Transpo.Infrastructure.Data.Interfaces
 {
     public interface IUserRepository : IBaseRepository<User>
     {
-        User GetUserByFacebookId(long facebookId);
+        // User GetUserByFacebookId(long facebookId); 
     }
 }

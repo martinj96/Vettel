@@ -1,4 +1,6 @@
-﻿<div class="ui container">
+﻿<link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
+
+<div class="ui container">
     @using (Html.BeginForm("CreateRide", "Rides", FormMethod.Get))
     {
         <div class="ui two column divided grid">
@@ -54,9 +56,16 @@
                     <div class="ui grid">
                         <div class="eight wide column">
                             <div class="field">
-                                <div class="ui icon input">
-                                    <input required type="date" id="date-origin" placeholder="" name="DepartureDate">
+                                <div class="ui calendar" id="departureCalendar">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input required type="text" placeholder="" style="max-width:90%">
+                                    </div>
                                 </div>
+                                <input type="hidden" id="date-origin" placeholder="" name="DepartureDate">
+                                @*<div class="ui icon input">
+                                    <input required type="date" id="date-origin" placeholder="" name="DepartureDate">
+                                </div>*@
                             </div>
                         </div>
                         <div class="eight wide column">
@@ -79,9 +88,16 @@
                     <div class="ui grid return-date">
                         <div class="eight wide column">
                             <div class="field">
-                                <div class="ui icon input">
-                                    <input required type="date" id="date-destination" name="ReturnDepartureDate" placeholder="">
+                                <div class="ui calendar" id="returnCalendar">
+                                    <div class="ui input left icon">
+                                        <i class="calendar icon"></i>
+                                        <input required type="text" placeholder="" style="max-width:90%" id="date-destination" >
+                                    </div>
                                 </div>
+                                <input type="hidden" name="ReturnDepartureDate" placeholder="">
+                                @*<div class="ui icon input">
+                                    <input required type="date" id="date-destination" name="ReturnDepartureDate" placeholder="">
+                                </div>*@
                             </div>
                         </div>
                         <div class="eight wide column">
@@ -106,7 +122,7 @@
                     <div class="fields">
                         <div class="field">
                             <label for="Description">Description</label>
-                            <input type="text" name="Description">
+                            <input type="text" name="Description" placeholder="">
                         </div>
                         <div class="field">
                             <label for="Length">Distance</label>
@@ -116,7 +132,7 @@
                     <div class="fields">
                         <div class="field">
                             <label for="SeatsLeft">Available Seats</label>
-                            <input type="text" name="SeatsLeft">
+                            <input type="number" name="SeatsLeft" value="3" max="15" min="1">
                         </div>
                         <div class="field">
                             <label for="PricePerPassenger">Price per passenger</label>
@@ -158,5 +174,6 @@
     }
 </div>
 
+<script src="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.js"></script>
 <script src="~/Scripts/mapsDirections.js"></script>
 <script src="~/Scripts/rides.create.js"></script>

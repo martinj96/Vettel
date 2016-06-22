@@ -113,7 +113,7 @@ namespace Transpo.WebApp.Controllers
             if (dto.ReturnRide)
             {
                 time = new TimeSpan(ride.ReturnTimeDeparture.Hour, ride.ReturnTimeDeparture.Minutes, 0);
-                dto.ReturnDepartureDate = ride.ReturnDepartureDate.Add(time);
+                dto.ReturnDepartureDate = ride.ReturnDepartureDate.Value.Add(time);
             }
 
 

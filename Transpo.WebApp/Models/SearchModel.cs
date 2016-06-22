@@ -15,5 +15,6 @@ namespace Transpo.WebApp.Models
         public double ToLatitude { get; set; }
         public string ToCountryShortCode { get; set; }
         public string ToCityName { get; set; }
+        public DateTime? Date { get; set; }
     }
 }

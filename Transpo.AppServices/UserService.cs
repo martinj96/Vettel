@@ -20,13 +20,14 @@ namespace Transpo.AppServices
         {
             _userRepository = userRepository;
         }
-        public bool Exists(long facebookId)
-        {
-            var user = _userRepository.GetUserByFacebookId(facebookId);
-            if (user == null)
-                return false;
-            return true;
-        }
+        //public bool Exists(long facebookId)
+        //{
+        //    var user = _userRepository.GetUserByFacebookId(facebookId);
+        //    if (user == null)
+        //        return false;
+        //    return true;
+        //}
+
         public User CreateUser(LoginDto u)
         {
             User user = new User();
@@ -47,19 +48,21 @@ namespace Transpo.AppServices
         {
             return _userRepository.GetById(id);
         }
-        public User GetUserByFacebookId(long id)
-        {
-            return _userRepository.GetUserByFacebookId(id);
-        }
-        public void UpdateProfilePicture(string pictureUrl, long facebookId)
-        {
-            var user = GetUserByFacebookId(facebookId);
-            if (user != null)
-            {
-                _userRepository.Edit(user);
-                user.PictureUrl = pictureUrl;
-                _userRepository.Save();
-            }
-        }
+
+        //public User GetUserByFacebookId(long id)
+        //{
+        //    return _userRepository.GetUserByFacebookId(id);
+        //}
+
+        //public void UpdateProfilePicture(string pictureUrl, long facebookId)
+        //{
+        //    var user = GetUserByFacebookId(facebookId);
+        //    if (user != null)
+        //    {
+        //        _userRepository.Edit(user);
+        //        user.PictureUrl = pictureUrl;
+        //        _userRepository.Save();
+        //    }
+        //}
     }
 }

@@ -63,6 +63,33 @@ $('#return').on('change', function () {
 addSearchboxToElement($('.waypoint')[0]);
 
 $('#btnSubmitRide').on('click', function () {
+    document.getElementsByName("DepartureDate")[0].value = $('#departureCalendar').calendar('get date').toDateString();
+    var returnDate = $('#returnCalendar').calendar('get date');
+    if (returnDate instanceof Date)
+        document.getElementsByName("ReturnDepartureDate")[0].value = returnDate.toDateString();
     $('#submitCreateRide').submit();
 })
+
+function UpdateDistance(distance) {
+    var PRICE_FACTOR = 7.38;
+    document.getElementsByName('Length')[0].value = distance / 1000;
+    var seats = document.getElementsByName('SeatsLeft')[0].value;
+    document.getElementsByName('PricePerPassenger')[0].value = Math.ceil(distance * PRICE_FACTOR / 1000 / seats / 10)*10;
+}
+var calendar_options = {
+    type: 'date',
+    text: {
+        days: ["Н", "П", "В", "С", "Ч", "П", "С"],
+        months: ["јануари", "февруари", "март", "април", "мај", "јуни", "јули", "август", "септември", "октомври", "ноември", "декември"],
+        monthsShort: ["јан", "фев", "март", "април", "мај", "јуни", "јули", "авг", "септ", "окт", "ноем", "дек"],
+        today: "Денес",
+        now: "Сега",
+        am: "AM",
+        pm: "PM"
+    },
+    minDate: new Date()
+}
+
+$('#departureCalendar').calendar(calendar_options);
+$('#returnCalendar').calendar(calendar_options);
 

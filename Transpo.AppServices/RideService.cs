@@ -13,7 +13,6 @@ namespace Transpo.AppServices
     public class RideService
     {
         private IRideRepository _rideRepository;
-        private User user;
         public IRadiusCalculator RadiusCalculator { get; set; }
         private IUserRepository _userRepository;
         private ICriticalPointRepository _criticalPointRepository;
@@ -44,10 +43,10 @@ namespace Transpo.AppServices
             return _rideRepository.GetRides(criticalPoints, radius);
         }
 
-        public ICollection<Ride> GetMyRides()
-        {
-            return _rideRepository.GetRides(user);
-        }
+        //public ICollection<Ride> GetMyRides()
+        //{
+        //    return _rideRepository.GetRides(user);
+        //}
 
         public Ride AddRide(RideDto r)
         {

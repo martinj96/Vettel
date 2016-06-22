@@ -16,9 +16,9 @@ namespace Transpo.Infrastructure.Data.Repositories
 
         }
 
-        public User GetUserByFacebookId(long facebookId){
-            return _context.UsersInfo.FirstOrDefault(u => u.FacebookId == facebookId);
-        }
+        //public User GetUserByFacebookId(long facebookId){
+        //    return _context.UsersInfo.FirstOrDefault(u => u.FacebookId == facebookId);
+        //}
     
     }
 }

@@ -13,6 +13,7 @@ using Transpo.Infrastructure.Data.Identity;
 using System.Net;
 using Facebook;
 using Transpo.Infrastructure.Data.Entities;
+using System.Diagnostics;
 
 namespace Transpo.WebApp.Controllers
 {
@@ -267,6 +268,9 @@ namespace Transpo.WebApp.Controllers
             }
             catch (Exception ex)
             {
+#if DEBUG
+                Debug.WriteLine(ex.InnerException);
+#endif
                 return "";
             }
             finally

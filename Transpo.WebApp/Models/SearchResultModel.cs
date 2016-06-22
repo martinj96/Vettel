@@ -52,7 +52,14 @@ namespace Transpo.WebApp.Models
                 RideModel rideModel = new RideModel(service.GetById(ride.id));
                 rs.Add(rideModel);
             }
-            Rides = rs;
+            if (searchModel.Date.HasValue)
+            {
+                Rides = rs.Where(x => x.DepartureDate.Date.CompareTo(searchModel.Date.Value.Date) == 0).ToList();
+            }
+            else
+            {
+                Rides = rs;
+            }
         }
 
         public SearchResultModel() 

@@ -8,12 +8,12 @@ namespace Transpo.Infrastructure.Data.Entities
 {
     public class Ride : BaseEntity
     {
-        public decimal PricePerPassenger { get; set; }
-        public int SeatsLeft { get; set; }
-        public decimal Length { get; set; }
-        public decimal MinPrice { get; set; }
-        public decimal MaxPrice { get; set; }
-        public int Detour { get; set; }
+        public decimal? PricePerPassenger { get; set; }
+        public int? SeatsLeft { get; set; }
+        public decimal? Length { get; set; }
+        public decimal? MinPrice { get; set; }
+        public decimal? MaxPrice { get; set; }
+        public int? Detour { get; set; }
         public DateTime Departure { get; set; }
         public string Description { get; set; }
         public int DriverId { get; set; }

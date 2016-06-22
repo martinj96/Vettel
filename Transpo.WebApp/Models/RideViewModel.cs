@@ -17,10 +17,10 @@ namespace Transpo.WebApp.Models
             Departure = r.Departure;
             Description = r.Description;
         }
-        public decimal PricePerPassenger { get; set; }
-        public int SeatsLeft { get; set; }
-        public decimal Length { get; set; }
-        public int Detour { get; set; }
+        public decimal? PricePerPassenger { get; set; }
+        public int? SeatsLeft { get; set; }
+        public decimal? Length { get; set; }
+        public int? Detour { get; set; }
         public DateTime Departure { get; set; }
         public string Description { get; set; }
     }

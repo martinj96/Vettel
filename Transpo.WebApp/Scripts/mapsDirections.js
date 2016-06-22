@@ -39,9 +39,12 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         destination: destination,
         waypoints: waypts,
         optimizeWaypoints: true,
-        travelMode: google.maps.TravelMode.DRIVING
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC
     }, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
+            var distance = response.routes[0].legs[0].distance.value;
+            UpdateDistance(distance);
             directionsDisplay.setDirections(response);
             //var route = response.routes[0];
             //var summaryPanel = document.getElementById('directions-panel');

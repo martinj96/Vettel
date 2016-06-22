@@ -17,9 +17,9 @@
                             <div class="meta">
                                 @ride.Driver.Gender
                             </div>
-                            <div class="description">
+                            @*<div class="description">
                                 <div class="ui star rating" data-rating="2" data-max-rating="5"></div>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -28,10 +28,16 @@
                     <div class="content">
                         <a class="header" href='@Url.Action("Details", "Rides", new { @id = @ride.RideId })'>@ride.StartPoint.Name - @ride.EndPoint.Name</a>
                         <div class="meta">
-                            <span>@ride.PricePerPassenger MKD</span>
+                            @if (ride.PricePerPassenger.HasValue)
+                            {
+                                <span>@ride.PricePerPassenger MKD</span>
+                            }
                         </div>
                         <div class="description">
-                            <p>@ride.SeatsLeft seats left.</p>
+                            @if (ride.SeatsLeft.HasValue)
+                            {
+                                <p>@ride.SeatsLeft seats.</p>
+                            }
                         </div>
                         <div class="extra">
                             Departure: @ride.DepartureDate
