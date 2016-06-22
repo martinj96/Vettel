@@ -7,7 +7,7 @@ using Transpo.AppServices;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Factories;
 using Transpo.AppServices.Interfaces;
-using Transpo.Core.Entities;
+using Transpo.Infrastructure.Data.Entities;
 
 namespace Transpo.WebApp.Models
 {

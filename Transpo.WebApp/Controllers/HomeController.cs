@@ -17,30 +17,7 @@ namespace Transpo.WebApp.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public void Login(string model)
-        {
-            if (ModelState.IsValid && !Request.IsAuthenticated)
-            {
-                var login = new JavaScriptSerializer().Deserialize<LoginDto>(model);
-                if (_userService.GetUserByFacebookId(login.FacebookId) == null)
-                {
-                    _userService.CreateUser(login);
-                }
-                CreateAuthenticationTicket(login.FacebookId);
-            } 
-        }
-        public void UpdateProfilePicture(string pictureUrl, long facebookId)
-        {
-            _userService.UpdateProfilePicture(pictureUrl, facebookId);
-        }
-        public bool IsLoggedIn()
-        {
-            if (Request.IsAuthenticated)
-                return true;
-            else
-                return false;
-        }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -48,22 +25,23 @@ namespace Transpo.WebApp.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
-        public void CreateAuthenticationTicket(long facebookId)
-        {
-            var authUser = _userService.GetUserByFacebookId(facebookId);
-            CustomPrincipalSerializedModel serializeModel = new CustomPrincipalSerializedModel();
 
-            serializeModel.UserId = authUser.id;
-            serializeModel.Name = authUser.Name;
-            serializeModel.FacebookId = authUser.FacebookId;
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            string userData = serializer.Serialize(serializeModel);
+        //public void CreateAuthenticationTicket(long facebookId)
+        //{
+        //    var authUser = _userService.GetUserByFacebookId(facebookId);
+        //    CustomPrincipalSerializedModel serializeModel = new CustomPrincipalSerializedModel();
 
-            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
-              1, authUser.Name, DateTime.Now, DateTime.Now.AddHours(2), false, userData);
-            string encTicket = FormsAuthentication.Encrypt(authTicket);
-            HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
-            Response.Cookies.Add(faCookie);
-        }
+        //    serializeModel.UserId = authUser.id;
+        //    serializeModel.Name = authUser.Name;
+        //    serializeModel.FacebookId = authUser.FacebookId;
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    string userData = serializer.Serialize(serializeModel);
+
+        //    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(
+        //      1, authUser.Name, DateTime.Now, DateTime.Now.AddHours(2), false, userData);
+        //    string encTicket = FormsAuthentication.Encrypt(authTicket);
+        //    HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
+        //    Response.Cookies.Add(faCookie);
+        //}
     }
 }

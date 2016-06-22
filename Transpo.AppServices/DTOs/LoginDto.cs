@@ -14,5 +14,7 @@ namespace Transpo.AppServices.DTOs
         public string Email { get; set; }
         public string Link { get; set; }
         public long FacebookId { get; set; }
+        public string AppUserId { get; set; }
+        public string PictureUrl { get; set; }
     }
 }

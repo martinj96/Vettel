@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Transpo.Core.Entities;
-using Transpo.Core.Interfaces;
+using Transpo.Infrastructure.Data.Entities;
+using Transpo.Infrastructure.Data.Interfaces;
 
 namespace Transpo.Infrastructure.Data.Repositories
 {
@@ -17,7 +17,7 @@ namespace Transpo.Infrastructure.Data.Repositories
         }
 
         public User GetUserByFacebookId(long facebookId){
-            return _context.Users.FirstOrDefault(u => u.FacebookId == facebookId);
+            return _context.UsersInfo.FirstOrDefault(u => u.FacebookId == facebookId);
         }
     
     }

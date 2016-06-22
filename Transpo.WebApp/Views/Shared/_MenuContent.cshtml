@@ -3,17 +3,17 @@
 <div class="right item">
     @if (Request.IsAuthenticated)
     {
-        using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
             @Html.AntiForgeryToken()
 
             <span>@Html.ActionLink("Hi " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</span>
-            <a onclick="Logout()" class="ui inverted button">Log off</a>
+            <input type="submit" class="ui inverted button" value="Log Off" />
         }
     }
     else
     {
-        <a class="ui inverted button" id="login">Login</a>
+        <a class="ui inverted button" id="login" href="@Url.Action("Login", "Account", new { returnUrl = "Home/IndexAfterLogin" })">Login</a>
 
     }
 </div>

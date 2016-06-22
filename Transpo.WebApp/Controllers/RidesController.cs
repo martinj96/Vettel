@@ -8,7 +8,6 @@ using System.Web.Security;
 using Transpo.AppServices;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
-using Transpo.Core.Entities;
 using Transpo.Infrastructure.Data;
 using Transpo.WebApp.Models;
 

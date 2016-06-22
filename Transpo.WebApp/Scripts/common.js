@@ -78,7 +78,7 @@ function statusChangeCallback(response) {
 }
 function Logout() {
     FB.logout(function (response) {
-        $("#logoutForm").submit();
+        //$("#logoutForm").submit();
     });
 }
 function Login() {
@@ -87,5 +87,5 @@ function Login() {
     });
 }
 $("#login").on("click", function () {
-    Login();
+    //Login();
 });

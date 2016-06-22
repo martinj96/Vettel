@@ -60,13 +60,9 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\Transpo.BusinessLogic.csproj">
       <Project>{3f5fd2eb-009e-46e0-8a19-40037eb95b30}</Project>
-      <Name>BusinessLogic</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Transpo.Core\Transpo.Core.csproj">
-      <Project>{4f80239d-54cf-4ec8-b19c-427c51493c78}</Project>
-      <Name>Transpo.Core</Name>
+      <Name>Transpo.BusinessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\Transpo.Infrastructure\Transpo.Infrastructure.Data.csproj">
       <Project>{d07301c9-67d5-487c-b24d-c81d2c4f5e17}</Project>

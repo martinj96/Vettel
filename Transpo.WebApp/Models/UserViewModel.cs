@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Transpo.Core.Entities;
+using Transpo.Infrastructure.Data.Entities;
+using Transpo.Infrastructure.Data.Identity;
 
 namespace Transpo.WebApp.Models
 {
@@ -15,7 +16,7 @@ namespace Transpo.WebApp.Models
             Email = u.Email;
             UserId = u.id;
             PictureUrl = u.PictureUrl;
-            if (u.Gender == (int)Transpo.AppServices.Gender.male)
+            if (u.Gender == (int)AppServices.Gender.male)
                 Gender = "Male";
             else
                 Gender = "Female";

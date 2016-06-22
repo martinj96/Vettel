@@ -1,23 +1,23 @@
-﻿using BusinessLogic.Distances;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Transpo.BusinessLogic.Distances;
+using Transpo.Infrastructure.Data.Entities;
 
-namespace BusinessLogic.MatchRide
+namespace Transpo.BusinessLogic.MatchRide
 {
     public class RadiusCalculator5Percent : IRadiusCalculator
     {
         public IDistance DistanceMetric { get; set; }
-        private static decimal RadiusMargin = 0.05M;
 
         public RadiusCalculator5Percent()
         {
-            DistanceMetric = new Haversine();
+            DistanceMetric = new Euclidean();
         }
 
-        public decimal GetRadius(ICollection<Transpo.Core.Entities.CriticalPoint> criticalPoints)
+        public decimal GetRadius(ICollection<CriticalPoint> criticalPoints)
         {
             decimal length = 0;
             for (int i = 1; i < criticalPoints.Count; i++)
@@ -25,7 +25,7 @@ namespace BusinessLogic.MatchRide
                 length += DistanceMetric.GetDistance(criticalPoints.ElementAt(i - 1), criticalPoints.ElementAt(i));
             }
 
-            return length * RadiusMargin;
+            return length * 5 / 100;
         }
     }
 }

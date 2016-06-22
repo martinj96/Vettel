@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Transpo.Core.Entities;
-using Transpo.Core.Interfaces;
+using Transpo.Infrastructure.Data.Entities;
+using Transpo.Infrastructure.Data.Interfaces;
 
 namespace Transpo.Infrastructure.Data.Repositories
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Transpo.Core.Entities;
+using Transpo.Infrastructure.Data.Entities;
 
 namespace Transpo.WebApp.Models
 {

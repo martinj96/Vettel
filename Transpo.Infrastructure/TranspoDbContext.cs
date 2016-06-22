@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Transpo.Core.Entities;
+using Transpo.Infrastructure.Data.Entities;
+using Transpo.Infrastructure.Data.Identity;
 
 namespace Transpo.Infrastructure.Data
 {
-    public class TranspoDbContext : DbContext
+    public class TranspoDbContext : IdentityDbContext<AppUser>
     {
         public TranspoDbContext()
             : base("DefaultConnection")
@@ -19,7 +21,7 @@ namespace Transpo.Infrastructure.Data
         {
 
         }
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> UsersInfo { get; set; }
         public DbSet<Car> Cars { get; set; }
         //public DbSet<Characteristic> Characteristics { get; set; }
         public DbSet<CriticalPoint> CriticalPoints { get; set; }
@@ -29,6 +31,7 @@ namespace Transpo.Infrastructure.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             // User - Car
             modelBuilder.Entity<User>()
                 .HasOptional<Car>(u => u.Car)

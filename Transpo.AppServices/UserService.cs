@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transpo.AppServices.DTOs;
-using Transpo.Core.Entities;
-using Transpo.Core.Interfaces;
+using Transpo.Infrastructure.Data.Entities;
+using Transpo.Infrastructure.Data.Interfaces;
 
 namespace Transpo.AppServices
 {
@@ -27,7 +27,7 @@ namespace Transpo.AppServices
                 return false;
             return true;
         }
-        public void CreateUser(LoginDto u)
+        public User CreateUser(LoginDto u)
         {
             User user = new User();
             user.Email = u.Email;
@@ -40,6 +40,8 @@ namespace Transpo.AppServices
             user.FacebookId = u.FacebookId;
             _userRepository.Add(user);
             _userRepository.Save();
+
+            return user;
         }
         public User GetUserById(int id)
         {
