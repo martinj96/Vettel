@@ -11,13 +11,12 @@ namespace Transpo.AppServices.Models
     public class CustomPrincipal : IPrincipal
     {
         public int UserId { get; set; }
-        public long FacebookId { get; set; }
+        //public long FacebookId { get; set; }
         public string Name { get; set; }
         public IIdentity Identity { get; private set; }
-        public CustomPrincipal(int UserId, long FacebookId, string Name)
+        public CustomPrincipal(int UserId, string Name)
         {
             this.UserId = UserId;
-            this.FacebookId = FacebookId;
             this.Name = Name;
             this.Identity = new GenericIdentity(Name);
         }
@@ -30,7 +29,7 @@ namespace Transpo.AppServices.Models
     {
         public int UserId { get; set; }
 
-        public long FacebookId { get; set; }
+        //public long FacebookId { get; set; }
 
         public string Name { get; set; }
 

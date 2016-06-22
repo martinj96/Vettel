@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -32,7 +33,8 @@ namespace Transpo.WebApp.Controllers
             viewModel.Ride = new RideViewModel(ride);
             viewModel.RideId = id;
             viewModel.Points = _rideService.GetRidesSortedCriticalPoints(id);
-            var user = (HttpContext.User as CustomPrincipal);
+            var user = UserManager.FindById(User.Identity.GetUserId()).User;
+            //var user = (HttpContext.User as CustomPrincipal);
             /*if( userId has access){
                 viewModel.UserHasPermission = true;
                 we give one view
@@ -43,7 +45,7 @@ namespace Transpo.WebApp.Controllers
              */
 
             viewModel.UserIsRider = false;
-            if (user.UserId == ride.Driver.id)
+            if (user.id == ride.Driver.id)
             {
                 viewModel.UserIsRider = true;
                 foreach (var rider in ride.Riders)
@@ -59,26 +61,31 @@ namespace Transpo.WebApp.Controllers
             }
             foreach (var rider in ride.Riders)
             {
-                if (rider.id == user.UserId)
+                if (rider.id == user.id)
                     viewModel.UserIsRider = true;
             }
             
             return View(viewModel);
         }
+
+        [Authorize]
         public void AddMeToRide(int rideId)
         {
             var ride = _rideService.GetById(rideId);
-            var user = _userService.GetUserById((HttpContext.User as CustomPrincipal).UserId);
-            _rideService.AddMeToRide(user, ride);
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            //var user = _userService.GetUserById((HttpContext.User as CustomPrincipal).UserId);
+            _rideService.AddMeToRide(user.User, ride);
         }
+
+        [Authorize]
         public ActionResult CreateRide(RideModel ride, string returnR)
         {
-            var user = (HttpContext.User as CustomPrincipal);
+            var user = UserManager.FindById(User.Identity.GetUserId());
 
             if (user == null)
                 throw new UnauthorizedAccessException();
 
-            var dto = ConvertRideModelToDto(ride, user.UserId, returnR);
+            var dto = ConvertRideModelToDto(ride, user.User.id, returnR);
             _rideService.AddRide(dto);
 
             return View("Create");

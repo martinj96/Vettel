@@ -17,21 +17,20 @@ namespace Transpo.WebApp
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
-        //protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
-        //{
-        //    HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
-        //    if (authCookie != null)
-        //    {
-        //        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        if (authTicket.UserData == "OAuth") return;
-        //        CustomPrincipalSerializedModel serializeModel =
-        //          serializer.Deserialize<CustomPrincipalSerializedModel>(authTicket.UserData);
-        //        CustomPrincipal newUser = new CustomPrincipal(serializeModel.UserId, serializeModel.FacebookId,
-        //            serializeModel.Name);
-        //        HttpContext.Current.User = newUser;
-        //    }
-        //}
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                if (authTicket.UserData == "OAuth") return;
+                CustomPrincipalSerializedModel serializeModel =
+                  serializer.Deserialize<CustomPrincipalSerializedModel>(authTicket.UserData);
+                CustomPrincipal newUser = new CustomPrincipal(serializeModel.UserId, serializeModel.Name);
+                HttpContext.Current.User = newUser;
+            }
+        }
     }
 
 }

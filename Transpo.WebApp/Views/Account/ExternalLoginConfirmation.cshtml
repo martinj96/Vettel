@@ -24,6 +24,9 @@
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
     </div>
+    @Html.HiddenFor(x => x.Name)
+    @Html.HiddenFor(x => x.Gender)
+    @Html.HiddenFor(x => x.PictureUrl)
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />
