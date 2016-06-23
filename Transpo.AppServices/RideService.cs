@@ -48,21 +48,28 @@ namespace Transpo.AppServices
         //    return _rideRepository.GetRides(user);
         //}
 
+
         public Ride AddRide(RideDto r)
         {
-            var ride = new Ride();
-            ride.Departure = r.DepartureDate;
-            ride.Description = r.Description;
-            ride.Detour = r.Detour;
-            ride.Driver = _userRepository.GetById(r.DriverId);
-            ride.Length = r.Length;
-            ride.PricePerPassenger = r.PricePerPassenger;
-            ride.SeatsLeft = r.SeatsLeft;
+            Ride ride = CreateRideObjectFromDto(r);
+            Ride returnRide = null;
+
+            if (r.ReturnRide)
+                 returnRide = CreateReturnRideObjectFromDto(r); 
+                       
             _rideRepository.Add(ride);
+            if (r.ReturnRide)
+                _rideRepository.Add(returnRide);
             _rideRepository.Save();
+
             ride.OrderedCriticalPoints = AddCriticalPoints(r.Waypoints, ride);
+            if (r.ReturnRide)
+            {
+                AddCriticalPoints(ReverseWaypointsOrder(r.Waypoints), returnRide);
+            }
             return ride;
         }
+
         private ICollection<OrderedCriticalPoint> AddCriticalPoints(List<OrderedCriticalPointDto> points, Ride r){
             AddNonExistingCriticalPoints(points);
             var result = new List<OrderedCriticalPoint>();
@@ -142,5 +149,45 @@ namespace Transpo.AppServices
                 _rideRepository.Save();
             }
         }
+
+        // Helpers
+        private Ride CreateRideObjectFromDto(RideDto r)
+        {
+            var ride = new Ride();
+            ride.Departure = r.DepartureDate;
+            ride.Description = r.Description;
+            ride.Detour = r.Detour;
+            ride.Driver = _userRepository.GetById(r.DriverId);
+            ride.Length = r.Length;
+            ride.PricePerPassenger = r.PricePerPassenger;
+            ride.SeatsLeft = r.SeatsLeft;
+            return ride;
+        }
+
+        private Ride CreateReturnRideObjectFromDto(RideDto r)
+        {
+            var ride = new Ride();
+            ride.Departure = r.ReturnDepartureDate.Value;
+            ride.Description = r.Description;
+            ride.Detour = r.Detour;
+            ride.Driver = _userRepository.GetById(r.DriverId);
+            ride.Length = r.Length;
+            ride.PricePerPassenger = r.PricePerPassenger;
+            ride.SeatsLeft = r.SeatsLeft;
+            return ride;
+        }
+
+
+        private List<OrderedCriticalPointDto> ReverseWaypointsOrder(List<OrderedCriticalPointDto> waypoints)
+        {
+            List<OrderedCriticalPointDto> ocp = waypoints.ToList();
+            int count = waypoints.Count;
+            foreach (var wp in ocp)
+            {
+                wp.Order = count - wp.Order - 1;
+            }
+            return ocp;
+        }
+
     }
 }

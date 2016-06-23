@@ -11,7 +11,8 @@ namespace Transpo.AppServices
 {
     public enum Gender
     {
-        male=1, female
+        Male = 1,
+        Female
     }
     public class UserService
     {
@@ -33,9 +34,9 @@ namespace Transpo.AppServices
             User user = new User();
             user.Email = u.Email;
             if (u.Gender == "male")
-                user.Gender = (int)Gender.male;
+                user.Gender = (int)Gender.Male;
             else
-                user.Gender = (int)Gender.female;
+                user.Gender = (int)Gender.Female;
             user.Name = u.Name;
             user.Link = u.Link;
             user.FacebookId = u.FacebookId;

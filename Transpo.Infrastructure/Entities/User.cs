@@ -18,7 +18,7 @@ namespace Transpo.Infrastructure.Data.Entities
         }
 
         public string Name { get; set; }
-        public int Gender { get; set; }
+        public int? Gender { get; set; }
         public string Link { get; set; }
         public long FacebookId { get; set; }
         public decimal Rating { get; set; }

@@ -13,7 +13,18 @@
                             <div class="content">
                                 <img class="left floated tiny circular ui image" src="@ride.Driver.PictureUrl">
                                 <div class="ui medium header">
-                                    @ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].
+                                    @if (ride.Driver.Name.Split(' ').Count() > 1)
+                                    {
+                                        <span>@ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].</span>
+                                    }
+                                    else if (ride.Driver.Name.Contains(@"@"))
+                                    {
+                                        <span>@ride.Driver.Name.Split('@')[0].ToString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@ride.Driver.Name</span>
+                                    }
                                 </div>
                                 <div class="meta">
                                     @ride.Driver.Gender

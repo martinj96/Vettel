@@ -78,7 +78,7 @@
                 <div class="ui dividing medium header">Info</div>
                 <div class="row">
                     <div>@Model.Ride.PricePerPassenger MKD per passenger.</div>
-                    <div>@Model.Ride.SeatsLeft seats left.</div>
+                    <div>@Model.Ride.SeatsLeft seats.</div>
 
                     @if (Model.UserIsRider != true)
                     {
@@ -91,7 +91,14 @@
                         <div class="content">
                             <img class="left floated tiny circular ui image" src="@Model.Driver.PictureUrl" />
                             <div class="ui medium header">
-                                @Model.Driver.Name
+                                @if (Model.Driver.Name.Contains(@"@"))
+                                {
+                                    <span>@Model.Driver.Name.Split('@')[0].ToString()</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Driver.Name</span>
+                                }
                             </div>
                             <div class="meta">
                                 @Model.Driver.Gender

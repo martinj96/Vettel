@@ -10,6 +10,7 @@ using Transpo.AppServices;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
 using Transpo.Infrastructure.Data;
+using Transpo.Infrastructure.Data.Entities;
 using Transpo.WebApp.Models;
 
 namespace Transpo.WebApp.Controllers
@@ -25,45 +26,11 @@ namespace Transpo.WebApp.Controllers
         }
         public ActionResult Details(int id)
         {
-            var ride = _rideService.GetById(id);
+            Ride ride = _rideService.GetById(id);
             if (ride == null || ride.Active == false)
                 return Content("Invalid ride.. Place make sure you request an existing ride.");
-            var viewModel = new RideDetailsViewModel();
-            viewModel.Driver = new UserViewModel(ride.Driver);
-            viewModel.Ride = new RideViewModel(ride);
-            viewModel.RideId = id;
-            viewModel.Points = _rideService.GetRidesSortedCriticalPoints(id);
-            var user = UserManager.FindById(User.Identity.GetUserId()).User;
-            //var user = (HttpContext.User as CustomPrincipal);
-            /*if( userId has access){
-                viewModel.UserHasPermission = true;
-                we give one view
-            }else{
-                viewModel.UserHasPermission = false;
-                return View(DetailsPermissionsView, ViewModel())
-            }
-             */
 
-            viewModel.UserIsRider = false;
-            if (user.id == ride.Driver.id)
-            {
-                viewModel.UserIsRider = true;
-                foreach (var rider in ride.Riders)
-                {
-                    viewModel.Riders.Add(new UserViewModel(rider));
-                }
-                /*
-                foreach (var requeser in ...){
-                    vieModel.RideRequesters.Add(new UserViewModel(requester))
-                }
-                 */
-                // return View("DriverView", viewModel)
-            }
-            foreach (var rider in ride.Riders)
-            {
-                if (rider.id == user.id)
-                    viewModel.UserIsRider = true;
-            }
+            RideDetailsViewModel viewModel = ConvertRideToViewModel(ride, id);
             
             return View(viewModel);
         }
@@ -86,11 +53,13 @@ namespace Transpo.WebApp.Controllers
                 throw new UnauthorizedAccessException();
 
             var dto = ConvertRideModelToDto(ride, user.User.id, returnR);
-            _rideService.AddRide(dto);
+            Ride r = _rideService.AddRide(dto);
 
-            return View("Create");
+            return View("Details", ConvertRideToViewModel(r, r.id));
         }
 
+
+        // Helpers
         private RideDto ConvertRideModelToDto(RideModel ride, int userId, string returnRide)
         {
             var dto = new RideDto();
@@ -159,6 +128,47 @@ namespace Transpo.WebApp.Controllers
             dto.Waypoints = ocpDto;
             
             return dto;
+        }
+        private RideDetailsViewModel ConvertRideToViewModel(Ride ride, int id)
+        {
+            var viewModel = new RideDetailsViewModel();
+            viewModel.Driver = new UserViewModel(ride.Driver);
+            viewModel.Ride = new RideViewModel(ride);
+            viewModel.RideId = id;
+            viewModel.Points = _rideService.GetRidesSortedCriticalPoints(id);
+            //var user = UserManager.FindById(User.Identity.GetUserId()).User;
+            ////var user = (HttpContext.User as CustomPrincipal);
+            ///*if( userId has access){
+            //    viewModel.UserHasPermission = true;
+            //    we give one view
+            //}else{
+            //    viewModel.UserHasPermission = false;
+            //    return View(DetailsPermissionsView, ViewModel())
+            //}
+            // */
+
+            //viewModel.UserIsRider = false;
+            //if (user.id == ride.Driver.id)
+            //{
+            //    viewModel.UserIsRider = true;
+            //    foreach (var rider in ride.Riders)
+            //    {
+            //        viewModel.Riders.Add(new UserViewModel(rider));
+            //    }
+            //    /*
+            //    foreach (var requeser in ...){
+            //        vieModel.RideRequesters.Add(new UserViewModel(requester))
+            //    }
+            //     */
+            //    // return View("DriverView", viewModel)
+            //}
+            //foreach (var rider in ride.Riders)
+            //{
+            //    if (rider.id == user.id)
+            //        viewModel.UserIsRider = true;
+            //}
+
+            return viewModel;
         }
     }
 }

@@ -16,10 +16,13 @@ namespace Transpo.WebApp.Models
             Email = u.Email;
             UserId = u.id;
             PictureUrl = u.PictureUrl;
-            if (u.Gender == (int)AppServices.Gender.male)
-                Gender = "Male";
-            else
-                Gender = "Female";
+            if (u.Gender.HasValue)
+            {
+                if (u.Gender == (int)AppServices.Gender.Male)
+                    Gender = "Male";
+                else if (u.Gender == (int)AppServices.Gender.Female)
+                    Gender = "Female";
+            }
         }
         public string Name { get; set; }
         public string Gender { get; set; }
