@@ -43,6 +43,11 @@ namespace Transpo.AppServices
             return _rideRepository.GetRides(criticalPoints, radius);
         }
 
+        public ICollection<Ride> GetAllRides()
+        {
+            return _rideRepository.GetAll();
+        }
+
         //public ICollection<Ride> GetMyRides()
         //{
         //    return _rideRepository.GetRides(user);

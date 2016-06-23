@@ -64,8 +64,18 @@ namespace Transpo.WebApp.Models
 
         public SearchResultModel() 
         {
-            Rides = new List<RideModel>();
             serviceFactory = new ServiceFactory();
+            List<RideModel> rs = new List<RideModel>();
+
+            RideService service = serviceFactory.GetRideService();
+            ICollection<Ride> col = service.GetAllRides();
+
+            foreach (Ride ride in col)
+            {
+                RideModel rideModel = new RideModel(service.GetById(ride.id));
+                rs.Add(rideModel);
+            }
+            Rides = rs;
         }
     }
 }

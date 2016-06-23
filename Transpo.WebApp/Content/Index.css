@@ -111,3 +111,7 @@
     font-size: 1.5em;
     }
 }
+
+.ui.grid>.column+.divider, .ui.grid>.row>.column+.divider {
+    left: auto;
+}

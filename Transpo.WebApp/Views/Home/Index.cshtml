@@ -15,6 +15,10 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <link href="~/Content/semantic.min.css" rel="stylesheet" />
     <link href="~/Content/index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/semantic.min.js"></script>
+    <script src="~/Scripts/global.js"></script>
+    <script src='//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&language=mk'></script>
 </head>
 <body>
 
@@ -59,11 +63,12 @@
             }
         </div>
     </div>
+    <div class="ui container">
+        <div class="ui segment" id="rideSearchGrid">
+            @{ Html.RenderPartial("~/Views/Search/_SearchResultsGrid.cshtml", ViewData["Rides"]); }
+        </div>
+    </div>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/semantic.min.js"></script>
-    <script src="~/Scripts/global.js"></script>
-    <script src='//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places'></script>
     <script src="~/Scripts/home.index.js"></script>
     <script src="~/Scripts/places-searchbox.js"></script>
     <script src="~/Scripts/layout.js"></script>

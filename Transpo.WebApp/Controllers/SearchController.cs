@@ -27,6 +27,13 @@ namespace Transpo.WebApp.Controllers
             return PartialView("_SearchResultsGrid", model.Rides);
         }
 
+        public PartialViewResult GetAllRides()
+        {
+            var model = new SearchResultModel();
+            return PartialView("_SearchResultGrid", model.Rides);
+
+        }
+
         private IEnumerable<RideModel> MockRides()
         {
             List<RideModel> rides = new List<RideModel>();

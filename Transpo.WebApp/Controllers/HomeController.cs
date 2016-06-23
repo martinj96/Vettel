@@ -7,6 +7,7 @@ using System.Web.Script.Serialization;
 using System.Web.Security;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
+using Transpo.WebApp.Models;
 
 namespace Transpo.WebApp.Controllers
 {
@@ -15,6 +16,8 @@ namespace Transpo.WebApp.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            var model = new SearchResultModel();
+            ViewData["Rides"] = model.Rides;
             return View();
         }
         
