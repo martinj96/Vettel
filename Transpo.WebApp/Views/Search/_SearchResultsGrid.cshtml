@@ -6,26 +6,26 @@
     {
         <div class="ui item">
             @*@Html.HiddenFor(x => ride.RideId)*@
-            <div class="ui grid" style="position:relative;">
-                <div class="eight wide column">
-                    <div class="ui card">
-                        <div class="content">
-                            <img class="left floated tiny circular ui image" src="@ride.Driver.PictureUrl">
-                            <div class="ui medium header">
-                                @ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].
-                            </div>
-                            <div class="meta">
-                                @ride.Driver.Gender
-                            </div>
-                            @*<div class="description">
+            <div class="content">
+                <div class="ui grid" style="position:relative;">
+                    <div class="five wide column">
+                        <div class="ui card">
+                            <div class="content">
+                                <img class="left floated tiny circular ui image" src="@ride.Driver.PictureUrl">
+                                <div class="ui medium header">
+                                    @ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].
+                                </div>
+                                <div class="meta">
+                                    @ride.Driver.Gender
+                                </div>
+                                @*<div class="description">
                                 <div class="ui star rating" data-rating="2" data-max-rating="5"></div>
                             </div>*@
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="ui vertical divider"></div>
-                <div class="eight wide column">
-                    <div class="content">
+                    <div class="ui vertical divider"></div>
+                    <div class="eleven wide column">
                         <a class="header" href='@Url.Action("Details", "Rides", new { @id = @ride.RideId })'>@ride.StartPoint.Name - @ride.EndPoint.Name</a>
                         <div class="meta">
                             @if (ride.PricePerPassenger.HasValue)
