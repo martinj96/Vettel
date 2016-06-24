@@ -13,7 +13,16 @@
     }
     else
     {
-        <a class="ui inverted button" id="login" href="@Url.Action("Login", "Account", new { returnUrl = "Home/Index" })">Login</a>
-
+        /*<a class="ui inverted button" id="login" href="@Url.Action("Login", "Account", new { returnUrl = "Home/Index" })">Login</a>*/
+        <button class="ui inverted button" id="btnLogin" >Login</button>
     }
+    <div class="ui tiny modal" id="loginModal"></div>
 </div>
+<script>
+    $('#loginModal').load('@Url.Action("Login", "Account")');
+    $('#loginModal').modal("setting", {
+        onShow: function () {
+        }
+    });
+    $('#btnLogin').on('click', function () { $('#loginModal').modal('show'); })
+</script>

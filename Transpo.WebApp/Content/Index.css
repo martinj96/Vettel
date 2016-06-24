@@ -115,3 +115,32 @@
 .ui.grid>.column+.divider, .ui.grid>.row>.column+.divider {
     left: auto;
 }
+
+/* Small */
+
+.ui.tiny.modal > .header:not(.ui) {
+  font-size: 1.3em;
+}
+
+/* Small Modal Width */
+
+@media only screen and (max-width: 429px) {
+  .ui.tiny.modal {
+    width: 97%;
+    margin: 0em 0em 0em -48.5%;
+  }
+}
+
+@media only screen and (min-width: 430px) {
+  .ui.tiny.modal {
+    width: 320px;
+    margin: 0em 0em 0em -158px;
+  }
+}
+
+@media only screen and (min-width: 630px) {
+  .ui.tiny.modal {
+    width: 320px;
+    margin: 0em 0em 0em -140px;
+  }
+}
