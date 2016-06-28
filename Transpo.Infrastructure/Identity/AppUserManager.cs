@@ -46,6 +46,5 @@ namespace Transpo.Infrastructure.Data.Identity
             }
             return manager;
         }
-
     }
 }

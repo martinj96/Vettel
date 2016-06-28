@@ -159,17 +159,24 @@ namespace Transpo.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-                if (result.Succeeded)
-                {
-                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                    if (user != null)
+                try {
+                    var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                        if (user != null)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        }
+                        return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                     }
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.InnerException);
+                }
+
             }
 
             // If we got this far, something failed, redisplay form

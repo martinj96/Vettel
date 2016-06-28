@@ -8,13 +8,14 @@
             @Html.AntiForgeryToken()
 
             <span>@Html.ActionLink("Hi " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</span>
-            <input type="submit" class="ui inverted button" value="Log Off" />
+
+            <input type="submit" class="ui button" value="Log Off" />
         }
     }
     else
     {
         /*<a class="ui inverted button" id="login" href="@Url.Action("Login", "Account", new { returnUrl = "Home/Index" })">Login</a>*/
-        <button class="ui inverted button" id="btnLogin" >Login</button>
+        <button class="ui button" id="btnLogin" >Login</button>
     }
     <div class="ui tiny modal" id="loginModal"></div>
 </div>

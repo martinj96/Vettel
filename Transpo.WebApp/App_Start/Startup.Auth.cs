@@ -24,7 +24,7 @@ namespace Transpo.WebApp
         {
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
             app.CreatePerOwinContext(() => new TranspoDbContext(connectionString));
-            app.CreatePerOwinContext<AppUserManager>(Infrastructure.Data.Identity.AppUserManager.Create);
+            app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
             app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
             //app.CreatePerOwinContext<RoleManager<AppRole>>((options, context) =>
             //    new RoleManager<AppRole>(

@@ -18,8 +18,7 @@
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
-                        <button class="ui facebook button" onclick="$('#@p.AuthenticationType').click()" ><i class="facebook icon"></i> Facebook</button>
-                        <input style="display:none;" type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account" />
+                        <button type="submit" class="ui button @p.AuthenticationType.ToString().ToLower()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="icon @p.AuthenticationType.ToString().ToLower()"></i> @p.AuthenticationType</button>
                     }
                 </p>
             </div>

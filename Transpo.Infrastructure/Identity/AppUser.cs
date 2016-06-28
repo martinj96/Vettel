@@ -21,7 +21,6 @@ namespace Transpo.Infrastructure.Data.Identity
 
         public string Name { get; set; }
         
-        [Required]
         public virtual User User { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
