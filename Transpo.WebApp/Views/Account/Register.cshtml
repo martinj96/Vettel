@@ -3,36 +3,106 @@
     ViewBag.Title = "Register";
 }
 <div class="ui container">
-    <h2>@ViewBag.Title.</h2>
+    <h2 class="ui dividing eader">@ViewBag.Title</h2>
 
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "ui form registerform", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
+        <h4 class="ui dividing header">Create a new account</h4>
+
+        @Html.ValidationSummary(true, "", new { @class = "ui error message", @style = "display:block;" })
+
+        <div class="ui stackable grid">
+            <div class="four wide column">
+                <div class="field">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email)
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.ConfirmPassword)
+                    @Html.PasswordFor(m => m.ConfirmPassword)
+                </div>
+                <button type="submit" class="ui primary button" value="Register" id="btnRegister">Register</button>
             </div>
         </div>
     }
 </div>
+
+<script>
+    $.fn.form.settings.rules.matchPasswords = function (value) {
+        return $('#Password').val() === value;
+    }
+
+    $('.ui.form.registerform').form({
+        fields: {
+            email: {
+                identifier: 'Email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter an email'
+                    },
+                    {
+                        type: 'email',
+                        prompt: 'Please enter a valid email'
+                    }
+                ]
+            },
+            password: {
+                identifier: 'Password',
+                rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Please enter a new password'
+                },
+                {
+                    type: 'length[6]',
+                    prompt: 'Your password must be at least 6 characters'
+                }
+                ]
+            },
+            confirmPassword: {
+                identifier: 'ConfirmPassword',
+                rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Please confirm the password'
+                },
+                {
+                    type: 'matchPasswords',
+                    prompt: 'Your passwords must match'
+                }
+                ]
+            }
+        },
+        inline: true,
+        onSuccess: function (e, data) {
+            //e.preventDefault();
+            $('#btnRegister').addClass('loading');
+
+            
+
+            @*var data = {
+                __RequestVerificationToken: $('[name="__RequestVerificationToken"]').val(),
+                model: {
+                    Email: $('[name="Email"]').val(),
+                    Password: $('[name="Password"]').val(),
+                    ConfirmPassword: $('[name="ConfirmPassword"]').val()
+                }
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Register", "Account")',
+                data: data,
+                success: function (data) {
+                    window.location.reload();
+                }
+            })*@
+        }
+    });
+</script>

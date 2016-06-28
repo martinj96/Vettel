@@ -14,13 +14,15 @@ namespace Transpo.WebApp.Controllers
     public class HomeController : BaseController
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(int id = 0)
         {
             var model = new SearchResultModel();
             ViewData["Rides"] = model.Rides;
+            ViewBag.Login = id == 1;
             return View();
         }
-        
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()

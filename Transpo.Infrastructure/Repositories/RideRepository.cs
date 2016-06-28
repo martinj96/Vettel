@@ -20,7 +20,7 @@ namespace Transpo.Infrastructure.Data.Repositories
 
         public ICollection<Ride> GetRides(User user)
         {
-            return _context.Rides.Where(r => r.Driver.id == user.id).ToList();
+            return _context.Rides.Where(r => r.Driver.id == user.id && r.Active == true).ToList();
         }
 
         public ICollection<Ride> GetRides(ICollection<CriticalPoint> criticalPoints, decimal radius)

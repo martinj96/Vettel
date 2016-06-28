@@ -62,7 +62,7 @@
     </div>
     <div class="ui container">
         <div class="ui segment" id="rideSearchGrid">
-            @{ Html.RenderPartial("~/Views/Search/_SearchResultsGrid.cshtml", ViewData["Rides"]); }
+            @{ Html.RenderPartial("~/Views/Shared/_SearchResultsGrid.cshtml", ViewData["Rides"]); }
         </div>
     </div>
 
@@ -73,6 +73,9 @@
     <script>
         initMapsSearch();
         $('.menu .item.home').addClass('active');
+        if ("@ViewBag.Login" == "True") {
+            $('#btnLogin').click();
+        }
     </script>
 </body>
 </html>

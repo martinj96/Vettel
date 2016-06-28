@@ -60,18 +60,6 @@
                             @Model.Ride.Description
                         </div>
                     </div>
-                    @if (Model.UserIsRider)
-                    {
-                        <div class="row">
-                            @if (Model.Riders != null)
-                            {
-                                foreach (var rider in Model.Riders)
-                                {
-                                    <div>Rider: @rider.Name - Link: @rider.Link</div>
-                                }
-                            }
-                        </div>
-                    }
                 </div>
             </div>
             <div class="four wide column">
@@ -110,6 +98,16 @@
                         </div>
                     </div>
                 </div>
+                @if (Model.UserIsRider)
+                {
+                    <div class="ui dividing medium header">Actions</div>
+                    <div class="row">
+                        <button class="ui negative button">
+                            <i class="minus circle icon"></i>
+                            @Html.ActionLink("Delete", "DeleteRide", new { id = Model.RideId }, new { @style = "color:white;" })
+                        </button>
+                    </div>
+                }
             </div>
 
         </div>

@@ -235,7 +235,8 @@ namespace Transpo.WebApp.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", GetExternalLoginViewModel(loginInfo));
+                    return await ConfirmExternalLogin(GetExternalLoginViewModel(loginInfo), returnUrl);
+                    //return View("ExternalLoginConfirmation", GetExternalLoginViewModel(loginInfo));
             }
         }
 
@@ -294,39 +295,7 @@ namespace Transpo.WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                var appUser = new AppUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email
-                };
-
-                var user = new User
-                {
-                    Name = model.Name,
-                    PictureUrl = model.PictureUrl,
-                    Gender = model.Gender,
-                    Email = model.Email
-                };
-
-                appUser.User = user;
-
-                var result = await UserManager.CreateAsync(appUser);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(appUser.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(appUser, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
+                return await ConfirmExternalLogin(model, returnUrl);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -427,6 +396,45 @@ namespace Transpo.WebApp.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        private async Task<ActionResult> ConfirmExternalLogin(ExternalLoginConfirmationViewModel model, string returnUrl)
+        {
+            // Get the information about the user from the external login provider
+            var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return View("ExternalLoginFailure");
+            }
+            var appUser = new AppUser
+            {
+                UserName = model.Email,
+                Email = model.Email
+            };
+
+            var user = new User
+            {
+                Name = model.Name,
+                PictureUrl = model.PictureUrl,
+                Gender = model.Gender,
+                Email = model.Email
+            };
+
+            appUser.User = user;
+
+            var result = await UserManager.CreateAsync(appUser);
+            if (result.Succeeded)
+            {
+                result = await UserManager.AddLoginAsync(appUser.Id, info.Login);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(appUser, isPersistent: false, rememberBrowser: false);
+                    return RedirectToLocal(returnUrl);
+                }
+            }
+            AddErrors(result);
+
+            return View("ExternalLoginFailure");
         }
         #endregion
     }

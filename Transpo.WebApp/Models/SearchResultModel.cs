@@ -14,7 +14,22 @@ namespace Transpo.WebApp.Models
     public class SearchResultModel : SearchModel
     {
         public IEnumerable<RideModel> Rides { get; set; }
-        public IServiceFactory serviceFactory;
+        private IServiceFactory serviceFactory;
+
+        public SearchResultModel(User user)
+        {
+            serviceFactory = new ServiceFactory();
+            RideService service = serviceFactory.GetRideService();
+            List<RideModel> rs = new List<RideModel>();
+            ICollection<Ride> col = service.GetMyRides(user);
+
+            foreach (Ride ride in col)
+            {
+                RideModel rideModel = new RideModel(ride);
+                rs.Add(rideModel);
+            }
+            Rides = rs.OrderByDescending(x => x.DepartureDate).AsEnumerable();
+        }
 
         public SearchResultModel(SearchModel searchModel)
         {
@@ -72,7 +87,7 @@ namespace Transpo.WebApp.Models
 
             foreach (Ride ride in col)
             {
-                RideModel rideModel = new RideModel(service.GetById(ride.id));
+                RideModel rideModel = new RideModel(ride);
                 rs.Add(rideModel);
             }
             Rides = rs;

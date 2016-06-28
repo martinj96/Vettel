@@ -25,6 +25,8 @@ namespace Transpo.WebApp.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             Ride ride = _rideService.GetById(id);
@@ -59,8 +61,36 @@ namespace Transpo.WebApp.Controllers
             return View("Details", ConvertRideToViewModel(r, r.id));
         }
 
+        [Authorize]
+        public ActionResult MyRides()
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
 
-        // Helpers
+            if (user == null)
+                throw new UnauthorizedAccessException();
+
+            var rides = new SearchResultModel(user.User);
+
+            return View(rides);
+        }
+
+        [Authorize]
+        public ActionResult DeleteRide(int id)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            var ride = _rideService.GetById(id);
+
+            if (user.User.id != ride.DriverId)
+            {
+                return RedirectToAction("MyRides");
+            }
+
+            _rideService.DeleteRide(id);
+            return RedirectToAction("MyRides");
+        }
+        
+        #region Helpers
         private RideDto ConvertRideModelToDto(RideModel ride, int userId, string returnRide)
         {
             var dto = new RideDto();
@@ -137,6 +167,7 @@ namespace Transpo.WebApp.Controllers
             viewModel.Ride = new RideViewModel(ride);
             viewModel.RideId = id;
             viewModel.Points = _rideService.GetRidesSortedCriticalPoints(id);
+            viewModel.UserIsRider = ride.Driver.id == UserManager.FindById(User.Identity.GetUserId()).User.id;
             //var user = UserManager.FindById(User.Identity.GetUserId()).User;
             ////var user = (HttpContext.User as CustomPrincipal);
             ///*if( userId has access){
@@ -171,5 +202,6 @@ namespace Transpo.WebApp.Controllers
 
             return viewModel;
         }
+        #endregion
     }
 }

@@ -1,0 +1,25 @@
+﻿@using Transpo.WebApp.Models
+@model SearchResultModel
+@{
+    ViewBag.Title = "My Rides";
+}
+<div class="ui container">
+    
+    <h2 class="ui dividing header">@ViewBag.Title</h2>
+
+    <h3 class="ui dividing header">Current Rides</h3>
+
+    <div class="ui basic segment">
+        @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides.Where(x => x.DepartureDate >= DateTime.Now).AsEnumerable()); }
+    </div>
+
+    <h3 class="ui dividing header">Past Rides</h3>
+    <div class="ui basic segment">
+        @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides.Where(x => x.DepartureDate < DateTime.Now).AsEnumerable()); }
+    </div>
+
+</div>
+
+<script>
+    $('.menu .item.myrides').addClass('active');
+</script>

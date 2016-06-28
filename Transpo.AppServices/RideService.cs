@@ -48,10 +48,10 @@ namespace Transpo.AppServices
             return _rideRepository.GetAll();
         }
 
-        //public ICollection<Ride> GetMyRides()
-        //{
-        //    return _rideRepository.GetRides(user);
-        //}
+        public ICollection<Ride> GetMyRides(User user)
+        {
+            return _rideRepository.GetRides(user);
+        }
 
 
         public Ride AddRide(RideDto r)
