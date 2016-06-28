@@ -20,6 +20,7 @@ namespace Transpo.WebApp.Controllers
     {
         // GET: Rides
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();

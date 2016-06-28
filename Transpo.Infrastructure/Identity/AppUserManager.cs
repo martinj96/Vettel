@@ -31,9 +31,6 @@ namespace Transpo.Infrastructure.Data.Identity
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
             };
 
             // Configure user lockout defaults

@@ -7,45 +7,122 @@
 <div class="header">@ViewBag.Title</div>
 <div class="content">
     <section id="loginForm">
-    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "ui form loginform", role = "form" }))
     {
-            @Html.AntiForgeryToken()
-            <div class="ui form">
-                <div class="field">
-                    @Html.LabelFor(m => m.Email, new { @class = "control-label" })
-                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                </div>
-                <div class="field">
-                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                </div>
-                <div class="inline field">
-                    <div class="ui checkbox">
-                        @Html.CheckBoxFor(m => m.RememberMe)
-                        @Html.LabelFor(m => m.RememberMe)
-                    </div>
-                </div>
-                <div class="ui submit button" type="submit" onclick="document.getElementById('submitLogin').click();">Login</div>
-                <div style="display:none;">
-                    <input id="submitLogin" type="submit" value="Log in" class="btn btn-default" />
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
+        @Html.AntiForgeryToken()
+        <div class="field">
+            @*@Html.LabelFor(m => m.Email, new { @class = "control-label" })*@
+            <label for="Email">Email</label>
+            <input id="loginEmail" type="text" name="Email" value="" />
+            @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })*@
+            @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
+        </div>
+        <div class="field">
+            <label for="Password">Password</label>
+            <input id="loginPw" type="password" name="Password" />
+            @*@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })*@
+        </div>
+        <div class="inline field">
+            <div class="ui checkbox">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                @Html.LabelFor(m => m.RememberMe)
             </div>
-            @* Enable this once you have account confirmation enabled for password reset functionality
-                <p>
-                    @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                </p>*@
-        }
+        </div>
+        @*<div class="ui submit button" type="submit">Login</div>*@
+        <div class="ui two column stackable center aligned page grid">
+            <div class="seven wide column">
+                <input id="submitLogin" type="submit" value="Log in" class="ui submit button" />
+            </div>
+            <div class="nine wide column">
+                <button class="ui button">
+                    @Html.ActionLink("Register", "Register")
+                </button>
+            </div>
+        </div>
+        <div class="ui one column stackable center aligned page grid">
+            <div class="column sixteen wide">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class="ui error message", @style="display:block;" })
+        
+        @* Enable this once you have account confirmation enabled for password reset functionality
+            <p>
+                @Html.ActionLink("Forgot your password?", "ForgotPassword")
+            </p>*@
+    }
     </section>
-    <section id="socialLoginForm">
-        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-    </section>
+
 </div>
 
 <script>
     $('.checkbox').checkbox();
+
+    $('.ui.form.loginform').form({
+        fields: {
+            email: {
+                identifier: 'Email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Please enter an email'
+                    },
+                    {
+                        type: 'email',
+                        prompt: 'Invalid email'
+                    }
+                ]
+            },
+            password: {
+                identifier: 'Password',
+                rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Please enter a password'
+                },
+                {
+                    type: 'length[6]',
+                    prompt: 'Your password must be at least 6 characters'
+                }
+                ]
+            }
+        },
+        inline: true,
+        onSuccess: function (e, data) {
+            e.preventDefault();
+
+            var loader = '<div class="ui basic segment"><div class="ui active inverted dimmer"><div class="ui centered big text inline loader">Loading</div></div><p>&nbsp;</p></div>';
+            var data = {
+                __RequestVerificationToken: $('[name="__RequestVerificationToken"]').val(),
+                model: {
+                    Password: $('#loginPw').val(),
+                    Email: $('#loginEmail').val()
+                },
+                returnUrl: "@ViewBag.ReturnUrl"
+            };
+            $('#loginModal > .content').html(loader);
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Login", "Account")',
+                data: data,
+                success: function (data) {
+                    if ($(data)[1].localName === "meta") {
+                        window.location.reload();
+                    } else {
+                        $('#loginModal').html(data);
+                    }
+                },
+                error: function (data) {
+                    $('#loginModal').html(data);
+                }
+            })
+            //document.getElementById('submitLogin').click();
+        }
+    });
 </script>
