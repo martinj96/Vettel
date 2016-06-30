@@ -1,18 +1,18 @@
 ﻿<link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
 
 <div class="ui container">
-    @using (Html.BeginForm("CreateRide", "Rides", FormMethod.Get))
+    @using (Html.BeginForm("CreateRide", "Rides", FormMethod.Get, new { @class = "ui form createrideform" }))
     {
         <div class="ui two column divided grid">
             <div class="ten wide column">
                 <div class="ui large header">Enter Ride Details</div>
 
                 <div class="ui dividing medium header">Destination and Origin</div>
-                <div class="ui form">
+                <div class="">
                     <div class="two fields">
                         <div class="field">
                             <div class="ui icon input">
-                                <input required type="text" id="searchbox-from" placeholder="From">
+                                <input type="text" id="searchbox-from" placeholder="From" name="Origin">
                                 <input type="hidden" name="StartPoint.Latitude" />
                                 <input type="hidden" name="StartPoint.Longitude" />
                                 <input type="hidden" name="StartPoint.Name" />
@@ -20,7 +20,7 @@
                         </div>
                         <div class="field">
                             <div class="ui icon input">
-                                <input required type="text" id="searchbox-to" placeholder="To">
+                                <input type="text" id="searchbox-to" placeholder="To" name="Destination">
                                 <input type="hidden" name="EndPoint.Latitude" />
                                 <input type="hidden" name="EndPoint.Longitude" />
                                 <input type="hidden" name="EndPoint.Name" />
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="ui dividing medium header">Waypoints</div>
-                <div class="ui form waypoints">
+                <div class="waypoints">
                     <div class="field">
                         <div class="ui icon input">
                             <input type="text" class="waypoint" placeholder="Add a Waypoint">
@@ -43,13 +43,13 @@
                 </div>
 
                 <div class="ui dividing medium header">Date and Time</div>
-                <div class="ui form">
+                <div class="">
                     <div class="field">
                         <div class="ui toggle checkbox">
                             <label>Return ride?</label>
-                            <input type="checkbox" id="return" tabindex="0" class="hidden" checked>
+                            <input type="checkbox" id="return" tabindex="0" class="hidden">
                         </div>
-                        <input type="hidden" name="returnR" id="returnRide" value="true">
+                        <input type="hidden" name="returnR" id="returnRide" value="false">
                     </div>
 
                     <div class="ui header tiny">Departure Date:</div>
@@ -59,24 +59,24 @@
                                 <div class="ui calendar" id="departureCalendar">
                                     <div class="ui input left icon">
                                         <i class="calendar icon"></i>
-                                        <input required type="text" placeholder="" style="max-width:90%">
+                                        <input type="text" placeholder="" style="max-width:90%">
                                     </div>
                                 </div>
                                 <input type="hidden" id="date-origin" placeholder="" name="DepartureDate">
                                 @*<div class="ui icon input">
-                                    <input required type="date" id="date-origin" placeholder="" name="DepartureDate">
-                                </div>*@
+                                <input type="date" id="date-origin" placeholder="" name="DepartureDate">
+                            </div>*@
                             </div>
                         </div>
                         <div class="eight wide column">
                             <div class="two fields">
                                 <div class="field">
-                                    <select required class="ui fluid search dropdown hour" name="TimeDeparture.hour">
+                                    <select class="ui fluid search dropdown hour" name="TimeDeparture.hour">
                                         <option value="">Hour</option>
                                     </select>
                                 </div>
                                 <div class="field">
-                                    <select required class="ui fluid search dropdown minutes" name="TimeDeparture.minutes">
+                                    <select class="ui fluid search dropdown minutes" name="TimeDeparture.minutes">
                                         <option value="">Minutes</option>
                                     </select>
                                 </div>
@@ -84,31 +84,31 @@
                         </div>
                     </div>
 
-                    <div class="ui header tiny return-date-header">Return Date:</div>
-                    <div class="ui grid return-date">
+                    <div class="ui header tiny return-date-header" style="display:none;">Return Date:</div>
+                    <div class="ui grid return-date" style="display:none;">
                         <div class="eight wide column">
                             <div class="field">
                                 <div class="ui calendar" id="returnCalendar">
                                     <div class="ui input left icon">
                                         <i class="calendar icon"></i>
-                                        <input required type="text" placeholder="" style="max-width:90%" id="date-destination" >
+                                        <input type="text" placeholder="" style="max-width:90%" id="date-destination">
                                     </div>
                                 </div>
                                 <input type="hidden" name="ReturnDepartureDate" placeholder="">
                                 @*<div class="ui icon input">
-                                    <input required type="date" id="date-destination" name="ReturnDepartureDate" placeholder="">
-                                </div>*@
+                                <input type="date" id="date-destination" name="ReturnDepartureDate" placeholder="">
+                            </div>*@
                             </div>
                         </div>
                         <div class="eight wide column">
                             <div class="two fields">
                                 <div class="field">
-                                    <select required class="ui fluid search dropdown hour" id="hour-destination" name="ReturnTimeDeparture.Hour">
+                                    <select class="ui fluid search dropdown hour" id="hour-destination" name="ReturnTimeDeparture.Hour">
                                         <option value="">Hour</option>
                                     </select>
                                 </div>
                                 <div class="field">
-                                    <select required class="ui fluid search dropdown minutes" id="minute-destination" name="ReturnTimeDeparture.Minutes">
+                                    <select class="ui fluid search dropdown minutes" id="minute-destination" name="ReturnTimeDeparture.Minutes">
                                         <option value="">Minutes</option>
                                     </select>
                                 </div>
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="ui dividing medium header">Additional Information</div>
-                <div class="ui form">
+                <div class="">
                     <div class="fields">
                         <div class="field">
                             <label for="Description">Description</label>
@@ -128,8 +128,6 @@
                             <label for="Length">Distance</label>
                             <input type="text" name="Length">
                         </div>
-                    </div>
-                    <div class="fields">
                         <div class="field">
                             <label for="SeatsLeft">Available Seats</label>
                             <input type="number" name="SeatsLeft" value="3" max="15" min="1">
@@ -138,34 +136,37 @@
                             <label for="PricePerPassenger">Price per passenger</label>
                             <input type="text" name="PricePerPassenger">
                         </div>
-                        <div class="field">
+                        @*<div class="field">
                             <label for="detour">Detour</label>
                             <input type="text" name="detour">
-                        </div>
+                        </div>*@
                     </div>
                 </div>
 
                 <!-- Commented out, for future
-                <div class="ui dividing medium header">Frequency</div>
-                <div class="ui form">
-                    <div class="inline fields">
-                        <div class="field">
-                            <div class="ui radio checkbox">
-                                <input type="radio" name="frequency" checked="" tabindex="0" class="hidden">
-                                <label>One-off ride</label>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui radio checkbox">
-                                <input type="radio" name="frequency" tabindex="0" class="hidden">
-                                <label>Repeat ride</label>
-                            </div>
-                        </div>
+        <div class="ui dividing medium header">Frequency</div>
+        <div class="ui form">
+            <div class="inline fields">
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="frequency" checked="" tabindex="0" class="hidden">
+                        <label>One-off ride</label>
                     </div>
-                </div>-->
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="frequency" tabindex="0" class="hidden">
+                        <label>Repeat ride</label>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+                @Html.ValidationSummary(true, "", new { @class = "ui error message", @style = "display:block;" })
                 <div class="ui divider"></div>
-                <input type="submit" id="submitCreateRide" hidden />
-                <button class="ui huge positive right floated button" type="submit" id="btnSubmitRide">Submit</button>
+                @*<input type="submit" id="submitCreateRide" hidden />*@
+                <div class="field">
+                    <button class="ui huge positive right floated button" type="submit" id="btnSubmitRide">Submit</button>
+                </div>
             </div>
             <div class="six wide column">
                 <div id="map" style="height:450px;width:450px;"></div>

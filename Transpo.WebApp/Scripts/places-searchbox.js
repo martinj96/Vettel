@@ -25,3 +25,7 @@
         setPlaceTo(place);
     });
 }
+
+function SearchSuccess() {
+    $('#btnSubmitSearch').removeClass('loading');
+}

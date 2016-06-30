@@ -14,7 +14,7 @@ function setPlaceFrom(place) {
     document.getElementsByName("FromLongitude")[0].value = from_place.geometry.location.lng();
     document.getElementsByName("FromLatitude")[0].value = from_place.geometry.location.lat();
     document.getElementsByName("FromCityName")[0].value = from_place.name;
-    document.getElementsByName("FromCountryShortCode")[0].value = from_place.address_components[2].short_name;
+    //document.getElementsByName("FromCountryShortCode")[0].value = from_place.address_components[2].short_name;
 }
 
 function setPlaceTo(place) {
@@ -22,15 +22,26 @@ function setPlaceTo(place) {
     document.getElementsByName("ToLongitude")[0].value = to_place.geometry.location.lng();
     document.getElementsByName("ToLatitude")[0].value = to_place.geometry.location.lat();
     document.getElementsByName("ToCityName")[0].value = to_place.name;
-    document.getElementsByName("ToCountryShortCode")[0].value = to_place.address_components[2].short_name;
+    //document.getElementsByName("ToCountryShortCode")[0].value = to_place.address_components[2].short_name;
 }
 
 document.getElementById("btnSubmitSearch").addEventListener("click", function () {
+    var from = getPlaceFrom(),
+        to = getPlaceTo();
+    if (from === undefined || to === undefined) {
+        showWarningMessage("");
+        return false;
+    }
+
+    $(this).addClass('loading');
+
     var date = $("#calendar").calendar('get date');
     if (date instanceof Date)
-    document.getElementsByName("Date")[0].value = date.toDateString();
+        document.getElementsByName("Date")[0].value = date.toDateString();
     document.getElementById("submitSearch").click();
 });
+
+function showWarningMessage(msg) {}
 
 $('#calendar').calendar({
     type: 'date',

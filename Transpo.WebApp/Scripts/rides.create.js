@@ -45,15 +45,9 @@ for (var i = 0; i < 46; i+=15) {
 }
 
 $('#return').on('change', function () {
-    if ($('#date-destination').attr('required')) {
-        $('#date-destination').removeAttr('required');
-        $('#hour-destination').removeAttr('required');
-        $('#minute-destination').removeAttr('required');
+    if ($("#returnRide").attr("value") == "true") {
         $("#returnRide").attr("value", "false")
     } else {
-        $('#date-destination').attr('required', 'required');
-        $('#hour-destination').attr('required', 'required');
-        $('#minute-destination').attr('required', 'required');
         $("#returnRide").attr("value", "true")
     }
     $('.return-date-header').fadeToggle();
@@ -62,13 +56,13 @@ $('#return').on('change', function () {
 
 addSearchboxToElement($('.waypoint')[0]);
 
-$('#btnSubmitRide').on('click', function () {
-    document.getElementsByName("DepartureDate")[0].value = $('#departureCalendar').calendar('get date').toDateString();
-    var returnDate = $('#returnCalendar').calendar('get date');
-    if (returnDate instanceof Date)
-        document.getElementsByName("ReturnDepartureDate")[0].value = returnDate.toDateString();
-    $('#submitCreateRide').submit();
-})
+//$('#btnSubmitRide').on('click', function () {
+//    document.getElementsByName("DepartureDate")[0].value = $('#departureCalendar').calendar('get date').toDateString();
+//    var returnDate = $('#returnCalendar').calendar('get date');
+//    if (returnDate instanceof Date)
+//        document.getElementsByName("ReturnDepartureDate")[0].value = returnDate.toDateString();
+//    $('#submitCreateRide').submit();
+//})
 
 function UpdateDistance(distance) {
     var PRICE_FACTOR = 7.38;
@@ -93,3 +87,171 @@ var calendar_options = {
 $('#departureCalendar').calendar(calendar_options);
 $('#returnCalendar').calendar(calendar_options);
 
+$.fn.form.settings.rules.HasOrigin = function (value) {
+    var lat = $('[name="StartPoint.Latitude"').val().length > 0;
+    var lon = $('[name="StartPoint.Longitude"').val().length > 0;
+    var name = $('[name="StartPoint.Name"').val().length > 0;
+    return lat && lon && name;
+}
+
+$.fn.form.settings.rules.HasDestination = function (value) {
+    var lat = $('[name="EndPoint.Latitude"').val().length > 0;
+    var lon = $('[name="EndPoint.Longitude"').val().length > 0;
+    var name = $('[name="EndPoint.Name"').val().length > 0;
+    return lat && lon && name;
+}
+
+$.fn.form.settings.rules.ValidateDepartureDate = function (value) {
+    var date = $('#departureCalendar').calendar('get date');
+    if (!(date instanceof Date))
+        return false;
+    document.getElementsByName("DepartureDate")[0].value = date.toDateString();
+    return $('[name="DepartureDate"]').val().length > 0;
+}
+
+$.fn.form.settings.rules.ReturnDepartureDateValidator = function (value) {
+    if ($('#returnRide').val() == "false")
+        return true;
+
+    var returnDate = $('#returnCalendar').calendar('get date');
+    if (returnDate instanceof Date) {
+        document.getElementsByName("ReturnDepartureDate")[0].value = returnDate.toDateString();
+    }
+    return $('[name="ReturnDepartureDate"]').val().length > 0;
+}
+
+$.fn.form.settings.rules.ReturnDepartureHourValidator = function (value) {
+    if ($('#returnRide').val() == "false")
+        return true;
+    return $('[name="ReturnTimeDeparture.Hour"]').val().length > 0;
+}
+
+$.fn.form.settings.rules.ReturnDepartureTimeValidator = function (value) {
+    if ($('#returnRide').val() == "false")
+        return true;
+    return $('[name="ReturnTimeDeparture.Minutes"]').val().length > 0;
+}
+
+$.fn.form.settings.rules.ReturnValidator = function (value) {
+    if ($('#returnRide').val() == "false")
+        return true;
+    var departureDate = $('#departureCalendar').calendar('get date');
+    var departureHour = $('[name="TimeDeparture.hour"]').val();
+    var departureMinutes = $('[name="TimeDeparture.minutes"]').val();
+    var date = $('#returnCalendar').calendar('get date');
+    var hour = $('[name="ReturnTimeDeparture.Hour"]').val();
+    var minutes = $('[name="ReturnTimeDeparture.Minutes"]').val();
+    if ((departureDate instanceof Date) 
+        && (date instanceof Date) 
+        && hour.length > 0 
+        && minutes.length > 0
+        && departureHour.length > 0
+        && departureMinutes.length > 0) {
+        departureDate.setHours(departureHour);
+        departureDate.setMinutes(departureMinutes);
+        date.setHours(hour);
+        date.setMinutes(minutes);
+        if (date > departureDate)
+            return true;
+        else
+            return false;
+    } else {
+        return true;
+    }
+}
+
+
+$('.ui.form.createrideform').form({
+    fields: {
+        origin: {
+            identifier: 'Origin',
+            rules: [
+                {
+                    type: 'HasOrigin',
+                    prompt: 'Please enter an origin'
+                }
+            ]
+        },
+        destination: {
+            identifier: 'Destination',
+            rules: [
+                {
+                    type: 'HasDestination',
+                    prompt: 'Please enter a destination'
+                }
+            ]
+        },
+        departureDate: {
+            identifier: 'DepartureDate',
+            rules: [
+            {
+                type: 'ValidateDepartureDate',
+                prompt: 'Please enter a departure date'
+            }
+            ]
+        },
+        departureHours: {
+            identifier: 'TimeDeparture.hour',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Please enter time of departure'
+                }
+            ]
+        },
+        departureTime: {
+            identifier: 'TimeDeparture.minutes',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Please enter time of departure'
+                }
+            ]
+        },
+        returnDepartureDate: {
+            identifier: 'ReturnDepartureDate',
+            rules: [
+                {
+                    type: 'ReturnDepartureDateValidator',
+                    prompt: 'Please enter a departure date'
+                },
+                {
+                    type: 'ReturnValidator',
+                    prompt: 'Return ride must be after departure'
+                }
+            ]
+        },
+        returnDepartureHours: {
+            identifier: 'ReturnTimeDeparture.Hour',
+            rules: [
+                {
+                    type: 'ReturnDepartureHourValidator',
+                    prompt: 'Please enter time of departure'
+                },
+                {
+                    type: 'ReturnValidator',
+                    prompt: 'Return ride must be after departure'
+                }
+            ]
+        },
+        returnDepartureTime: {
+            identifier: 'ReturnTimeDeparture.Minutes',
+            rules: [
+                {
+                    type: 'ReturnDepartureTimeValidator',
+                    prompt: 'Please enter time of departure'
+                },
+                {
+                    type: 'ReturnValidator',
+                    prompt: 'Return ride must be after departure'
+                }
+            ]
+        },
+
+
+    },
+    inline: true,
+    onSuccess: function (e, data) {
+        $('#btnSubmitRide').addClass('loading');
+    }
+});

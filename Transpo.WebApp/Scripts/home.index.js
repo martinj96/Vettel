@@ -34,6 +34,8 @@ document.getElementById("btnSubmitSearch").addEventListener("click", function ()
         return false;
     }
 
+    $(this).addClass('loading');
+
     document.getElementById("submitSearch").click();
 
 });
