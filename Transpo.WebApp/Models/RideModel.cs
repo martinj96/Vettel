@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,18 +22,23 @@ namespace Transpo.WebApp.Models
 
     public class RideModel
     {
+        [Required]
         public Point StartPoint { get; set; }
+        [Required]
         public Point EndPoint { get; set; }
         public decimal? PricePerPassenger { get; set; }
         public int? SeatsLeft { get; set; }
         public decimal? Length { get; set; }
         public int? Detour { get; set; }
+        [Required]
         public DateTime DepartureDate { get; set; }
+        [Required]
         public Time TimeDeparture { get; set; }
-        public Time ReturnTimeDeparture { get; set; }
+        [Required]
         public string Description { get; set; }
         public ICollection<Point> Waypoints { get; set; }
         public DateTime? ReturnDepartureDate { get; set; }
+        public Time ReturnTimeDeparture { get; set; }
         public UserViewModel Driver { get; set; }
         public int RideId { get; set; }
 
