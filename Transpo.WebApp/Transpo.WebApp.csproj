@@ -318,6 +318,7 @@
     <Content Include="Images\Backgrounds\8.jpg" />
     <Content Include="Images\Backgrounds\9.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\no_image.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\themes\default\assets\fonts\icons.woff2" />
@@ -344,6 +345,8 @@
     <Content Include="Scripts\home.index.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.slimscroll.js" />
+    <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\layout.js" />
@@ -368,6 +371,7 @@
     <Compile Include="Controllers\RidesController.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessagesViewModels.cs" />
     <Compile Include="Models\RideDetailsViewModel.cs" />
     <Compile Include="Models\RideViewModel.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -395,7 +399,6 @@
     <Content Include="Views\Shared\_SearchBar.cshtml" />
     <Content Include="Views\Shared\_SearchResultsGrid.cshtml" />
     <Content Include="Views\Rides\Create.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Rides\Details.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -414,6 +417,11 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Rides\MyRides.cshtml" />
+    <Content Include="Views\Manage\ModifyPersonalInfo.cshtml" />
+    <Content Include="Views\Messages\Index.cshtml" />
+    <Content Include="Views\Messages\Conversation.cshtml" />
+    <Content Include="Views\Messages\ConversationList.cshtml" />
+    <Content Include="Views\Messages\SendMessage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

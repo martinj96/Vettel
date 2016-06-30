@@ -1,6 +1,7 @@
 ﻿@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "item home" })
 @Html.ActionLink("Create Ride", "Create", "Rides", new { area = "" }, new { @class = "item create" })
 @Html.ActionLink("My Rides", "MyRides", "Rides", new { area = "" }, new { @class = "item myrides" })
+@Html.ActionLink("Messages", "Index", "Messages", new { area = "" }, new { @class = "item messages" })
 <div class="right item">
     @if (Request.IsAuthenticated)
     {
@@ -18,10 +19,11 @@
         /*<a class="ui inverted button" id="login" href="@Url.Action("Login", "Account", new { returnUrl = "Home/Index" })">Login</a>*/
         <button class="ui button" id="btnLogin" >Login</button>
     }
-    <div class="ui tiny modal" id="loginModal"></div>
+    <div class="ui tiny modal" id="loginModal">
+        @{ Html.RenderAction("Login", "Account"); }
+    </div>
 </div>
 <script>
-    $('#loginModal').load('@Url.Action("Login", "Account")');
     $('#loginModal').modal("setting", {
         onShow: function () {
         }

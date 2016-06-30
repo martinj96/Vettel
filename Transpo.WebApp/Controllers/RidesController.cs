@@ -27,8 +27,13 @@ namespace Transpo.WebApp.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Details(int id)
+        public ActionResult Details(int id = 0)
         {
+            if (id == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Ride ride = _rideService.GetById(id);
             if (ride == null || ride.Active == false)
                 return Content("Invalid ride.. Place make sure you request an existing ride.");

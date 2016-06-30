@@ -17,6 +17,7 @@ namespace Transpo.WebApp.Controllers
         protected CarService _carService;
         protected RideService _rideService;
         protected UserService _userService;
+        protected MessageService _messageService;
         protected AppSignInManager _signInManager;
         protected AppUserManager _userManager;
 
@@ -33,6 +34,8 @@ namespace Transpo.WebApp.Controllers
             var orderedCriticalPointRepository = new OrderedCriticalPointRepository(dbContext);
             _rideService = new RideService(rideRepository, userRepository, criticalPointRepository, orderedCriticalPointRepository);
             var characteristicsRepository = new CharacteristicRepository(dbContext);
+            var messageRepository = new MessageRepository(dbContext);
+            _messageService = new MessageService(messageRepository, userRepository);
         }
 
         public AppSignInManager SignInManager

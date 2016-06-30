@@ -33,5 +33,10 @@ namespace Transpo.AppServices.Factories
         {
             return new UserService(new UserRepository(DbContext));
         }
+
+        public MessageService GetMessageService()
+        {
+            return new MessageService(new MessageRepository(DbContext), new UserRepository(DbContext));
+        }
     }
 }

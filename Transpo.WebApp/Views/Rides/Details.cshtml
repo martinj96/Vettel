@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<div class="ui small modal" id="sendMessageModal">
+    @if (!Model.UserIsRider)
+    {
+        Html.RenderAction("SendMessage", "Messages", new { @id = Model.RideId });
+    }
+</div>
 <div class="ui container">
     <h4 class="ui header">
         @for (int i = 0; i < Model.Points.Count; i++)
@@ -70,7 +75,7 @@
 
                     @if (Model.UserIsRider != true)
                     {
-                        <div><button id="letsride" class="ui positive button huge">Let's ride together! <i class="car icon"></i></button></div>
+                        <div><button id="btnSendMessage" class="ui positive button big">Send Message <i class="message icon"></i></button></div>
                     }
                 </div>
                 <div class="ui dividing medium header">Driver</div>
@@ -114,8 +119,15 @@
     </div>
 </div>
 <script>
-    $.ajax({
+    $('#sendMessageModal').modal("setting", {
+        onShow: function () {
+        }
+    });
+    $('#btnSendMessage').on('click', function () {
+        $('#sendMessageModal').modal('show');
+    });
+    @*$.ajax({
         url : @String.Format("{0}/{1}", HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority), "Rides/AddMeToUser"),
         data : { rideId : @Model.RideId }
-    })
+    })*@
 </script>

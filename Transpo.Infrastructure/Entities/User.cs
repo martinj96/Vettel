@@ -19,6 +19,7 @@ namespace Transpo.Infrastructure.Data.Entities
 
         public string Name { get; set; }
         public int? Gender { get; set; }
+        public int? Age { get; set; }
         public string Link { get; set; }
         public long FacebookId { get; set; }
         public decimal Rating { get; set; }
@@ -32,6 +33,7 @@ namespace Transpo.Infrastructure.Data.Entities
         public virtual ICollection<Ride> MyRides { get; set; }
         public virtual ICollection<Ride> Rides { get; set; }
         public virtual ICollection<Ride> HasAccessToRides { get; set; }
-
+        public virtual ICollection<Message> SentMessages { get; set; }
+        public virtual ICollection<Message> ReceivedMessages { get; set; }
     }
 }

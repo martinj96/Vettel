@@ -12,16 +12,22 @@
     
 
     @*<div class="ui dividing header">Change your account settings</div>*@
-    <div class="ui segment" id="manageFormPartial">
-        @if (Model.HasPassword)
-        {
-            Html.RenderAction("ChangePassword", "Manage");
-        }
-        else
-        {
-            Html.RenderAction("SetPassword", "Manage");
-        }
-
+    <div class="ui segment" >
+        <div class="ui internally celled grid">
+            <div class="eight wide column" id="manageFormPartial">
+                @if (Model.HasPassword)
+            {
+                Html.RenderAction("ChangePassword", "Manage");
+            }
+            else
+            {
+                Html.RenderAction("SetPassword", "Manage");
+            }
+            </div>
+            <div class="eight wide column" id="personalInfoPartial">
+                @{ Html.RenderAction("ModifyPersonalInfo", "Manage"); }
+            </div>
+        </div>
         @*<dl class="dl-horizontal">
             <dt>Password:</dt>
             <dd>

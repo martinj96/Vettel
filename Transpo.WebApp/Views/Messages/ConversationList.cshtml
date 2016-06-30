@@ -1,0 +1,51 @@
+﻿@using Transpo.WebApp.Models
+@model IEnumerable<MessageViewModel>
+
+@{ 
+    Layout = null;
+}
+
+<input type="hidden" value="@ViewBag.UserId" id="userId" />
+@using (Ajax.BeginForm("Conversation", new AjaxOptions { UpdateTargetId = "conversation", HttpMethod = "Post" }))
+{
+    <div class="ui relaxed divided list conversationList">
+        @foreach (var message in Model)
+        {
+            <div class="item" data-rec="@message.RecipientId" data-send="@message.SenderId">
+                <div class="ui tiny circular image">
+                    <img src="@message.Sender.PictureUrl" />
+                </div>
+                <div class="middle aligned content">
+                    <a class="header">
+                        @message.Sender.Name
+                    </a>
+                    <div class="description">
+                        @message.Body
+                    </div>
+                </div>
+            </div>
+        }
+        <input type="hidden" name="id" id="id" />
+        <input type="submit" id="submitRefreshConversation" style="display:none;"/>
+    </div>
+}
+
+<script>
+    $('.conversationList .item').on('click', function (e) {
+        e.preventDefault();
+        $('.item').each(function () {
+            $(this).removeClass('active');
+        });
+        $(this).addClass('active');
+        var rec_id = $(this).data('rec');
+        var send_id = $(this).data('send');
+
+        if ($('#userId').val() == rec_id) {
+            $('#id').val(send_id);
+        } else {
+            $('#id').val(rec_id);
+        }
+
+        $('#submitRefreshConversation').submit();
+    });
+</script>

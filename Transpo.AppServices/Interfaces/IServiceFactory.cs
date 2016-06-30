@@ -13,5 +13,7 @@ namespace Transpo.AppServices.Interfaces
         UserService GetUserService();
 
         CarService GetCarService();
+
+        MessageService GetMessageService();
     }
 }

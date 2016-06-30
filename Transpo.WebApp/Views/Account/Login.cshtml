@@ -94,7 +94,7 @@
         onSuccess: function (e, data) {
             e.preventDefault();
 
-            var loader = '<div class="ui basic segment"><div class="ui active inverted dimmer"><div class="ui centered big text inline loader">Loading</div></div><p>&nbsp;</p></div>';
+            //var loader = '<div class="ui basic segment"><div class="ui active inverted dimmer"><div class="ui centered big text inline loader">Loading</div></div><p>&nbsp;</p></div>';
             var data = {
                 __RequestVerificationToken: $('[name="__RequestVerificationToken"]').val(),
                 model: {
@@ -103,7 +103,7 @@
                 },
                 returnUrl: "@ViewBag.ReturnUrl"
             };
-            $('#loginModal > .content').html(loader);
+            $('#submitLogin').addClass('loading');
 
             $.ajax({
                 type: 'POST',

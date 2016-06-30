@@ -28,6 +28,7 @@ namespace Transpo.Infrastructure.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Ride> Rides { get; set; }
         public DbSet<OrderedCriticalPoint> OrderedCriticalPoints { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -69,6 +70,19 @@ namespace Transpo.Infrastructure.Data
                    cs.MapRightKey("RideId");
                    cs.ToTable("UserRide");
                });
+
+            // Messages - Users
+            modelBuilder.Entity<Message>()
+                .HasRequired(x => x.Recipient)
+                .WithMany(u => u.ReceivedMessages)
+                .HasForeignKey(m => m.RecipientId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Message>()
+                .HasRequired(x => x.Sender)
+                .WithMany(u => u.SentMessages)
+                .HasForeignKey(m => m.SenderId)
+                .WillCascadeOnDelete(false);
 
             // Ride - OrderedCriticalPoint
             modelBuilder.Entity<Ride>()

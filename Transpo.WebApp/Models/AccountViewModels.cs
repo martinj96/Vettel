@@ -83,6 +83,15 @@ namespace Transpo.WebApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public int? Gender { get; set; }
+
+        [Range(0, 99, ErrorMessage = "Please enter a valid age")]
+        public int? Age { get; set; }
+
+        public string Name { get; set; }
+
+        public string Phone { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -112,5 +121,13 @@ namespace Transpo.WebApp.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class PersonalInfoViewModel
+    {
+        public string Name { get; set; }
+        public int? Gender { get; set; }
+        public int? Age { get; set; }
+        public string Phone { get; set; }
     }
 }

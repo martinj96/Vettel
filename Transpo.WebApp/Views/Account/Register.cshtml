@@ -26,6 +26,29 @@
                     @Html.LabelFor(m => m.ConfirmPassword)
                     @Html.PasswordFor(m => m.ConfirmPassword)
                 </div>
+
+                <div class="field">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(m => m.Age)
+                    @Html.TextBoxFor(m => m.Age, new { @type = "number" })
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.Gender)
+                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>()
+                        {
+                            new SelectListItem { Text = "Male", Value = "1", Selected = true },
+                            new SelectListItem { Text = "Female", Value = "2" }
+                        })
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.Phone)
+                    @Html.TextBoxFor(m => m.Phone)
+                </div>
+
                 <button type="submit" class="ui primary button" value="Register" id="btnRegister">Register</button>
             </div>
         </div>
@@ -77,32 +100,20 @@
                     prompt: 'Your passwords must match'
                 }
                 ]
+            },
+            phone: {
+                identifier: 'Phone',
+                rules: [
+                    {
+                        type: 'regExp[/((07)[0-9]{7})|((07)[0-9]\-[0-9]{3}\-[0-9]{3})|$/]',
+                        prompt: 'Phone not valid'
+                    }
+                ]
             }
         },
         inline: true,
         onSuccess: function (e, data) {
-            //e.preventDefault();
             $('#btnRegister').addClass('loading');
-
-            
-
-            @*var data = {
-                __RequestVerificationToken: $('[name="__RequestVerificationToken"]').val(),
-                model: {
-                    Email: $('[name="Email"]').val(),
-                    Password: $('[name="Password"]').val(),
-                    ConfirmPassword: $('[name="ConfirmPassword"]').val()
-                }
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("Register", "Account")',
-                data: data,
-                success: function (data) {
-                    window.location.reload();
-                }
-            })*@
         }
     });
 </script>

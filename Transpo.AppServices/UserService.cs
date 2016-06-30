@@ -50,6 +50,23 @@ namespace Transpo.AppServices
             return _userRepository.GetById(id);
         }
 
+        public User UpdateUserInfo(int userId, LoginDto u)
+        {
+            User user = _userRepository.GetById(userId);
+            user.Age = u.Age;
+            user.Name = u.Name;
+            user.Phone = u.Phone;
+            if (u.Gender == "male")
+                user.Gender = (int)Gender.Male;
+            else
+                user.Gender = (int)Gender.Female;
+
+            _userRepository.Edit(user);
+            _userRepository.Save();
+
+            return user;
+        }
+
         //public User GetUserByFacebookId(long id)
         //{
         //    return _userRepository.GetUserByFacebookId(id);

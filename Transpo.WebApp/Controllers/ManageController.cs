@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Transpo.WebApp.Models;
 using Transpo.Infrastructure.Data.Identity;
+using Transpo.AppServices.DTOs;
 
 namespace Transpo.WebApp.Controllers
 {
@@ -227,6 +228,53 @@ namespace Transpo.WebApp.Controllers
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+        }
+
+        //
+        // GET: /Manage/ModifyPersonalInfo
+        [HttpGet]
+        [Authorize]
+        public ActionResult ModifyPersonalInfo()
+        {
+            var appUser = UserManager.FindById(User.Identity.GetUserId());
+            if (appUser == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            var user = appUser.User;
+            PersonalInfoViewModel model = new PersonalInfoViewModel
+            {
+                Age = user.Age,
+                Name = user.Name,
+                Gender = user.Gender,
+                Phone = user.Phone
+            };
+
+            return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangePersonalInfo
+        [HttpPost]
+        [Authorize]
+        public ActionResult ChangePersonalInfo(PersonalInfoViewModel model)
+        {
+            var appUser = UserManager.FindById(User.Identity.GetUserId());
+            if (appUser == null)
+            {
+                throw new UnauthorizedAccessException();
+            }
+            var user = appUser.User;
+            var uDto = new LoginDto
+            {
+                Name = model.Name,
+                Age = model.Age,
+                Phone = model.Phone,
+                Gender = model.Gender == (int)AppServices.Gender.Male ? "male" : "female"
+            };
+            _userService.UpdateUserInfo(user.id, uDto);
+
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

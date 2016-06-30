@@ -1,0 +1,46 @@
+﻿@using Transpo.WebApp.Models
+@model MessageViewModel
+
+@{ 
+    Layout = null;
+}
+<div class="ui header">
+    Message @Model.Recipient.Name
+</div>
+<div class="ui content">
+    @using (Html.BeginForm("SendMessage", "Messages", FormMethod.Post, new { @class = "ui form" }))
+    {
+        <div class="field">
+            @Html.TextBoxFor(x => x.Subject)
+        </div>
+        <div class="field">
+            @Html.TextAreaFor(x => x.Body)
+        </div>
+
+        @Html.HiddenFor(x => x.RecipientId)
+        @Html.HiddenFor(x => x.SenderId)
+
+        <button type="submit" class="ui blue button" id="sendMsg">Send</button>
+    }
+</div>
+<script>
+    $('#sendMsg').on('click', function (e) {
+        e.preventDefault();
+        var model = {
+            Body: $('#bodyText').val(),
+            RecipientId: $('#id').val(),
+            SenderId: $('#userId').val(),
+            Subject: $('#subject').text()
+        }
+        $('#sendMsg').addClass('loading');
+        $.ajax({
+            type: "POST",
+            url: "../../Messages/SendMessage",
+            data: model,
+            success: function () {
+                $('#sendMsg').removeClass('loading');
+                $('#sendMessageModal').modal('hide');
+            }
+        })
+    });
+</script>

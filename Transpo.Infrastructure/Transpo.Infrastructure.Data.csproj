@@ -84,6 +84,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -94,10 +95,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAUtilities.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\Characteristic.cs" />
     <Compile Include="Entities\CriticalPoint.cs" />
+    <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\OrderedCriticalPoint.cs" />
     <Compile Include="Entities\Review.cs" />
     <Compile Include="Entities\Ride.cs" />
@@ -112,50 +115,15 @@
     <Compile Include="Interfaces\ICarRepository.cs" />
     <Compile Include="Interfaces\ICharacteristicRepository.cs" />
     <Compile Include="Interfaces\ICriticalPointRepository.cs" />
+    <Compile Include="Interfaces\IMessageRepository.cs" />
     <Compile Include="Interfaces\IOrderedCriticalPointRepository.cs" />
     <Compile Include="Interfaces\IReviewRepository.cs" />
     <Compile Include="Interfaces\IRideRepository.cs" />
     <Compile Include="Interfaces\IUserInterface.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Migrations\201606211243116_Initial.cs" />
-    <Compile Include="Migrations\201606211243116_Initial.Designer.cs">
-      <DependentUpon>201606211243116_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606211952199_Identity.cs" />
-    <Compile Include="Migrations\201606211952199_Identity.Designer.cs">
-      <DependentUpon>201606211952199_Identity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606211956028_identity-fix.cs" />
-    <Compile Include="Migrations\201606211956028_identity-fix.Designer.cs">
-      <DependentUpon>201606211956028_identity-fix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606212132378_UsersInfo.cs" />
-    <Compile Include="Migrations\201606212132378_UsersInfo.Designer.cs">
-      <DependentUpon>201606212132378_UsersInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606220053236_changeUsers2.cs" />
-    <Compile Include="Migrations\201606220053236_changeUsers2.Designer.cs">
-      <DependentUpon>201606220053236_changeUsers2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606220214481_fixusers.cs" />
-    <Compile Include="Migrations\201606220214481_fixusers.Designer.cs">
-      <DependentUpon>201606220214481_fixusers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606220224510_fixusers1.cs" />
-    <Compile Include="Migrations\201606220224510_fixusers1.Designer.cs">
-      <DependentUpon>201606220224510_fixusers1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606221847523_nullables.cs" />
-    <Compile Include="Migrations\201606221847523_nullables.Designer.cs">
-      <DependentUpon>201606221847523_nullables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606231751313_nullable.cs" />
-    <Compile Include="Migrations\201606231751313_nullable.Designer.cs">
-      <DependentUpon>201606231751313_nullable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606281956096_nonrequired.cs" />
-    <Compile Include="Migrations\201606281956096_nonrequired.Designer.cs">
-      <DependentUpon>201606281956096_nonrequired.cs</DependentUpon>
+    <Compile Include="Migrations\201606292328548_initial.cs" />
+    <Compile Include="Migrations\201606292328548_initial.Designer.cs">
+      <DependentUpon>201606292328548_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,6 +131,7 @@
     <Compile Include="Repositories\CarRepository.cs" />
     <Compile Include="Repositories\CharacteristicsRepository.cs" />
     <Compile Include="Repositories\CriticalPointRepository.cs" />
+    <Compile Include="Repositories\MessageRepository.cs" />
     <Compile Include="Repositories\OrderedCriticalPointRepository.cs" />
     <Compile Include="Repositories\RideRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -175,35 +144,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606211243116_Initial.resx">
-      <DependentUpon>201606211243116_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606211952199_Identity.resx">
-      <DependentUpon>201606211952199_Identity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606211956028_identity-fix.resx">
-      <DependentUpon>201606211956028_identity-fix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606212132378_UsersInfo.resx">
-      <DependentUpon>201606212132378_UsersInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606220053236_changeUsers2.resx">
-      <DependentUpon>201606220053236_changeUsers2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606220214481_fixusers.resx">
-      <DependentUpon>201606220214481_fixusers.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606220224510_fixusers1.resx">
-      <DependentUpon>201606220224510_fixusers1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606221847523_nullables.resx">
-      <DependentUpon>201606221847523_nullables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606231751313_nullable.resx">
-      <DependentUpon>201606231751313_nullable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606281956096_nonrequired.resx">
-      <DependentUpon>201606281956096_nonrequired.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606292328548_initial.resx">
+      <DependentUpon>201606292328548_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
