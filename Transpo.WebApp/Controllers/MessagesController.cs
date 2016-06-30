@@ -45,7 +45,7 @@ namespace Transpo.WebApp.Controllers
                 throw new ArgumentException();
 
             var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
-            var messages = _messageService.GetMessagesBetweenUsers(userId, id);
+            var messages = _messageService.GetMessagesBetweenUsers(userId, id, markAsRead: true);
 
             List<MessageViewModel> model = new List<MessageViewModel>();
             foreach (var m in messages)

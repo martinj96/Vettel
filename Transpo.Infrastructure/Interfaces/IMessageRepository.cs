@@ -12,5 +12,9 @@ namespace Transpo.Infrastructure.Data.Interfaces
         IEnumerable<Message> GetMessagesBetweenUsers(int recipientId, int senderId);
 
         IEnumerable<Message> GetMessagesForUser(int recipientId);
+
+        void MarkMessagesAsRead(IEnumerable<Message> msgs);
+
+        int GetUnreadMessagesCount(int recipientId);
     }
 }

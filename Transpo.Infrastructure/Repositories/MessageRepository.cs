@@ -42,5 +42,29 @@ namespace Transpo.Infrastructure.Data.Repositories
                 return msgs.ToList();
             }
         }
+
+        public int GetUnreadMessagesCount(int recipientId)
+        {
+            using (TranspoDbContext ctx = new TranspoDbContext(DAUtilities.ConnectionString))
+            {
+                var count = (from m in ctx.Messages
+                             where (m.RecipientId == recipientId && m.IsRead == false && m.Active == true)
+                             select m).Count();
+                return count;
+            }
+        }
+
+        public void MarkMessagesAsRead(IEnumerable<Message> msgs)
+        {
+            foreach (var msg in msgs)
+            {
+                if (msg.IsRead == false)
+                {
+                    _context.Entry(msg).State = System.Data.Entity.EntityState.Modified;
+                    _context.Entry(msg).Entity.IsRead = true;
+                }
+            }
+            _context.SaveChanges();
+        }
     }
 }

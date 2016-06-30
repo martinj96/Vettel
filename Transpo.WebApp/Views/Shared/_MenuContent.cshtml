@@ -1,7 +1,29 @@
-﻿@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "item home" })
+﻿@{
+    if (ViewBag.UnreadMessages == null)
+    {
+        ViewBag.UnreadMessages = 0;
+    }
+}
+
+@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "item home" })
 @Html.ActionLink("Create Ride", "Create", "Rides", new { area = "" }, new { @class = "item create" })
-@Html.ActionLink("My Rides", "MyRides", "Rides", new { area = "" }, new { @class = "item myrides" })
-@Html.ActionLink("Messages", "Index", "Messages", new { area = "" }, new { @class = "item messages" })
+
+@if (Request.IsAuthenticated)
+{
+    <a class="item myrides" href='@Url.Action("MyRides","Rides")'>My Rides</a>
+    <a class="item messages" href='@Url.Action("Index", "Messages")'>
+        <div class="statistic" >
+            @if (ViewBag.UnreadMessages > 0)
+            {
+                <div class="value">
+                    <i class="talk icon"></i> @ViewBag.UnreadMessages
+                </div>
+            }
+            <div class="label">Messages</div>
+        </div>
+    </a>
+}
+
 <div class="right item">
     @if (Request.IsAuthenticated)
     {
@@ -9,7 +31,7 @@
         {
             @Html.AntiForgeryToken()
 
-            <span>@Html.ActionLink("Hi " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</span>
+            <span>@Html.ActionLink(User.Identity.Name, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</span>
 
             <input type="submit" class="ui button" value="Log Off" />
         }

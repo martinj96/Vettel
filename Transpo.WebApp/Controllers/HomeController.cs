@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,6 +20,11 @@ namespace Transpo.WebApp.Controllers
             var model = new SearchResultModel();
             ViewData["Rides"] = model.Rides;
             ViewBag.Login = id == 1;
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
+                ViewBag.UnreadMessages = _messageService.GetUnreadMessagesCount(userId);
+            }
             return View();
         }
 

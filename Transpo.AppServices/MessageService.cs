@@ -20,6 +20,11 @@ namespace Transpo.AppServices
             this._userRepository = userRepository;
         }
 
+        public int GetUnreadMessagesCount(int recipientId)
+        {
+            return _messageRepository.GetUnreadMessagesCount(recipientId);
+        }
+
         public void SendMessage(MessageDto msgDto)
         {
             Message msg = new Message();
@@ -35,9 +40,15 @@ namespace Transpo.AppServices
             _messageRepository.Save();
         }
 
-        public IEnumerable<Message> GetMessagesBetweenUsers(int recipientUserId, int senderUserId)
+        public IEnumerable<Message> GetMessagesBetweenUsers(int recipientUserId, int senderUserId, bool markAsRead = false)
         {
             var msgs = _messageRepository.GetMessagesBetweenUsers(recipientUserId, senderUserId);
+
+            if (markAsRead)
+            {
+                _messageRepository.MarkMessagesAsRead(msgs);
+            }
+
             return msgs;
         }
 
