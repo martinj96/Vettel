@@ -102,7 +102,7 @@ namespace Transpo.WebApp.Controllers
 
             MessageViewModel model = new MessageViewModel
             {
-                RecipientId = id,
+                RecipientId = ride.DriverId,
                 SenderId = userId,
                 Subject = subject,
                 Recipient = new UserViewModel(ride.Driver)

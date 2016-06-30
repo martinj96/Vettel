@@ -73,10 +73,6 @@
                     <div>@Model.Ride.PricePerPassenger MKD per passenger.</div>
                     <div>@Model.Ride.SeatsLeft seats.</div>
 
-                    @if (Model.UserIsRider != true)
-                    {
-                        <div><button id="btnSendMessage" class="ui positive button big">Send Message <i class="message icon"></i></button></div>
-                    }
                 </div>
                 <div class="ui dividing medium header">Driver</div>
                 <div class="row">
@@ -103,6 +99,13 @@
                         </div>
                     </div>
                 </div>
+                @if (Model.UserIsRider != true)
+                {
+                    <div class="ui divider"></div>
+                    <div class="row">
+                        <button id="btnSendMessage" class="ui labeled icon positive button big"><i class="talk icon"></i> Send Message</button>
+                    </div>
+                }
                 @if (Model.UserIsRider)
                 {
                     <div class="ui dividing medium header">Actions</div>

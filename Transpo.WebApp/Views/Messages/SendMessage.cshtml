@@ -27,11 +27,12 @@
     $('#sendMsg').on('click', function (e) {
         e.preventDefault();
         var model = {
-            Body: $('#bodyText').val(),
-            RecipientId: $('#id').val(),
-            SenderId: $('#userId').val(),
-            Subject: $('#subject').text()
+            Body: $('#Body').val(),
+            RecipientId: $('#RecipientId').val(),
+            SenderId: $('#SenderId').val(),
+            Subject: $('#Subject').val()
         }
+
         $('#sendMsg').addClass('loading');
         $.ajax({
             type: "POST",
