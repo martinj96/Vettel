@@ -18,6 +18,11 @@ namespace Transpo.AppServices.Factories
             DbContext = new TranspoDbContext();
         }
 
+        public ServiceFactory(string connectionString)
+        {
+            DbContext = new TranspoDbContext(connectionString);
+        }
+
         public RideService GetRideService()
         {
             return new RideService(new RideRepository(DbContext), new UserRepository(DbContext),

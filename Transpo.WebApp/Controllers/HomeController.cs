@@ -23,7 +23,7 @@ namespace Transpo.WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
-                ViewBag.UnreadMessages = _messageService.GetUnreadMessagesCount(userId);
+                ViewBag.UnreadMessages = Service.GetMessageService().GetUnreadMessagesCount(userId);
             }
             return View();
         }

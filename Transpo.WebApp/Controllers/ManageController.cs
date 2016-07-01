@@ -272,7 +272,7 @@ namespace Transpo.WebApp.Controllers
                 Phone = model.Phone,
                 Gender = model.Gender == (int)AppServices.Gender.Male ? "male" : "female"
             };
-            _userService.UpdateUserInfo(user.id, uDto);
+            Service.GetUserService().UpdateUserInfo(user.id, uDto);
 
             return RedirectToAction("Index");
         }

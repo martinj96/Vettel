@@ -33,7 +33,7 @@ namespace Transpo.WebApp.Controllers
                 Subject = message.Subject,
             };
 
-            _messageService.SendMessage(mDto);
+            Service.GetMessageService().SendMessage(mDto);
         }
 
         //
@@ -45,13 +45,13 @@ namespace Transpo.WebApp.Controllers
                 throw new ArgumentException();
 
             var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
-            var messages = _messageService.GetMessagesBetweenUsers(userId, id, markAsRead: true);
+            var messages = Service.GetMessageService().GetMessagesBetweenUsers(userId, id, markAsRead: true);
 
             List<MessageViewModel> model = new List<MessageViewModel>();
             foreach (var m in messages)
             {
-                m.Sender = _userService.GetUserById(m.SenderId);
-                m.Recipient = _userService.GetUserById(m.RecipientId);
+                m.Sender = Service.GetUserService().GetUserById(m.SenderId);
+                m.Recipient = Service.GetUserService().GetUserById(m.RecipientId);
                 model.Add(new MessageViewModel(m));
             }
 
@@ -66,7 +66,7 @@ namespace Transpo.WebApp.Controllers
             var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
             ViewBag.UserId = userId;
 
-            var messages = _messageService.GetMessagesForUser(userId);
+            var messages = Service.GetMessageService().GetMessagesForUser(userId);
 
             List<MessageViewModel> model = new List<MessageViewModel>();
             foreach (var m in messages)
@@ -78,8 +78,8 @@ namespace Transpo.WebApp.Controllers
                     m.RecipientId = temp;
                 }
                 
-                m.Sender = _userService.GetUserById(m.SenderId);
-                m.Recipient = _userService.GetUserById(m.RecipientId);
+                m.Sender = Service.GetUserService().GetUserById(m.SenderId);
+                m.Recipient = Service.GetUserService().GetUserById(m.RecipientId);
                 model.Add(new MessageViewModel(m));
             }
 
@@ -96,8 +96,8 @@ namespace Transpo.WebApp.Controllers
                 throw new ArgumentException();
 
             var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
-            var ride = _rideService.GetById(id);
-            var cp = _rideService.GetRidesSortedCriticalPoints(id);
+            var ride = Service.GetRideService().GetById(id);
+            var cp = Service.GetRideService().GetRidesSortedCriticalPoints(id);
             string subject = cp.First().Name + " -> " + cp.Last().Name;
 
             MessageViewModel model = new MessageViewModel

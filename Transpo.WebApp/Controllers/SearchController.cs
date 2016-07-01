@@ -38,7 +38,7 @@ namespace Transpo.WebApp.Controllers
         {
             List<RideModel> rides = new List<RideModel>();
 
-            var lar = _rideService.GetById(20);
+            var lar = Service.GetRideService().GetById(20);
             var mockride = new RideModel(lar);
             rides.Add(mockride);
             return rides;

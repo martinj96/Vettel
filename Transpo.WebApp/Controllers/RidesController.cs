@@ -34,7 +34,7 @@ namespace Transpo.WebApp.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Ride ride = _rideService.GetById(id);
+            Ride ride = Service.GetRideService().GetById(id);
             if (ride == null || ride.Active == false)
                 return Content("Invalid ride.. Place make sure you request an existing ride.");
 
@@ -46,10 +46,10 @@ namespace Transpo.WebApp.Controllers
         [Authorize]
         public void AddMeToRide(int rideId)
         {
-            var ride = _rideService.GetById(rideId);
+            var ride = Service.GetRideService().GetById(rideId);
             var user = UserManager.FindById(User.Identity.GetUserId());
             //var user = _userService.GetUserById((HttpContext.User as CustomPrincipal).UserId);
-            _rideService.AddMeToRide(user.User, ride);
+            Service.GetRideService().AddMeToRide(user.User, ride);
         }
 
         [Authorize]
@@ -61,7 +61,7 @@ namespace Transpo.WebApp.Controllers
                 throw new UnauthorizedAccessException();
 
             var dto = ConvertRideModelToDto(ride, user.User.id, returnR);
-            Ride r = _rideService.AddRide(dto);
+            Ride r = Service.GetRideService().AddRide(dto);
 
             return View("Details", ConvertRideToViewModel(r, r.id));
         }
@@ -84,14 +84,14 @@ namespace Transpo.WebApp.Controllers
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
 
-            var ride = _rideService.GetById(id);
+            var ride = Service.GetRideService().GetById(id);
 
             if (user.User.id != ride.DriverId)
             {
                 return RedirectToAction("MyRides");
             }
 
-            _rideService.DeleteRide(id);
+            Service.GetRideService().DeleteRide(id);
             return RedirectToAction("MyRides");
         }
         
@@ -171,7 +171,7 @@ namespace Transpo.WebApp.Controllers
             viewModel.Driver = new UserViewModel(ride.Driver);
             viewModel.Ride = new RideViewModel(ride);
             viewModel.RideId = id;
-            viewModel.Points = _rideService.GetRidesSortedCriticalPoints(id);
+            viewModel.Points = Service.GetRideService().GetRidesSortedCriticalPoints(id);
             viewModel.UserIsRider = ride.Driver.id == UserManager.FindById(User.Identity.GetUserId()).User.id;
             //var user = UserManager.FindById(User.Identity.GetUserId()).User;
             ////var user = (HttpContext.User as CustomPrincipal);
