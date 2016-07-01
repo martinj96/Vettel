@@ -120,20 +120,20 @@
                 <div class="ui dividing medium header">Additional Information</div>
                 <div class="">
                     <div class="fields">
-                        <div class="field">
+                        <div class="eight wide field">
                             <label for="Description">Description</label>
                             <input type="text" name="Description" placeholder="">
                         </div>
-                        <div class="field">
+                        @*<div class="field">
                             <label for="Length">Distance</label>
                             <input type="text" name="Length">
-                        </div>
-                        <div class="field">
+                        </div>*@
+                        <div class="four wide field">
                             <label for="SeatsLeft">Available Seats</label>
                             <input type="number" name="SeatsLeft" value="3" max="15" min="1">
                         </div>
-                        <div class="field">
-                            <label for="PricePerPassenger">Price per passenger</label>
+                        <div class="four wide field">
+                            <label for="PricePerPassenger">Price per passenger (MKD)</label>
                             <input type="text" name="PricePerPassenger">
                         </div>
                         @*<div class="field">
@@ -170,6 +170,25 @@
             </div>
             <div class="six wide column">
                 <div id="map" style="height:450px;width:450px;"></div>
+                <div class="row">
+                    <div class="ui horizontal divider" id="route-info"></div>
+                    <div class="ui left floated statistic">
+                        <div class="value" id="distance-val">
+
+                        </div>
+                        <div class="label" id="distance-text">
+
+                        </div>
+                    </div>
+                    <div class="ui right floated statistic">
+                        <div class="value" id="duration-val">
+
+                        </div>
+                        <div class="label" id="duration-text">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     }

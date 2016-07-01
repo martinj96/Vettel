@@ -23,6 +23,13 @@ namespace Transpo.WebApp.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            var user = UserManager.FindById(User.Identity.GetUserId()).User;
+
+            if (String.IsNullOrEmpty(user.Phone))
+            {
+                return RedirectToAction("Index", "Manage", new { @message = ManageController.ManageMessageId.PhoneRequired });
+            }
+
             return View();
         }
 

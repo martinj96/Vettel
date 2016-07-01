@@ -7,6 +7,7 @@ using Transpo.AppServices.DTOs;
 using Transpo.WebApp.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Configuration;
 
 namespace Transpo.WebApp.Controllers
 {
@@ -15,6 +16,11 @@ namespace Transpo.WebApp.Controllers
         // GET: Messages
         public ActionResult Index()
         {
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["Messages"]) == false)
+            {
+                throw new NotImplementedException();
+            }
+
             return View();
         }
 
@@ -41,6 +47,11 @@ namespace Transpo.WebApp.Controllers
         [Authorize]
         public ActionResult Conversation(int id = 0)
         {
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["Messages"]) == false)
+            {
+                throw new NotImplementedException();
+            }
+
             if (id == 0)
                 throw new ArgumentException();
 
@@ -63,6 +74,11 @@ namespace Transpo.WebApp.Controllers
         [Authorize]
         public ActionResult ConversationList()
         {
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["Messages"]) == false)
+            {
+                throw new NotImplementedException();
+            }
+
             var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
             ViewBag.UserId = userId;
 
@@ -92,6 +108,11 @@ namespace Transpo.WebApp.Controllers
         [Authorize]
         public ActionResult SendMessage(int id = 0)
         {
+            if (Convert.ToBoolean(ConfigurationManager.AppSettings["Messages"]) == false)
+            {
+                throw new NotImplementedException();
+            }
+
             if (id == 0)
                 throw new ArgumentException();
 

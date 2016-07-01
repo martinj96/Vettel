@@ -64,11 +64,21 @@ addSearchboxToElement($('.waypoint')[0]);
 //    $('#submitCreateRide').submit();
 //})
 
-function UpdateDistance(distance) {
+function UpdateDistance(distanceLegs) {
+    var distance = distanceLegs.distance.value;
     var PRICE_FACTOR = 7.38;
-    document.getElementsByName('Length')[0].value = distance / 1000;
+    //document.getElementsByName('Length')[0].value = distance / 1000;
+    var distance_val_km = distanceLegs.distance.text.split(" ")[0];
+    var distance_text = distanceLegs.distance.text.split(" ")[1];
     var seats = document.getElementsByName('SeatsLeft')[0].value;
-    document.getElementsByName('PricePerPassenger')[0].value = Math.ceil(distance * PRICE_FACTOR / 1000 / seats / 10)*10;
+    var duration_val = distanceLegs.duration.text.split(" ")[0];
+    var duration_text = distanceLegs.duration.text.split(" ")[1];
+    $('#duration-text').text(duration_text);
+    $('#duration-val').text(duration_val);
+    $('#distance-text').text(distance_text);
+    $('#distance-val').text(distance_val_km);
+    $('#route-info').text('Route Info');
+    document.getElementsByName('PricePerPassenger')[0].value = Math.ceil(distance * PRICE_FACTOR / 1000 / seats / 10) * 10;
 }
 var calendar_options = {
     type: 'date',
@@ -247,7 +257,24 @@ $('.ui.form.createrideform').form({
                 }
             ]
         },
-
+        pricePerPassenger: {
+            identifier: 'PricePerPassenger',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Price per passenger is required'
+                }
+            ]
+        },
+        seatsLeft: {
+            identifier: 'SeatsLeft',
+            rules: [
+                {
+                    type: 'empty',
+                    prompt: 'Available seats is required'
+                }
+            ]
+        }
 
     },
     inline: true,

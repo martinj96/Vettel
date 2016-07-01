@@ -29,6 +29,7 @@ namespace Transpo.WebApp.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.PhoneRequired ? "You need to enter a phone number to create a ride"
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -336,6 +337,7 @@ namespace Transpo.WebApp.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            PhoneRequired,
             Error
         }
 

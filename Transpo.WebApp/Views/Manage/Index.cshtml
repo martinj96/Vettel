@@ -1,14 +1,23 @@
 ﻿@model Transpo.WebApp.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
+    ViewBag.MessageClass = String.IsNullOrEmpty(ViewBag.StatusMessage) ? "success hidden" : "warning";
 }
-
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <div class="ui container">
 
     <h2 class="ui dividing header">@ViewBag.Title</h2>
 
-    
-    <div class="ui ignored info success message" id="manageStatusMessage" style="display:none;"></div>
+    <div class="ui ignored info @ViewBag.MessageClass message" id="manageStatusMessage">
+        @if (!String.IsNullOrEmpty(ViewBag.StatusMessage))
+        {
+            <span>@ViewBag.StatusMessage</span>
+        }
+    </div>
     
 
     @*<div class="ui dividing header">Change your account settings</div>*@
@@ -100,3 +109,4 @@
         </dl>*@
     </div>
 </div>
+
