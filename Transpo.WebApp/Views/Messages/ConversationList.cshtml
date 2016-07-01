@@ -33,7 +33,7 @@
 <script>
     $('.conversationList .item').on('click', function (e) {
         e.preventDefault();
-        $('.item').each(function () {
+        $('.conversationList .item').each(function () {
             $(this).removeClass('active');
         });
         $(this).addClass('active');
