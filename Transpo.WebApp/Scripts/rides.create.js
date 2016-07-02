@@ -77,7 +77,7 @@ function UpdateDistance(distanceLegs) {
     $('#duration-val').text(duration_val);
     $('#distance-text').text(distance_text);
     $('#distance-val').text(distance_val_km);
-    $('#route-info').text('Route Info');
+    $('#route-info').text('Информации за патувањето');
     document.getElementsByName('PricePerPassenger')[0].value = Math.ceil(distance * PRICE_FACTOR / 1000 / seats / 10) * 10;
 }
 var calendar_options = {
@@ -178,7 +178,7 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'HasOrigin',
-                    prompt: 'Please enter an origin'
+                    prompt: 'Внесете место на поаѓање'
                 }
             ]
         },
@@ -187,7 +187,7 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'HasDestination',
-                    prompt: 'Please enter a destination'
+                    prompt: 'Внесете дестинација'
                 }
             ]
         },
@@ -196,7 +196,7 @@ $('.ui.form.createrideform').form({
             rules: [
             {
                 type: 'ValidateDepartureDate',
-                prompt: 'Please enter a departure date'
+                prompt: 'Внесете датум на поаѓање'
             }
             ]
         },
@@ -205,7 +205,7 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'empty',
-                    prompt: 'Please enter time of departure'
+                    prompt: 'Внесете време на поаѓање'
                 }
             ]
         },
@@ -214,7 +214,7 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'empty',
-                    prompt: 'Please enter time of departure'
+                    prompt: 'Внесете време на поаѓање'
                 }
             ]
         },
@@ -223,11 +223,11 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'ReturnDepartureDateValidator',
-                    prompt: 'Please enter a departure date'
+                    prompt: 'Внесете датум на враќање'
                 },
                 {
                     type: 'ReturnValidator',
-                    prompt: 'Return ride must be after departure'
+                    prompt: 'Враќањето мора да биде по поаѓањето'
                 }
             ]
         },
@@ -236,11 +236,11 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'ReturnDepartureHourValidator',
-                    prompt: 'Please enter time of departure'
+                    prompt: 'Внесете време на враќање'
                 },
                 {
                     type: 'ReturnValidator',
-                    prompt: 'Return ride must be after departure'
+                    prompt: 'Враќањето мора да биде по поаѓањето'
                 }
             ]
         },
@@ -249,11 +249,11 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'ReturnDepartureTimeValidator',
-                    prompt: 'Please enter time of departure'
+                    prompt: 'Внесете време на враќање'
                 },
                 {
                     type: 'ReturnValidator',
-                    prompt: 'Return ride must be after departure'
+                    prompt: 'Враќањето мора да биде по поаѓањето'
                 }
             ]
         },
@@ -262,7 +262,7 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'empty',
-                    prompt: 'Price per passenger is required'
+                    prompt: 'Внесете цена по патник'
                 }
             ]
         },
@@ -271,7 +271,7 @@ $('.ui.form.createrideform').form({
             rules: [
                 {
                     type: 'empty',
-                    prompt: 'Available seats is required'
+                    prompt: 'Внесете број на слободни седишта'
                 }
             ]
         }

@@ -1,6 +1,6 @@
 ﻿@model Transpo.WebApp.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Измени профил";
     ViewBag.MessageClass = String.IsNullOrEmpty(ViewBag.StatusMessage) ? "success hidden" : "warning";
 }
 <style>
@@ -21,7 +21,7 @@
     
 
     @*<div class="ui dividing header">Change your account settings</div>*@
-    <div class="ui segment" >
+    <div class="ui segment go-behind" >
         <div class="ui internally celled stackable grid">
             <div class="eight wide column" id="manageFormPartial">
                 @if (Model.HasPassword)
@@ -109,4 +109,6 @@
         </dl>*@
     </div>
 </div>
-
+<script>
+    $('.item.manage').addClass('active');
+</script>

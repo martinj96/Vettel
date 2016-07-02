@@ -1,4 +1,5 @@
 ﻿@using Transpo.WebApp.Models
+@using System.Globalization
 @model RideDetailsViewModel
 @{
     ViewBag.Title = "Details";
@@ -27,7 +28,7 @@
                 <div class="ui grid">
                     <div class="row">
                         <div class="six wide column">
-                            Place of Departure
+                            Место на поаѓање:
                         </div>
                         <div class="ten wide column">
                             @Model.Points.First().Name
@@ -35,7 +36,7 @@
                     </div>
                     <div class="row">
                         <div class="six wide column">
-                            Place of Arrival
+                            Место на пристигнување:
                         </div>
                         <div class="ten wide column">
                             @Model.Points.Last().Name
@@ -43,10 +44,10 @@
                     </div>
                     <div class="row">
                         <div class="six wide column">
-                            Date of Departure
+                            Датум на поаѓање:
                         </div>
                         <div class="ten wide column">
-                            @Model.Ride.Departure
+                            @Model.Ride.Departure.ToString("dddd, dd MMMM yyyy, HH:mm", new CultureInfo("mk-MK"))
                         </div>
                     </div>
                     @*<div class="row">
@@ -59,7 +60,7 @@
                     </div>*@
                     <div class="row">
                         <div class="six wide column">
-                            Details
+                            Детали:
                         </div>
                         <div class="ten wide column">
                             @Model.Ride.Description
@@ -69,10 +70,27 @@
             </div>
             <div class="four wide column">
                 <div class="ui dividing medium header">Info</div>
-                <div class="row">
-                    <div>@Model.Ride.PricePerPassenger MKD per passenger.</div>
-                    <div>@Model.Ride.SeatsLeft seats.</div>
-
+                <div class="ui centered grid">
+                    <div class="ui centered row">
+                        <div class="ui statistic">
+                            <div class="value">
+                                @Convert.ToInt32(Model.Ride.PricePerPassenger)
+                            </div>
+                            <div class="label">
+                                денари по патник
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui centered row">
+                        <div class="ui teal statistic">
+                            <div class="value">
+                                @Model.Ride.SeatsLeft
+                            </div>
+                            <div class="label">
+                                слободни места
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="ui dividing medium header">Driver</div>
                 <div class="row">
@@ -90,11 +108,17 @@
                                 }
                             </div>
                             <div class="meta">
-                                @Model.Driver.Gender
+                                @Model.Driver.Age год.
                             </div>
                             <div class="description">
-                                @Model.Driver.Email
-                                <div class="ui star rating" data-rating="3" data-max-rating="5"></div>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span>тел. @Model.Driver.Phone</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Driver.Email</span>
+                                }
                             </div>
                         </div>
                     </div>
@@ -103,16 +127,16 @@
                 {
                     <div class="ui divider"></div>
                     <div class="row">
-                        <button id="btnSendMessage" class="ui labeled icon positive button big"><i class="talk icon"></i> Send Message</button>
+                        <button id="btnSendMessage" class="ui labeled icon positive button big"><i class="talk icon"></i> Испрати порака</button>
                     </div>
                 }
                 @if (Model.UserIsRider)
                 {
-                    <div class="ui dividing medium header">Actions</div>
+                    <div class="ui dividing medium header">Опции</div>
                     <div class="row">
                         <button class="ui negative button">
                             <i class="minus circle icon"></i>
-                            @Html.ActionLink("Delete", "DeleteRide", new { id = Model.RideId }, new { @style = "color:white;" })
+                            @Html.ActionLink("Избриши", "DeleteRide", new { id = Model.RideId }, new { @style = "color:white;" })
                         </button>
                     </div>
                 }

@@ -29,7 +29,7 @@ namespace Transpo.WebApp.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : message == ManageMessageId.PhoneRequired ? "You need to enter a phone number to create a ride"
+                : message == ManageMessageId.PhoneRequired ? "Мора да внесете телефон за да можете да креирате понуда за превоз."
                 : "";
 
             var userId = User.Identity.GetUserId();

@@ -30,14 +30,14 @@
         
         <div class="ui text container">
             <img src="~/Images/logo.png" style="width: 70%;" >
-            <h2>Find you ride.</h2>
+            <h2>Најди го својот превоз.</h2>
             @using (Html.BeginForm("PerformSearch", "Search", FormMethod.Get))
             { 
                 <div class="ui form">
                     <div class="two fields">
                         <div class="field">
                             <div class="ui big icon input">
-                                <input type="text" id="searchbox-from" placeholder="From">
+                                <input type="text" id="searchbox-from" placeholder="Од">
                                 @Html.HiddenFor(model => model.FromLongitude)
                                 @Html.HiddenFor(model => model.FromLatitude)
                                 @Html.HiddenFor(model => model.FromCityName)
@@ -46,7 +46,7 @@
                         </div>
                         <div class="field">
                             <div class="ui big icon input">
-                                <input type="text" id="searchbox-to" placeholder="To">
+                                <input type="text" id="searchbox-to" placeholder="До">
                                 @Html.HiddenFor(model => model.ToLongitude)
                                 @Html.HiddenFor(model => model.ToLatitude)
                                 @Html.HiddenFor(model => model.ToCityName)
@@ -55,14 +55,14 @@
                         </div>
                     </div>
                     <input type="submit" id="submitSearch" hidden />
-                    <div class="ui massive primary button" id="btnSubmitSearch">Go<i class="right arrow icon"></i></div>
+                    <div class="ui massive primary button" id="btnSubmitSearch">Барај<i class="right arrow icon"></i></div>
                 </div>
             }
         </div>
     </div>
     <div class="ui container">
-        <div class="ui horizontal divider">
-            Upcoming Rides
+        <div class="ui horizontal large divider" style="font-size:24px;">
+            Претстојни превози
         </div>
         <div class="ui segment" id="rideSearchGrid">
             @{ Html.RenderPartial("~/Views/Shared/_SearchResultsGrid.cshtml", ViewData["Rides"]); }

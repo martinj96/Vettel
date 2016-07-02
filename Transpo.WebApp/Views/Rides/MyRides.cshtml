@@ -1,20 +1,21 @@
 ﻿@using Transpo.WebApp.Models
 @model SearchResultModel
 @{
-    ViewBag.Title = "My Rides";
+    ViewBag.Title = "Мои превози";
+    ViewBag.IsMyRide = true;
 }
 <div class="ui container">
     
     <h2 class="ui dividing header">@ViewBag.Title</h2>
 
-    <h3 class="ui dividing header">Current Rides</h3>
+    <h3 class="ui dividing header">Претстојни превози</h3>
 
-    <div class="ui basic segment">
+    <div class="ui segment go-behind">
         @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides.Where(x => x.DepartureDate >= DateTime.Now).AsEnumerable()); }
     </div>
 
-    <h3 class="ui dividing header">Past Rides</h3>
-    <div class="ui basic segment">
+    <h3 class="ui dividing header">Минати превози</h3>
+    <div class="ui segment">
         @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides.Where(x => x.DepartureDate < DateTime.Now).AsEnumerable()); }
     </div>
 

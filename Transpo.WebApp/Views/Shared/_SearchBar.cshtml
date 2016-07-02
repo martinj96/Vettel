@@ -9,7 +9,7 @@
                 <div class="two fields">
                     <div class="field">
                         <div class="ui icon input">
-                            <input type="text" id="searchbox-from" placeholder="From" value="@Model.FromCityName">
+                            <input type="text" id="searchbox-from" placeholder="Од" value="@Model.FromCityName">
                             @Html.HiddenFor(model => model.FromLongitude)
                             @Html.HiddenFor(model => model.FromLatitude)
                             @Html.HiddenFor(model => model.FromCityName)
@@ -18,7 +18,7 @@
                     </div>
                     <div class="field">
                         <div class="ui icon input">
-                            <input type="text" id="searchbox-to" placeholder="To" value="@Model.ToCityName">
+                            <input type="text" id="searchbox-to" placeholder="До" value="@Model.ToCityName">
                             @Html.HiddenFor(model => model.ToLongitude)
                             @Html.HiddenFor(model => model.ToLatitude)
                             @Html.HiddenFor(model => model.ToCityName)
@@ -30,7 +30,7 @@
             @Html.HiddenFor(x => x.Date)
             <div class="two wide column">
                 <input type="submit" id="submitSearch" hidden />
-                <div class="ui big primary button" id="btnSubmitSearch">Go<i class="right arrow icon"></i></div>
+                <div class="ui big primary button" id="btnSubmitSearch">Барај<i class="right arrow icon"></i></div>
             </div>
         </div>
     </div>

@@ -5,47 +5,45 @@
     }
 }
 
-@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "item home" })
-@Html.ActionLink("Create Ride", "Create", "Rides", new { area = "" }, new { @class = "item create" })
+@Html.ActionLink("Дома", "Index", "Home", new { area = "" }, new { @class = "item home" })
+@Html.ActionLink("Понуди превоз", "Create", "Rides", new { area = "" }, new { @class = "item create" })
 
-@if (Request.IsAuthenticated)
-{
-    <a class="item myrides" href='@Url.Action("MyRides","Rides")'>My Rides</a>
-    <a class="item messages" href='@Url.Action("Index", "Messages")'>
-        <div class="statistic" >
-            @if (ViewBag.UnreadMessages > 0)
-            {
-                <div class="value">
-                    <i class="talk icon"></i> @ViewBag.UnreadMessages
-                </div>
-            }
-            <div class="label">Messages</div>
-        </div>
-    </a>
-}
-
-<div class="right item">
+<div class="ui right item">
     @if (Request.IsAuthenticated)
     {
         using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
         {
             @Html.AntiForgeryToken()
-
-            <span>@Html.ActionLink(User.Identity.Name, "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</span>
-
-            <input type="submit" class="ui button" value="Log Off" />
+            <div class="ui pointing link dropdown item">
+                @User.Identity.Name <i class="dropdown icon"></i>
+                <div class="ui secondary vertical pointing menu">
+                    <a class="item myrides" href='@Url.Action("MyRides","Rides")'>Мои превози</a>
+                    <a class="item messages" href='@Url.Action("Index", "Messages")'>
+                        Пораки
+                        <div class="ui teal label right floated left">@ViewBag.UnreadMessages</div>
+                    </a>
+                    @Html.ActionLink("Профил", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "item manage" })
+                    <div class="divider"></div>
+                    <a class="item" id="txtLogOff">
+                        Одјави се
+                    </a>
+                    <input type="hidden" class="ui button" value="Одјави се" id="submitLogOff" />
+                </div>
+            </div>
         }
     }
     else
     {
         /*<a class="ui inverted button" id="login" href="@Url.Action("Login", "Account", new { returnUrl = "Home/Index" })">Login</a>*/
-        <button class="ui button" id="btnLogin" >Login</button>
+        <div class="item"><button class="ui button" id="btnLogin">Најави се</button></div>
     }
     <div class="ui tiny modal" id="loginModal">
         @{ Html.RenderAction("Login", "Account"); }
     </div>
 </div>
 <script>
+    $('.ui.dropdown').dropdown();
+    $('#txtLogOff').on('click', function () { $('#submitLogOff').submit(); })
     $('#loginModal').modal("setting", {
         onShow: function () {
         }

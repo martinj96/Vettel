@@ -1,6 +1,7 @@
 ﻿@{
     Layout = null;
 }
+@using System.Globalization
 @using Transpo.WebApp.Models
 @model IEnumerable<RideModel>
 
@@ -10,51 +11,70 @@
         <div class="ui item">
             @*@Html.HiddenFor(x => ride.RideId)*@
             <div class="content">
-                <div class="ui grid" style="position:relative;">
-                    <div class="five wide column">
-                        <div class="ui card">
-                            <div class="content">
-                                <img class="left floated tiny circular ui image" src="@ride.Driver.PictureUrl">
-                                <div class="ui medium header">
-                                    @if (ride.Driver.Name.Split(' ').Count() > 1)
-                                    {
-                                        <span>@ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].</span>
-                                    }
-                                    else if (ride.Driver.Name.Contains(@"@"))
-                                    {
-                                        <span>@ride.Driver.Name.Split('@')[0].ToString()</span>
-                                    }
-                                    else
-                                    {
-                                        <span>@ride.Driver.Name</span>
-                                    }
+                <div class="ui stackable grid" style="position:relative;">
+                    @if (ViewBag.IsMyRide == null)
+                    {
+                        <div class="five wide column">
+                            <div class="ui card">
+                                <div class="content">
+                                    <div class="ui grid">
+                                        <div class="ui five wide column">
+                                            <img class="left floated tiny circular ui image" src="@ride.Driver.PictureUrl">
+                                        </div>
+                                        <div class="ui eleven wide column">
+                                            <div class="ui header">
+                                                @if (ride.Driver.Name.Split(' ').Count() > 1)
+                                                {
+                                                    <span>@ride.Driver.Name.Split(' ')[0] @ride.Driver.Name.Split(' ')[1].ToString()[0].</span>
+                                                }
+                                                else if (ride.Driver.Name.Contains(@"@"))
+                                                {
+                                                    <span>@ride.Driver.Name.Split('@')[0].ToString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@ride.Driver.Name</span>
+                                                }
+                                            </div>
+                                            <div class="meta">
+                                                @if (ride.Driver.Age.HasValue)
+                                                {
+                                                    <span>@ride.Driver.Age год.</span>
+                                                }
+                                            </div>
+                                            <div class="description">
+                                                @ride.Driver.Email
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="meta">
-                                    @ride.Driver.Gender
-                                </div>
-                                @*<div class="description">
-                                <div class="ui star rating" data-rating="2" data-max-rating="5"></div>
-                            </div>*@
                             </div>
                         </div>
+                        <div class="ui vertical divider"></div>
+                    }
+                    <div class="six wide middle aligned column">
+                        <a class="ui blue medium header" href='@Url.Action("Details", "Rides", new { @id = @ride.RideId })'>@ride.StartPoint.Name - @ride.EndPoint.Name</a>
+
+                        <div class="ui description">
+                            Поаѓање: @ride.DepartureDate.ToString("dddd, dd MMMM yyyy, HH:mm",new CultureInfo("mk-MK"))
+                        </div>
                     </div>
-                    <div class="ui vertical divider"></div>
-                    <div class="eleven wide column">
-                        <a class="header" href='@Url.Action("Details", "Rides", new { @id = @ride.RideId })'>@ride.StartPoint.Name - @ride.EndPoint.Name</a>
-                        <div class="meta">
-                            @if (ride.PricePerPassenger.HasValue)
-                            {
-                                <span>@ride.PricePerPassenger MKD</span>
-                            }
+                    <div class="five wide right floated middle aligned column">
+                        <div class="ui small statistic">
+                            <div class="value">
+                                @Convert.ToInt32(ride.PricePerPassenger)
+                            </div>
+                            <div class="label">
+                                денари по патник
+                            </div>
                         </div>
-                        <div class="description">
-                            @if (ride.SeatsLeft.HasValue)
-                            {
-                                <p>@ride.SeatsLeft seats.</p>
-                            }
-                        </div>
-                        <div class="extra">
-                            Departure: @ride.DepartureDate
+                        <div class="ui teal small statistic">
+                            <div class="value">
+                                @ride.SeatsLeft
+                            </div>
+                            <div class="label">
+                                слободни места
+                            </div>
                         </div>
                     </div>
                 </div>

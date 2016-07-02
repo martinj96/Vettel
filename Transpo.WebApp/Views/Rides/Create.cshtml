@@ -5,14 +5,14 @@
     {
         <div class="ui two column divided grid">
             <div class="ten wide column">
-                <div class="ui large header">Enter Ride Details</div>
+                <div class="ui large header">Внесете детали за патувањето</div>
 
-                <div class="ui dividing medium header">Destination and Origin</div>
+                <div class="ui dividing medium header">Дестинација и место на поаѓање</div>
                 <div class="">
                     <div class="two fields">
                         <div class="field">
                             <div class="ui icon input">
-                                <input type="text" id="searchbox-from" placeholder="From" name="Origin">
+                                <input type="text" id="searchbox-from" placeholder="Од" name="Origin">
                                 <input type="hidden" name="StartPoint.Latitude" />
                                 <input type="hidden" name="StartPoint.Longitude" />
                                 <input type="hidden" name="StartPoint.Name" />
@@ -20,7 +20,7 @@
                         </div>
                         <div class="field">
                             <div class="ui icon input">
-                                <input type="text" id="searchbox-to" placeholder="To" name="Destination">
+                                <input type="text" id="searchbox-to" placeholder="До" name="Destination">
                                 <input type="hidden" name="EndPoint.Latitude" />
                                 <input type="hidden" name="EndPoint.Longitude" />
                                 <input type="hidden" name="EndPoint.Name" />
@@ -29,30 +29,30 @@
                     </div>
                 </div>
 
-                <div class="ui dividing medium header">Waypoints</div>
+                <div class="ui dividing medium header">Попатни места</div>
                 <div class="waypoints">
                     <div class="field">
                         <div class="ui icon input">
-                            <input type="text" class="waypoint" placeholder="Add a Waypoint">
+                            <input type="text" class="waypoint" placeholder="Додај попатно место">
                             <input type="hidden" name="Waypoints[0].Latitude" />
                             <input type="hidden" name="Waypoints[0].Longitude" />
                             <input type="hidden" name="Waypoints[0].Name" />
                         </div>
                     </div>
-                    <div class="ui basic button" id="btnAddMoreWaypoints"><i class="plus icon"></i> Add More</div>
+                    <div class="ui basic button" id="btnAddMoreWaypoints"><i class="plus icon"></i> Додај уште</div>
                 </div>
 
-                <div class="ui dividing medium header">Date and Time</div>
+                <div class="ui dividing medium header">Датум и време</div>
                 <div class="">
                     <div class="field">
                         <div class="ui toggle checkbox">
-                            <label>Return ride?</label>
+                            <label>Повратен превоз?</label>
                             <input type="checkbox" id="return" tabindex="0" class="hidden">
                         </div>
                         <input type="hidden" name="returnR" id="returnRide" value="false">
                     </div>
 
-                    <div class="ui header tiny">Departure Date:</div>
+                    <div class="ui header tiny">Датум на поаѓање:</div>
                     <div class="ui grid">
                         <div class="eight wide column">
                             <div class="field">
@@ -72,19 +72,19 @@
                             <div class="two fields">
                                 <div class="field">
                                     <select class="ui fluid search dropdown hour" name="TimeDeparture.hour">
-                                        <option value="">Hour</option>
+                                        <option value="">Час</option>
                                     </select>
                                 </div>
                                 <div class="field">
                                     <select class="ui fluid search dropdown minutes" name="TimeDeparture.minutes">
-                                        <option value="">Minutes</option>
+                                        <option value="">Минути</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="ui header tiny return-date-header" style="display:none;">Return Date:</div>
+                    <div class="ui header tiny return-date-header" style="display:none;">Датум на враќање:</div>
                     <div class="ui grid return-date" style="display:none;">
                         <div class="eight wide column">
                             <div class="field">
@@ -104,12 +104,12 @@
                             <div class="two fields">
                                 <div class="field">
                                     <select class="ui fluid search dropdown hour" id="hour-destination" name="ReturnTimeDeparture.Hour">
-                                        <option value="">Hour</option>
+                                        <option value="">Час</option>
                                     </select>
                                 </div>
                                 <div class="field">
                                     <select class="ui fluid search dropdown minutes" id="minute-destination" name="ReturnTimeDeparture.Minutes">
-                                        <option value="">Minutes</option>
+                                        <option value="">Минути</option>
                                     </select>
                                 </div>
                             </div>
@@ -117,11 +117,11 @@
                     </div>
                 </div>
 
-                <div class="ui dividing medium header">Additional Information</div>
+                <div class="ui dividing medium header">Дополнителни информации</div>
                 <div class="">
                     <div class="fields">
                         <div class="eight wide field">
-                            <label for="Description">Description</label>
+                            <label for="Description">Опис</label>
                             <input type="text" name="Description" placeholder="">
                         </div>
                         @*<div class="field">
@@ -129,11 +129,11 @@
                             <input type="text" name="Length">
                         </div>*@
                         <div class="four wide field">
-                            <label for="SeatsLeft">Available Seats</label>
+                            <label for="SeatsLeft">Слободни места</label>
                             <input type="number" name="SeatsLeft" value="3" max="15" min="1">
                         </div>
                         <div class="four wide field">
-                            <label for="PricePerPassenger">Price per passenger (MKD)</label>
+                            <label for="PricePerPassenger">Цена по патник во ден.</label>
                             <input type="text" name="PricePerPassenger">
                         </div>
                         @*<div class="field">
@@ -165,7 +165,7 @@
                 <div class="ui divider"></div>
                 @*<input type="submit" id="submitCreateRide" hidden />*@
                 <div class="field">
-                    <button class="ui huge positive right floated button" type="submit" id="btnSubmitRide">Submit</button>
+                    <button class="ui huge positive right floated button" type="submit" id="btnSubmitRide">Испрати</button>
                 </div>
             </div>
             <div class="six wide column">
