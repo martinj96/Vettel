@@ -2,7 +2,7 @@
 @model LoginViewModel
 @{
     Layout = null;
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Најави се";
 }
 <div class="header">@ViewBag.Title</div>
 <div class="content">
@@ -12,13 +12,13 @@
             @Html.AntiForgeryToken()
             <div class="field">
                 @*@Html.LabelFor(m => m.Email, new { @class = "control-label" })*@
-                <label for="Email">Email</label>
+                <label for="Email">Емаил</label>
                 <input id="loginEmail" type="text" name="Email" value="" />
                 @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control" })*@
                 @*@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })*@
             </div>
             <div class="field">
-                <label for="Password">Password</label>
+                <label for="Password">Лозинка</label>
                 <input id="loginPw" type="password" name="Password" />
                 @*@Html.LabelFor(m => m.Password, new { @class = "control-label" })
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
@@ -33,10 +33,10 @@
             @*<div class="ui submit button" type="submit">Login</div>*@
             <div class="ui two column stackable center aligned page grid">
                 <div class="seven wide column">
-                    <input id="submitLogin" type="submit" value="Log in" class="ui submit button" />
+                    <input id="submitLogin" type="submit" value="Најави се" class="ui submit button" />
                 </div>
                 <div class="nine wide column">
-                    @Html.ActionLink("Register", "Register", "", new { @class = "ui teal button" })
+                    @Html.ActionLink("Регистрирај се", "Register", "", new { @class = "ui teal button" })
                 </div>
             </div>
 

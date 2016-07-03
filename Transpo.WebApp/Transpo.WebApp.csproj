@@ -418,10 +418,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Rides\MyRides.cshtml" />
     <Content Include="Views\Manage\ModifyPersonalInfo.cshtml" />
-    <Content Include="Views\Messages\Index.cshtml" />
-    <Content Include="Views\Messages\Conversation.cshtml" />
-    <Content Include="Views\Messages\ConversationList.cshtml" />
-    <Content Include="Views\Messages\SendMessage.cshtml" />
+    <Content Include="Views\Rides\Messages\Index.cshtml" />
+    <Content Include="Views\Rides\Messages\Conversation.cshtml" />
+    <Content Include="Views\Rides\Messages\ConversationList.cshtml" />
+    <Content Include="Views\Rides\Messages\SendMessage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
