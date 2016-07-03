@@ -179,7 +179,9 @@ namespace Transpo.WebApp.Controllers
             viewModel.Ride = new RideViewModel(ride);
             viewModel.RideId = id;
             viewModel.Points = Service.GetRideService().GetRidesSortedCriticalPoints(id);
-            viewModel.UserIsRider = ride.Driver.id == UserManager.FindById(User.Identity.GetUserId()).User.id;
+            viewModel.UserIsRider = User.Identity.IsAuthenticated
+                ? ride.Driver.id == UserManager.FindById(User.Identity.GetUserId()).User.id
+                : false;
             //var user = UserManager.FindById(User.Identity.GetUserId()).User;
             ////var user = (HttpContext.User as CustomPrincipal);
             ///*if( userId has access){

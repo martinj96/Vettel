@@ -22,7 +22,7 @@ namespace Transpo.WebApp
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            string connectionString = DAUtilities.ConnectionString;
             app.CreatePerOwinContext(() => new TranspoDbContext(connectionString));
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
             app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
