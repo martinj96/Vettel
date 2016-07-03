@@ -13,7 +13,7 @@
         {
             <div class="item" data-rec="@message.RecipientId" data-send="@message.SenderId">
                 <div class="ui tiny circular image">
-                    <img src="@message.Sender.PictureUrl" />
+                    <img src="@Url.Content(message.Sender.PictureUrl)" />
                 </div>
                 <div class="middle aligned content">
                     <a class="header">

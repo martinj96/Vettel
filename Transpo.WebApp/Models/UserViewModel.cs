@@ -39,7 +39,7 @@ namespace Transpo.WebApp.Models
             {
                 if (string.IsNullOrEmpty(_pictureUrl))
                 {
-                    return "Images/no_image.png";
+                    return "~/Images/no_image.png";
                 }
                 return _pictureUrl;
             }
