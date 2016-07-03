@@ -19,10 +19,8 @@
 </head>
 <body>
     
-    <div class="ui pointing secondary menu">
-        <div class="ui stackable container" id="menu-container">
-            @{ Html.RenderPartial("_MenuContent"); }
-        </div>
+    <div class="ui secondary pointing stackable container menu">
+        @{ Html.RenderPartial("_MenuContent"); }
     </div>
 
     @RenderBody()
