@@ -7,6 +7,7 @@ using Transpo.AppServices;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Factories;
 using Transpo.AppServices.Interfaces;
+using Transpo.Infrastructure.Data;
 using Transpo.Infrastructure.Data.Entities;
 
 namespace Transpo.WebApp.Models
@@ -18,7 +19,7 @@ namespace Transpo.WebApp.Models
 
         public SearchResultModel(User user)
         {
-            serviceFactory = new ServiceFactory();
+            serviceFactory = new ServiceFactory(DAUtilities.ConnectionString);
             RideService service = serviceFactory.GetRideService();
             List<RideModel> rs = new List<RideModel>();
             ICollection<Ride> col = service.GetMyRides(user);
@@ -33,7 +34,7 @@ namespace Transpo.WebApp.Models
 
         public SearchResultModel(SearchModel searchModel)
         {
-            serviceFactory = new ServiceFactory();
+            serviceFactory = new ServiceFactory(DAUtilities.ConnectionString);
             List<RideModel> rs = new List<RideModel>();
             this.FromCityName = searchModel.FromCityName;
             this.FromCountryShortCode = searchModel.FromCountryShortCode;
@@ -79,7 +80,7 @@ namespace Transpo.WebApp.Models
 
         public SearchResultModel() 
         {
-            serviceFactory = new ServiceFactory();
+            serviceFactory = new ServiceFactory(DAUtilities.ConnectionString);
             List<RideModel> rs = new List<RideModel>();
 
             RideService service = serviceFactory.GetRideService();

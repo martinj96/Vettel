@@ -11,25 +11,26 @@
 <div class="ui right item">
     @if (Request.IsAuthenticated)
     {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+
+        <div class="ui pointing link dropdown item">
+            @User.Identity.Name <i class="dropdown icon"></i>
+            <div class="ui secondary vertical pointing menu">
+                <a class="item myrides" href='@Url.Action("MyRides","Rides")'>Мои превози</a>
+                <a class="item messages" href='@Url.Action("Index", "Messages")'>
+                    Пораки
+                    <div class="ui teal label right floated left">@ViewBag.UnreadMessages</div>
+                </a>
+                @Html.ActionLink("Профил", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "item manage" })
+                <div class="divider"></div>
+                <a class="item" id="txtLogOff">
+                    Одјави се
+                </a>
+            </div>
+        </div>
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
         {
             @Html.AntiForgeryToken()
-            <div class="ui pointing link dropdown item">
-                @User.Identity.Name <i class="dropdown icon"></i>
-                <div class="ui secondary vertical pointing menu">
-                    <a class="item myrides" href='@Url.Action("MyRides","Rides")'>Мои превози</a>
-                    <a class="item messages" href='@Url.Action("Index", "Messages")'>
-                        Пораки
-                        <div class="ui teal label right floated left">@ViewBag.UnreadMessages</div>
-                    </a>
-                    @Html.ActionLink("Профил", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "item manage" })
-                    <div class="divider"></div>
-                    <a class="item" id="txtLogOff">
-                        Одјави се
-                    </a>
-                    <input type="hidden" class="ui button" value="Одјави се" id="submitLogOff" />
-                </div>
-            </div>
+            <input type="submit" class="ui button" value="Одјави се" id="submitLogOff" style="display:none;"/>
         }
     }
     else
@@ -43,7 +44,9 @@
 </div>
 <script>
     $('.ui.dropdown').dropdown();
-    $('#txtLogOff').on('click', function () { $('#submitLogOff').submit(); })
+    $('#txtLogOff').on('click', function () {
+        $('#logoutForm').submit();
+    })
     $('#loginModal').modal("setting", {
         onShow: function () {
         }
