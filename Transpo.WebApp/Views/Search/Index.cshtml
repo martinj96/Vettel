@@ -8,23 +8,17 @@
         @{ Html.RenderPartial("_SearchBar", Model as SearchModel); }
     </div>
 
-    <div class="ui segment">
-        <div class="ui grid">
+    <div class="ui segment" id="rideSearchGrid">
+        @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides); }
+
+
+        @*<div class="ui grid">
             <div class="three wide column">
                 <div class="ui vertical segment">
-                    @*<div class="ui checkbox">
+                    <div class="ui checkbox">
                         <input type="checkbox" name="chkHideFull" />
                         <label>Hide full rides</label>
-                    </div>*@
-
-                    @*<h4 class="ui horizontal divider header">
-                        Date
-                    </h4>
-                    <div class="inline field">
-                        <div class="ui input">
-                            <input type="date" id="dtDate" />
-                        </div>
-                    </div>*@
+                    </div>
 
                     <h4 class="ui horizontal divider header">
                         Date
@@ -36,7 +30,7 @@
                         </div>
                     </div>
 
-                    @*<h4 class="ui horizontal divider header">
+                    <h4 class="ui horizontal divider header">
                         Cost
                     </h4>
                     <div class="ui form">
@@ -106,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>*@
+                    </div>
                 </div>
             </div>
             <div class="thirteen wide column">
@@ -114,7 +108,7 @@
                     @{ Html.RenderPartial("_SearchResultsGrid", Model.Rides); }
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
 <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />

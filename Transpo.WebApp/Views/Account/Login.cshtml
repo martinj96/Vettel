@@ -30,12 +30,12 @@
                     @Html.LabelFor(m => m.RememberMe)
                 </div>
             </div>
-            @*<div class="ui submit button" type="submit">Login</div>*@
-            <div class="ui two column stackable center aligned page grid">
-                <div class="seven wide column">
+
+            <div class="ui fields">
+                <div class="field">
                     <input id="submitLogin" type="submit" value="Најави се" class="ui submit button" />
                 </div>
-                <div class="nine wide column">
+                <div class="field">
                     @Html.ActionLink("Регистрирај се", "Register", "", new { @class = "ui teal button" })
                 </div>
             </div>
@@ -47,6 +47,7 @@
                     @Html.ActionLink("Forgot your password?", "ForgotPassword")
                 </p>*@
         }
+        <div class="ui horizontal divider"></div>
         <div class="ui one column stackable center aligned page grid">
             <div class="column sixteen wide">
                 <section id="socialLoginForm">

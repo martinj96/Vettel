@@ -43,7 +43,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         unitSystem: google.maps.UnitSystem.METRIC
     }, function (response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
-            var distance = response.routes[0].legs[0];
+            var distance = response.routes[0].legs;
             UpdateDistance(distance);
             directionsDisplay.setDirections(response);
             //var route = response.routes[0];

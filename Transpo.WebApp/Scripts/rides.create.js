@@ -2,7 +2,7 @@
 initMap();
 
 $('#btnAddMoreWaypoints').on('click', function () {
-    $('.ui.form.waypoints')
+    $('#waypoints')
         .find('.field')
         .last()
         .after(
@@ -65,21 +65,45 @@ addSearchboxToElement($('.waypoint')[0]);
 //})
 
 function UpdateDistance(distanceLegs) {
-    var distance = distanceLegs.distance.value;
+    var total = CalculateTotalDistanceAndTime(distanceLegs);
     var PRICE_FACTOR = 7.38;
     //document.getElementsByName('Length')[0].value = distance / 1000;
-    var distance_val_km = distanceLegs.distance.text.split(" ")[0];
-    var distance_text = distanceLegs.distance.text.split(" ")[1];
+    var distance_val_km = Math.trunc(total.distance / 1000);
+    var distance_text = "km";
     var seats = document.getElementsByName('SeatsLeft')[0].value;
-    var duration_val = distanceLegs.duration.text.split(" ")[0];
-    var duration_text = distanceLegs.duration.text.split(" ")[1];
-    $('#duration-text').text(duration_text);
-    $('#duration-val').text(duration_val);
+
+    var duration_hours_val = total.hours;
+    var duration_mins_val = total.minutes;
+
+    $('#duration-hour-val').text(duration_hours_val);
+    $('#duration-mins-val').text(duration_mins_val);
+    if (duration_hours_val == "1") {
+        $('#duration-hour-text').text("час");
+    } else {
+        $('#duration-hour-text').text("часа");
+    }
+    $('#duration-mins-text').text("минути");
     $('#distance-text').text(distance_text);
     $('#distance-val').text(distance_val_km);
     $('#route-info').text('Информации за патувањето');
-    document.getElementsByName('PricePerPassenger')[0].value = Math.ceil(distance * PRICE_FACTOR / 1000 / seats / 10) * 10;
+    document.getElementsByName('PricePerPassenger')[0].value = Math.ceil(total.distance * PRICE_FACTOR / 1000 / seats / 10) * 10;
 }
+
+function CalculateTotalDistanceAndTime(legs) {
+    var totalDist = 0;
+    var totalTime = 0;
+    for (i = 0; i < legs.length; i++) {
+        totalDist += legs[i].distance.value;
+        totalTime += legs[i].duration.value;
+    }
+
+    return {
+        distance: totalDist,
+        hours: Math.trunc(totalTime / 3600),
+        minutes: (totalTime / 60).toFixed(0) % 60
+    };
+}
+
 var calendar_options = {
     type: 'date',
     text: {

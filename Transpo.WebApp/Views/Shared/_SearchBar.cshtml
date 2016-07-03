@@ -1,39 +1,41 @@
 ﻿@using Transpo.WebApp.Models
 @model SearchModel
 
-@using (Ajax.BeginForm("PerformSearchPartial", "Search", new AjaxOptions { UpdateTargetId = "rideSearchGrid", HttpMethod = "Get", OnSuccess = "SearchSuccess();" }, new { @id = "performsearchform" }))
+@using (Ajax.BeginForm("PerformSearchPartial", "Search", new AjaxOptions { UpdateTargetId = "rideSearchGrid", HttpMethod = "Get", OnSuccess = "SearchSuccess();" }, new { @id = "performsearchform", @class="ui form performsearchform" }))
 {
-    <div class="ui form">
-        <div class="ui grid">
-            <div class="fourteen wide column">
-                <div class="two fields">
-                    <div class="field">
-                        <div class="ui icon input">
-                            <input type="text" id="searchbox-from" placeholder="Од" value="@Model.FromCityName">
-                            @Html.HiddenFor(model => model.FromLongitude)
-                            @Html.HiddenFor(model => model.FromLatitude)
-                            @Html.HiddenFor(model => model.FromCityName)
-                            @Html.HiddenFor(model => model.FromCountryShortCode)
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui icon input">
-                            <input type="text" id="searchbox-to" placeholder="До" value="@Model.ToCityName">
-                            @Html.HiddenFor(model => model.ToLongitude)
-                            @Html.HiddenFor(model => model.ToLatitude)
-                            @Html.HiddenFor(model => model.ToCityName)
-                            @Html.HiddenFor(model => model.ToCountryShortCode)
+            <div class="fields">
+                <div class="three wide field">
+                    <div class="ui calendar" id="calendar">
+                        <div class="ui input left icon">
+                            <i class="calendar icon"></i>
+                            <input type="text" placeholder="Датум" id="dtDate" style="max-width:90%">
                         </div>
                     </div>
                 </div>
+                <div class="six wide field">
+                    <div class="ui icon input">
+                        <input type="text" id="searchbox-from" placeholder="Од" value="@Model.FromCityName" name="Origin">
+                        @Html.HiddenFor(model => model.FromLongitude)
+                        @Html.HiddenFor(model => model.FromLatitude)
+                        @Html.HiddenFor(model => model.FromCityName)
+                        @Html.HiddenFor(model => model.FromCountryShortCode)
+                    </div>
+                </div>
+                <div class="six wide field">
+                    <div class="ui icon input">
+                        <input type="text" id="searchbox-to" placeholder="До" value="@Model.ToCityName" name="Destination">
+                        @Html.HiddenFor(model => model.ToLongitude)
+                        @Html.HiddenFor(model => model.ToLatitude)
+                        @Html.HiddenFor(model => model.ToCityName)
+                        @Html.HiddenFor(model => model.ToCountryShortCode)
+                    </div>
+                </div>
+                <div class="three wide field">
+                    <button type="submit" class="ui right floated big primary button" id="btnSubmitSearch">Барај<i class="right arrow icon"></i></button>
+                </div>
             </div>
             @Html.HiddenFor(x => x.Date)
-            <div class="two wide column">
-                <input type="submit" id="submitSearch" hidden />
-                <div class="ui big primary button" id="btnSubmitSearch">Барај<i class="right arrow icon"></i></div>
-            </div>
-        </div>
-    </div>
+            @*<input type="submit" id="submitSearch" hidden />*@
 }
 <script src="~/Scripts/places-searchbox.js"></script>
 <script>

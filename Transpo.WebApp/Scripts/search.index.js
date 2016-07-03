@@ -25,23 +25,18 @@ function setPlaceTo(place) {
     //document.getElementsByName("ToCountryShortCode")[0].value = to_place.address_components[2].short_name;
 }
 
-document.getElementById("btnSubmitSearch").addEventListener("click", function () {
-    var from = getPlaceFrom(),
-        to = getPlaceTo();
-    if (from === undefined || to === undefined) {
-        showWarningMessage("");
-        return false;
-    }
+//document.getElementById("btnSubmitSearch").addEventListener("click", function () {
+//    var from = getPlaceFrom(),
+//        to = getPlaceTo();
+//    if (from === undefined || to === undefined) {
+//        showWarningMessage("");
+//        return false;
+//    }
 
-    $(this).addClass('loading');
+//    document.getElementById("submitSearch").click();
+//});
 
-    var date = $("#calendar").calendar('get date');
-    if (date instanceof Date)
-        document.getElementsByName("Date")[0].value = date.toDateString();
-    document.getElementById("submitSearch").click();
-});
-
-function showWarningMessage(msg) {}
+//function showWarningMessage(msg) {}
 
 $('#calendar').calendar({
     type: 'date',
@@ -55,4 +50,54 @@ $('#calendar').calendar({
         pm: "PM"
     },
     minDate: new Date()
+});
+
+$.fn.form.settings.rules.HasOrigin = function (value) {
+    var lat = $('[name="FromLatitude"').val().length > 0;
+    var lon = $('[name="FromLongitude"').val().length > 0;
+    var name = $('[name="FromCityName"').val().length > 0;
+    return lat && lon && name;
+}
+
+$.fn.form.settings.rules.HasDestination = function (value) {
+    var lat = $('[name="ToLatitude"').val().length > 0;
+    var lon = $('[name="ToLongitude"').val().length > 0;
+    var name = $('[name="ToCityName"').val().length > 0;
+    return lat && lon && name;
+}
+
+
+$('.ui.form.performsearchform').form({
+    fields: {
+        origin: {
+            identifier: 'Origin',
+            rules: [
+                {
+                    type: 'HasOrigin',
+                    prompt: 'Внесете место на поаѓање'
+                }
+            ]
+        },
+        destination: {
+            identifier: 'Destination',
+            rules: [
+                {
+                    type: 'HasDestination',
+                    prompt: 'Внесете дестинација'
+                }
+            ]
+        }
+    },
+    inline: true,
+    onSuccess: function (e, data) {
+        $('#btnSubmitSearch').addClass('loading');
+
+        var date = $("#calendar").calendar('get date');
+        if (date instanceof Date)
+            document.getElementsByName("Date")[0].value = date.toDateString();
+
+        if ($('#dtDate').val().length == 0) {
+            document.getElementsByName("Date")[0].value = "";
+        }
+    }
 });

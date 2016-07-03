@@ -30,33 +30,31 @@
         
         <div class="ui text container">
             <img src="~/Images/logo.png" style="width: 70%;" >
-            <h2>Најди го својот превоз.</h2>
-            @using (Html.BeginForm("PerformSearch", "Search", FormMethod.Get))
-            { 
-                <div class="ui form">
-                    <div class="two fields">
-                        <div class="field">
-                            <div class="ui big icon input">
-                                <input type="text" id="searchbox-from" placeholder="Од">
-                                @Html.HiddenFor(model => model.FromLongitude)
-                                @Html.HiddenFor(model => model.FromLatitude)
-                                @Html.HiddenFor(model => model.FromCityName)
-                                @Html.HiddenFor(model => model.FromCountryShortCode)
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui big icon input">
-                                <input type="text" id="searchbox-to" placeholder="До">
-                                @Html.HiddenFor(model => model.ToLongitude)
-                                @Html.HiddenFor(model => model.ToLatitude)
-                                @Html.HiddenFor(model => model.ToCityName)
-                                @Html.HiddenFor(model => model.ToCountryShortCode)
-                            </div>
+            <h2 class="">Најди го својот превоз.</h2>
+            @using (Html.BeginForm("PerformSearch", "Search", FormMethod.Get, new { @class = "ui form findrideform" }))
+            {
+                <div class="two fields">
+                    <div class="field">
+                        <div class="ui big icon input">
+                            <input type="text" name="Origin" id="searchbox-from" placeholder="Од">
+                            @Html.HiddenFor(model => model.FromLongitude)
+                            @Html.HiddenFor(model => model.FromLatitude)
+                            @Html.HiddenFor(model => model.FromCityName)
+                            @Html.HiddenFor(model => model.FromCountryShortCode)
                         </div>
                     </div>
-                    <input type="submit" id="submitSearch" hidden />
-                    <div class="ui massive primary button" id="btnSubmitSearch">Барај<i class="right arrow icon"></i></div>
+                    <div class="field">
+                        <div class="ui big icon input">
+                            <input type="text" name="Destination" id="searchbox-to" placeholder="До">
+                            @Html.HiddenFor(model => model.ToLongitude)
+                            @Html.HiddenFor(model => model.ToLatitude)
+                            @Html.HiddenFor(model => model.ToCityName)
+                            @Html.HiddenFor(model => model.ToCountryShortCode)
+                        </div>
+                    </div>
                 </div>
+                @*<input type="submit" id="submitSearch" hidden />*@
+                <button class="ui massive primary button" id="btnSubmitSearch" type="submit">Барај<i class="right arrow icon"></i></button>
             }
         </div>
     </div>
