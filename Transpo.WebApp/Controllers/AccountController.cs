@@ -58,7 +58,7 @@ namespace Transpo.WebApp.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Неуспешен обид за најава.");
                     return View(model);
             }
         }
