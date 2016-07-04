@@ -39,7 +39,10 @@ namespace Transpo.WebApp.Controllers
                 Subject = message.Subject,
             };
 
-            Service.GetMessageService().SendMessage(mDto);
+            if (message.Body.Length > 0)
+            {
+                Service.GetMessageService().SendMessage(mDto);
+            }
         }
 
         //

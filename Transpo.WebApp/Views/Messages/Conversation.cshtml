@@ -57,8 +57,10 @@
         })
     });
 
-    $('.scrollConversation').slimScroll({
-        height: '250',
-        start: 'bottom'
-    })
+    if ($('.scrollConversation').height() > 250) {
+        $('.scrollConversation').slimScroll({
+            height: '250',
+            start: 'bottom'
+        })
+    }
 </script>

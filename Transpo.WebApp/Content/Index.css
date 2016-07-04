@@ -20,10 +20,10 @@
 }
 
 .main-header, .main-header:after {
-    -ms-transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 5s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
-    -moz-transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 5s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
-    -webkit-transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 5s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
-    transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 5s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    -ms-transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 3s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    -moz-transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 3s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    -webkit-transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 3s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+    transition: background 1s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 3s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
 }
 
 .main-header:after {
@@ -95,10 +95,6 @@
 }
 
 @media only screen and (max-width: 700px) {
-    .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu {
-    display: none;
-    }
     .main-header.segment {
     min-height: 350px;
     }
