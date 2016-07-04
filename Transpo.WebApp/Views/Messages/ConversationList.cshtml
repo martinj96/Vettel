@@ -8,7 +8,7 @@
 <input type="hidden" value="@ViewBag.UserId" id="userId" />
 @using (Ajax.BeginForm("Conversation", new AjaxOptions { UpdateTargetId = "conversation", HttpMethod = "Post" }))
 {
-    <div class="ui relaxed divided list conversationList">
+    <div class="ui relaxed divided list stackable conversationList">
         @foreach (var message in Model)
         {
             <div class="item" data-rec="@message.RecipientId" data-send="@message.SenderId">
@@ -49,7 +49,9 @@
         $('#submitRefreshConversation').submit();
     });
 
-    $('.conversationList').slimScroll({
-        height: '450',
-    })
+    if ($('.conversationList').height() > 450) {
+        $('.conversationList').slimScroll({
+            height: '450',
+        })
+    }
 </script>

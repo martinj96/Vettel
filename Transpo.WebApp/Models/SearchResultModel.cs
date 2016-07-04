@@ -91,7 +91,7 @@ namespace Transpo.WebApp.Models
                 RideModel rideModel = new RideModel(ride);
                 rs.Add(rideModel);
             }
-            Rides = rs.Where(x => x.DepartureDate >= DateTime.Now).OrderByDescending(x => x.DepartureDate).AsEnumerable();
+            Rides = rs.Where(x => x.DepartureDate >= DateTime.Now).OrderBy(x => x.DepartureDate).AsEnumerable();
         }
     }
 }

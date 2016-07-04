@@ -5,7 +5,7 @@
     Layout = null;
 }
 <div class="ui header">
-    Message @Model.Recipient.Name
+    Испрати порака до @Model.Recipient.Name
 </div>
 <div class="ui content">
     @using (Html.BeginForm("SendMessage", "Messages", FormMethod.Post, new { @class = "ui form" }))

@@ -22,17 +22,17 @@
 </head>
 <body>
     <div class="ui zoomed main-header center aligned segment">
-        <div class="ui secondary inverted pointing stackable container menu">
+        <div class="ui secondary inverted stackable container menu">
             @{ Html.RenderPartial("_MenuContent"); }
         </div>
         
         <div class="ui text container">
             <img src="~/Images/logo.png" style="width: 70%;" >
-            <h2 class="">Најди го својот превоз.</h2>
+            <div class="ui huge dividing header" style="color:white;">Најди го својот превоз</div>
             @using (Html.BeginForm("PerformSearch", "Search", FormMethod.Get, new { @class = "ui form findrideform" }))
             {
-                <div class="two fields">
-                    <div class="field">
+                <div class="fields">
+                    <div class="seven wide field">
                         <div class="ui big icon input">
                             <input type="text" name="Origin" id="searchbox-from" placeholder="Од">
                             @Html.HiddenFor(model => model.FromLongitude)
@@ -41,7 +41,8 @@
                             @Html.HiddenFor(model => model.FromCountryShortCode)
                         </div>
                     </div>
-                    <div class="field">
+                    <div class="two wide field"></div>
+                    <div class="seven wide field">
                         <div class="ui big icon input">
                             <input type="text" name="Destination" id="searchbox-to" placeholder="До">
                             @Html.HiddenFor(model => model.ToLongitude)
@@ -58,7 +59,7 @@
     </div>
     <div class="ui container">
         <div class="ui horizontal large divider" style="font-size:24px;">
-            Претстојни превози
+            Понудени превози
         </div>
         <div class="ui segment" id="rideSearchGrid">
             @{ Html.RenderPartial("~/Views/Shared/_SearchResultsGrid.cshtml", ViewData["Rides"]); }

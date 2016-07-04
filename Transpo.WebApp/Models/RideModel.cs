@@ -46,14 +46,15 @@ namespace Transpo.WebApp.Models
 
         public RideModel(Ride ride)
         {
-            StartPoint = new Point { Longitude = ride.OrderedCriticalPoints.First().CriticalPoint.Longitude, Latitude = ride.OrderedCriticalPoints.First().CriticalPoint.Latitude, Name = ride.OrderedCriticalPoints.First().CriticalPoint.Name };
-            EndPoint = new Point { Longitude = ride.OrderedCriticalPoints.Last().CriticalPoint.Longitude, Latitude = ride.OrderedCriticalPoints.Last().CriticalPoint.Latitude, Name = ride.OrderedCriticalPoints.Last().CriticalPoint.Name };
+            var ocp = ride.OrderedCriticalPoints.OrderBy(x => x.Order);
+            StartPoint = new Point { Longitude = ocp.First().CriticalPoint.Longitude, Latitude = ocp.First().CriticalPoint.Latitude, Name = ocp.First().CriticalPoint.Name };
+            EndPoint = new Point { Longitude = ocp.Last().CriticalPoint.Longitude, Latitude = ocp.Last().CriticalPoint.Latitude, Name = ocp.Last().CriticalPoint.Name };
             PricePerPassenger = ride.PricePerPassenger;
             Detour = ride.Detour;
             Description = ride.Description;
             SeatsLeft = ride.SeatsLeft;
             DepartureDate = ride.Departure;
-            Waypoints = (from w in ride.OrderedCriticalPoints
+            Waypoints = (from w in ocp
                          select new Point
                          {
                              Longitude = w.CriticalPoint.Longitude,

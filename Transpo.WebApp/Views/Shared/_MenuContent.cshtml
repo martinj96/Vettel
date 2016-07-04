@@ -12,9 +12,9 @@
     @if (Request.IsAuthenticated)
     {
 
-        <div class="ui pointing link dropdown item">
+        <div class="ui link dropdown item">
             @User.Identity.Name <i class="dropdown icon"></i>
-            <div class="ui secondary vertical pointing menu">
+            <div class="ui secondary vertical menu">
                 <a class="item myrides" href='@Url.Action("MyRides","Rides")'>Мои превози</a>
                 <a class="item messages" href='@Url.Action("Index", "Messages")'>
                     Пораки
