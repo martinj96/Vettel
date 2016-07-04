@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,8 +13,11 @@ namespace Transpo.Infrastructure.Data.Identity
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            SmtpClient client = new SmtpClient();
+            return client.SendMailAsync("no-reply@kinisaj.mk",
+                                        message.Destination,
+                                        message.Subject,
+                                        message.Body);
         }
     }
 }

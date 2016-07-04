@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using Transpo.AppServices;
 using Transpo.AppServices.Models;
 
 namespace Transpo.WebApp
@@ -30,6 +31,27 @@ namespace Transpo.WebApp
                 CustomPrincipal newUser = new CustomPrincipal(serializeModel.UserId, serializeModel.Name);
                 HttpContext.Current.User = newUser;
             }
+        }
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+
+            if (ex.GetType() == typeof(HttpException))
+            {
+                // handle http errors
+            }
+
+#if !DEBUG
+            var emailService = new EmailService();
+            emailService.SendEmail(new AppServices.DTOs.EmailDto
+            {
+                Body = ex.ToString(),
+                FromEmail = "exceptions@kinisaj.mk",
+                Subject = "Kinisaj.mk: Exception occurred",
+                ToEmail = "exceptions@kinisaj.mk"
+            });
+#endif
+            Server.ClearError();
         }
     }
 

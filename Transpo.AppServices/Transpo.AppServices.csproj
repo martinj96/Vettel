@@ -57,10 +57,12 @@
     <Compile Include="CarService.cs" />
     <Compile Include="DTOs\CarDto.cs" />
     <Compile Include="DTOs\CriticalPointDto.cs" />
+    <Compile Include="DTOs\EmailDto.cs" />
     <Compile Include="DTOs\LoginDto.cs" />
     <Compile Include="DTOs\MessageDto.cs" />
     <Compile Include="DTOs\OrderedCriticalPoint.cs" />
     <Compile Include="DTOs\RideDto.cs" />
+    <Compile Include="EmailService.cs" />
     <Compile Include="Factories\ServiceFactory.cs" />
     <Compile Include="Interfaces\IServiceFactory.cs" />
     <Compile Include="MessageService.cs" />
