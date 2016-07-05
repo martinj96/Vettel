@@ -61,6 +61,11 @@ namespace Transpo.AppServices
             else
                 user.Gender = (int)Gender.Female;
 
+            if (!string.IsNullOrEmpty(u.FacebookId))
+                user.FacebookId = u.FacebookId;
+            if (!string.IsNullOrEmpty(u.PictureUrl))
+                user.PictureUrl = u.PictureUrl;
+
             _userRepository.Edit(user);
             _userRepository.Save();
 

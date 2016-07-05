@@ -9,6 +9,9 @@ using Microsoft.Owin.Security;
 using Transpo.WebApp.Models;
 using Transpo.Infrastructure.Data.Identity;
 using Transpo.AppServices.DTOs;
+using Facebook;
+using System.Net;
+using System.Diagnostics;
 
 namespace Transpo.WebApp.Controllers
 {
@@ -26,10 +29,12 @@ namespace Transpo.WebApp.Controllers
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.Error ? "Се појави грешка. "
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : message == ManageMessageId.PhoneRequired ? "Мора да внесете телефон за да можете да креирате понуда за превоз."
+                : message == ManageMessageId.ExternalLoginExists ? "Екстерниот логин веќе се користи."
+                : message == ManageMessageId.RemoveLoginSuccess ? "Екстерниот логин беше избришан."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -64,7 +69,7 @@ namespace Transpo.WebApp.Controllers
             {
                 message = ManageMessageId.Error;
             }
-            return RedirectToAction("ManageLogins", new { Message = message });
+            return RedirectToAction("Index", new { Message = message });
         }
 
         //
@@ -190,8 +195,8 @@ namespace Transpo.WebApp.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.RemoveLoginSuccess ? "Екстерниот логин беше избришан."
+                : message == ManageMessageId.Error ? "Се случи грешка."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
@@ -225,10 +230,14 @@ namespace Transpo.WebApp.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
             {
-                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
-            return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+            if (result.Succeeded)
+            {
+                UpdateUserFromFacebook(loginInfo);
+            }
+            return result.Succeeded ? RedirectToAction("Index") : RedirectToAction("Index", new { Message = ManageMessageId.ExternalLoginExists });
         }
 
         //
@@ -338,9 +347,52 @@ namespace Transpo.WebApp.Controllers
             RemoveLoginSuccess,
             RemovePhoneSuccess,
             PhoneRequired,
+            ExternalLoginExists,
             Error
         }
 
-#endregion
+        private void UpdateUserFromFacebook(ExternalLoginInfo loginInfo)
+        {
+            var access_token = loginInfo.ExternalIdentity.Claims.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+
+            var fb = new FacebookClient(access_token);
+            dynamic claims = fb.Get("/me?fields=email,name,gender,id");
+
+            LoginDto userInfo = new LoginDto
+            {
+                Gender = claims.gender,
+                Name = claims.name,
+                FacebookId = claims.id,
+                PictureUrl = GetFacebookPictureUrl(claims.id)
+            };
+
+            Service.GetUserService().UpdateUserInfo(UserManager.FindById(User.Identity.GetUserId()).User.id, userInfo);
+        }
+
+        private string GetFacebookPictureUrl(string facebookId)
+        {
+            WebResponse response = null;
+            string pictureUrl = string.Empty;
+            try
+            {
+                WebRequest request = WebRequest.Create(string.Format("https://graph.facebook.com/{0}/picture?type=large", facebookId));
+                response = request.GetResponse();
+                pictureUrl = response.ResponseUri.ToString();
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.WriteLine(ex.InnerException);
+#endif
+                return "";
+            }
+            finally
+            {
+                if (response != null) response.Close();
+            }
+            return pictureUrl;
+        }
+
+        #endregion
     }
 }

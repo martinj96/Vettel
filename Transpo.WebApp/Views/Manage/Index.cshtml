@@ -23,8 +23,9 @@
     @*<div class="ui dividing header">Change your account settings</div>*@
     <div class="ui segment go-behind" >
         <div class="ui internally celled stackable grid">
-            <div class="eight wide column" id="manageFormPartial">
-                @if (Model.HasPassword)
+            <div class="row">
+                <div class="eight wide column" id="manageFormPartial">
+                    @if (Model.HasPassword)
             {
                 Html.RenderAction("ChangePassword", "Manage");
             }
@@ -32,9 +33,15 @@
             {
                 Html.RenderAction("SetPassword", "Manage");
             }
+                </div>
+                <div class="eight wide column" id="personalInfoPartial">
+                    @{ Html.RenderAction("ModifyPersonalInfo", "Manage"); }
+                </div>
             </div>
-            <div class="eight wide column" id="personalInfoPartial">
-                @{ Html.RenderAction("ModifyPersonalInfo", "Manage"); }
+            <div class="row">
+                <div class="sixteen wide column">
+                    @{ Html.RenderAction("ManageLogins", "Manage"); }
+                </div>
             </div>
         </div>
         @*<dl class="dl-horizontal">
