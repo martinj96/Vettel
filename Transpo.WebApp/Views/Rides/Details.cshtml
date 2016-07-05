@@ -108,12 +108,23 @@
                                 }
                             </div>
                             <div class="meta">
-                                @Model.Driver.Age год.
+                                @if (Model.Driver.Age.HasValue)
+                                {
+                                    <span>@Model.Driver.Age год.</span>
+                                }
+                                else
+                                {
+                                    <span>&nbsp;</span>
+                                }
                             </div>
                             <div class="description">
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <span>тел. @Model.Driver.Phone</span>
+                                    if (!string.IsNullOrEmpty(Model.Driver.FacebookId) && Model.Driver.FacebookId != "0")
+                                    {
+                                        <a href="http://facebook.com/app_scoped_user_id/@Model.Driver.FacebookId" target="_blank" class="right floated"><i class="large square facebook icon"></i></a>
+                                    }
                                 }
                                 else
                                 {

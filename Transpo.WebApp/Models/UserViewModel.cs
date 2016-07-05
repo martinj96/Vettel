@@ -15,6 +15,7 @@ namespace Transpo.WebApp.Models
             Link = u.Link;
             Email = u.Email;
             UserId = u.id;
+            FacebookId = u.FacebookId;
             PictureUrl = u.PictureUrl;
             Phone = u.Phone;
             if (u.Gender.HasValue)
@@ -29,6 +30,7 @@ namespace Transpo.WebApp.Models
         public string Name { get; set; }
         public string Gender { get; set; }
         public string Link { get; set; }
+        public string FacebookId { get; set; }
         public string Email { get; set; }
         public int? Age { get; set; }
         public string Phone { get; set; }
