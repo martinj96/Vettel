@@ -60,6 +60,26 @@
         return $('#Password').val() === value;
     }
 
+    $.fn.form.settings.rules.isExisting = function (value) {
+        var result = true;
+        $.ajax({
+            async: false,
+            url: '../Account/IsTaken',
+            type: 'GET',
+            data: {
+                email: $('#Email').val()
+            },
+            success: function (data) {
+                if (data == "True") {
+                    result = false;
+                } else {
+                    result = true;
+                }
+            }
+        });
+        return result;
+    }
+
     $('.ui.form.registerform').form({
         fields: {
             email: {
@@ -67,11 +87,15 @@
                 rules: [
                     {
                         type: 'empty',
-                        prompt: 'Please enter an email'
+                        prompt: 'Внесете емаил'
                     },
                     {
                         type: 'email',
-                        prompt: 'Please enter a valid email'
+                        prompt: 'Внесете валиден емаил'
+                    },
+                    {
+                        type: 'isExisting',
+                        prompt: 'Емаилот веќе постои'
                     }
                 ]
             },
@@ -80,11 +104,11 @@
                 rules: [
                 {
                     type: 'empty',
-                    prompt: 'Please enter a new password'
+                    prompt: 'Внесете лозинка'
                 },
                 {
                     type: 'length[6]',
-                    prompt: 'Your password must be at least 6 characters'
+                    prompt: 'Лозинката мора да има барем 6 карактери'
                 }
                 ]
             },
@@ -93,11 +117,11 @@
                 rules: [
                 {
                     type: 'empty',
-                    prompt: 'Please confirm the password'
+                    prompt: 'Потврдете ја лозинката'
                 },
                 {
                     type: 'matchPasswords',
-                    prompt: 'Your passwords must match'
+                    prompt: 'Лозинките мора да се совпаѓаат'
                 }
                 ]
             },

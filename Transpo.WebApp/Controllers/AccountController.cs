@@ -93,6 +93,13 @@ namespace Transpo.WebApp.Controllers
                     }
                 };
 
+                var exists = await UserManager.FindByNameAsync(model.Email);
+                if (exists != null)
+                {
+                    ModelState.AddModelError("", "Емаилот веќе е регистриран.");
+                    return View(model);
+                }
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -252,6 +259,15 @@ namespace Transpo.WebApp.Controllers
             }
         }
 
+        //
+        // GET: /Account/IsTaken
+        [AllowAnonymous]
+        public bool IsTaken(string email)
+        {
+            var result = UserManager.FindByName(email);
+            return result != null;
+        }
+
         private ExternalLoginConfirmationViewModel GetExternalLoginViewModel(ExternalLoginInfo loginInfo)
         {
             ExternalLoginConfirmationViewModel model = new ExternalLoginConfirmationViewModel();
@@ -263,8 +279,8 @@ namespace Transpo.WebApp.Controllers
             model.Gender = claims.gender == "male" ? 1 : 2;
             model.Email = claims.email;
             model.Name = claims.name;
-            var facebookId = claims.id;
-            model.PictureUrl = GetFacebookPictureUrl(facebookId);
+            model.FacebookId = claims.id;
+            model.PictureUrl = GetFacebookPictureUrl(model.FacebookId);
 
             return model;
         }
@@ -429,7 +445,8 @@ namespace Transpo.WebApp.Controllers
                 Name = model.Name,
                 PictureUrl = model.PictureUrl,
                 Gender = model.Gender,
-                Email = model.Email
+                Email = model.Email,
+                FacebookId = model.FacebookId
             };
 
             appUser.User = user;

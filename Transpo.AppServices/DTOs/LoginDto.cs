@@ -13,7 +13,7 @@ namespace Transpo.AppServices.DTOs
         public string Gender { get; set; }
         public string Email { get; set; }
         public string Link { get; set; }
-        public long FacebookId { get; set; }
+        public string FacebookId { get; set; }
         public string AppUserId { get; set; }
         public string PictureUrl { get; set; }
         public int? Age { get; set; }

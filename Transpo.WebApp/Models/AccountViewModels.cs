@@ -12,6 +12,7 @@ namespace Transpo.WebApp.Models
         public string Name { get; set; }
         public string PictureUrl { get; set; }
         public int Gender { get; set; }
+        public string FacebookId { get; set; }
     }
 
     public class ExternalLoginListViewModel
