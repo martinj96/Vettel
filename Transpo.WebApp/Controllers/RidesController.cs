@@ -15,7 +15,6 @@ using Transpo.WebApp.Models;
 
 namespace Transpo.WebApp.Controllers
 {
-    [Authorize]
     public class RidesController : BaseController
     {
         // GET: Rides

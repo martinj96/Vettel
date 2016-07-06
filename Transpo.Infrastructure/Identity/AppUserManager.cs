@@ -46,5 +46,18 @@ namespace Transpo.Infrastructure.Data.Identity
             }
             return manager;
         }
+
+        public override Task SendEmailAsync(string userId, string subject, string body)
+        {
+            var emailService = new EmailService();
+            var msg = new IdentityMessage
+            {
+                Body = body,
+                Subject = subject,
+                Destination = this.FindById(userId).Email
+            };
+
+            return emailService.SendAsync(msg);
+        }
     }
 }

@@ -1,11 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Confirm Email";
+    ViewBag.Title = "Потврда на емаил адреса";
 }
 <div class="ui container">
-    <h2>@ViewBag.Title.</h2>
-    <div>
-        <p>
-            Thank you for confirming your email. Please @Html.ActionLink("Click here to Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-        </p>
+    <h2 class="ui dividing header">@ViewBag.Title.</h2>
+    <div class="ui segment">
+        Ви благодариме за потврдувањето на вашата емаил адреса. @Html.ActionLink("Кликнете тука за најава.", "Index", "Home", routeValues: new { id = 1 }, htmlAttributes: new { id ="loginLink" })
     </div>
 </div>
