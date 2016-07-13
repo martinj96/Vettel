@@ -8,7 +8,7 @@ $('#btnAddMoreWaypoints').on('click', function () {
         .after(
             '<div class="field">' +
                 '<div class="ui icon input">' +
-                    '<input type="text" class="waypoint" placeholder="Add a Waypoint">' +
+                    '<input type="text" class="waypoint" placeholder="Додај попатно место">' +
                     '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Latitude" />' +
                     '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Longitude" />' +
                     '<input type="hidden" name="Waypoints[' + waypointsCounter + '].Name" />' +
