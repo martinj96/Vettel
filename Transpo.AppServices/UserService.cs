@@ -49,6 +49,10 @@ namespace Transpo.AppServices
         {
             return _userRepository.GetById(id);
         }
+        public List<User> GetAllActiveUsers(int id)
+        {
+            return _userRepository.GetAll();
+        }
 
         public User UpdateUserInfo(int userId, LoginDto u)
         {
