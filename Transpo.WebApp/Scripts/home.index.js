@@ -41,7 +41,8 @@ function showWarningMessage(msg) {}
 
 function introduction() {
     $header = $('.main-header');
-    var background = 'bg' + getRandomInt(1, 14);
+    //var background = 'bg' + getRandomInt(1, 14);
+    var background = 'bgmain';
     $header
         .addClass(background)
         .removeClass('zoomed');

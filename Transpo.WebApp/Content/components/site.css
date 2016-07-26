@@ -184,6 +184,11 @@ input::selection {
   background-image: url("/images/backgrounds/10.jpg");
 }
 
+.bgmain:after {
+    background-image: url("/images/Backgrounds/Slika-min.jpg");
+    background-repeat: round;   
+}
+
 /*******************************
          Site Overrides
 *******************************/

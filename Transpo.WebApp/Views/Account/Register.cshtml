@@ -49,7 +49,7 @@
                     @Html.TextBoxFor(m => m.Phone)
                 </div>
 
-                <button type="submit" class="ui primary button" value="Register" id="btnRegister">Register</button>
+                <button type="submit" class="ui primary button" value="Register" id="btnRegister">Регистрирај се</button>
             </div>
         </div>
     }
@@ -131,6 +131,15 @@
                     {
                         type: 'regExp[/^(07(0|1|2|5|6|7|8)([0-9]{6}))$|^(07(0|1|2|5|6|7|8)\-([0-9]{3})\-([0-9]{3}))$/]',
                         prompt: 'Телефонскиот број не е валиден'
+                    }
+                ]
+            },
+            age: {
+                identifier: 'Age',
+                rules: [
+                    {
+                        type: 'integer[0..99]',
+                        prompt: 'Невалидна возраст'
                     }
                 ]
             }

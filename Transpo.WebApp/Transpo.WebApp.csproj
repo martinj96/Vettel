@@ -319,6 +319,7 @@
     <Content Include="Images\Backgrounds\9.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\no_image.png" />
+    <Content Include="Images\Backgrounds\Slika-min.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\themes\default\assets\fonts\icons.woff2" />
