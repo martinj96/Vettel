@@ -49,7 +49,7 @@ namespace Transpo.AppServices
         {
             return _userRepository.GetById(id);
         }
-        public List<User> GetAllActiveUsers(int id)
+        public List<User> GetAllActiveUsers()
         {
             return _userRepository.GetAll();
         }

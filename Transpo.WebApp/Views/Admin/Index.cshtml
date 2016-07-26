@@ -11,7 +11,7 @@
     <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
     <script>
         tinymce.init({
-            selector: 'textarea',
+            selector: '#content',
             height: 500,
             plugins: [
               'advlist autolink lists link image charmap print preview anchor',
@@ -32,6 +32,7 @@
     {
         <textarea id="content" name="content">Dummy Text</textarea>
         <br />
+        <textarea id="subject" name="subject"></textarea>
         <button type="submit" value="Send to all" class="ui button primary" id="sendToAll">Прати до сите</button>
     }
 </body>
