@@ -306,7 +306,6 @@
     <Content Include="Content\themes\default\assets\images\flags.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\11695809_10205724801732941_1586343326522175925_n.jpg" />
     <Content Include="Images\Backgrounds\1.jpg" />
     <Content Include="Images\Backgrounds\10.jpg" />
     <Content Include="Images\Backgrounds\2.jpg" />
@@ -340,6 +339,7 @@
       <DependentUpon>api.min.js</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Everleap.pubxml" />
+    <None Include="Properties\PublishProfiles\Uhost.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\global.js" />
