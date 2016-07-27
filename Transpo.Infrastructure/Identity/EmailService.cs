@@ -14,7 +14,7 @@ namespace Transpo.Infrastructure.Data.Identity
         public Task SendAsync(IdentityMessage message)
         {
             SmtpClient client = new SmtpClient();
-            return client.SendMailAsync("kinisaj@gmail.com",
+            return client.SendMailAsync("info@kinisaj.mk",
                                         message.Destination,
                                         message.Subject,
                                         message.Body);
