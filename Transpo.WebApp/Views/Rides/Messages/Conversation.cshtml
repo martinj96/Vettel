@@ -1,0 +1,64 @@
+﻿@using Transpo.WebApp.Models
+@model IEnumerable<MessageViewModel>
+
+@{ 
+    Layout = null;
+}
+
+<div class="ui comments">
+    <h3 class="ui dividing header" id="subject">@Model.First().Subject</h3>
+    <div class="scrollConversation">
+        @foreach (var message in Model)
+        {
+            <div class="comment">
+                <a class="avatar">
+                    <img src="@message.Sender.PictureUrl" />
+                </a>
+                <div class="content">
+                    <a class="author">@message.Sender.Name</a>
+                    <div class="metadata">
+                        <span class="date">@message.SendDate</span>
+                    </div>
+                    <div class="text">
+                        @message.Body
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <form class="ui reply form">
+        <div class="field">
+            <textarea id="bodyText" style="height:80px;"></textarea>
+        </div>
+        <div class="ui blue labeled submit icon button" id="sendReply">
+            <i class="icon edit"></i> Одговори
+        </div>
+    </form>
+
+</div>
+
+<script>
+    $('#sendReply').on('click', function (e) {
+        e.preventDefault();
+        var model = {
+            Body: $('#bodyText').val(),
+            RecipientId: $('#id').val(),
+            SenderId: $('#userId').val(),
+            Subject: $('#subject').text()
+        }
+        $('#sendReply').addClass('loading');
+        $.ajax({
+            type: "POST",
+            url: "../Messages/SendMessage",
+            data: model,
+            success: function () {
+                $('#submitRefreshConversation').submit();
+            }
+        })
+    });
+
+    $('.scrollConversation').slimScroll({
+        height: '250',
+        start: 'bottom'
+    })
+</script>

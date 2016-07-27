@@ -1,0 +1,13 @@
+﻿<script src="~/Scripts/jquery.slimscroll.min.js"></script>
+<div class="ui container">
+    <div class="ui internally celled grid">
+        <div class="four wide column" id="conversationlist">
+                @{ Html.RenderAction("ConversationList"); }
+        </div>
+        <div class="twelve wide column go-behind" id="conversation">
+        </div>
+    </div>
+</div>
+<script>
+    $('.menu .item.messages').addClass('active');
+</script>
