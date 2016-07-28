@@ -463,7 +463,7 @@ namespace Transpo.WebApp.Controllers
             }
             AddErrors(result);
 
-            return View("ExternalLoginFailure");
+            return View("ExternalLoginFailure", result.Errors);
         }
         #endregion
     }
