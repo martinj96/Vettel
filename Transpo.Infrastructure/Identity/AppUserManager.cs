@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,13 +51,11 @@ namespace Transpo.Infrastructure.Data.Identity
         public override Task SendEmailAsync(string userId, string subject, string body)
         {
             var emailService = new EmailService();
-            var msg = new IdentityMessage
-            {
-                Body = body,
-                Subject = subject,
-                Destination = this.FindById(userId).Email
-            };
-
+            MailMessage msg = new MailMessage("kinisaj@gmail.com",
+                                        this.FindById(userId).Email,
+                                        subject,
+                                        body);
+            msg.IsBodyHtml = true;
             return emailService.SendAsync(msg);
         }
     }

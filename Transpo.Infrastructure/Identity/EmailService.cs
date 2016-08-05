@@ -9,15 +9,12 @@ using System.Threading.Tasks;
 
 namespace Transpo.Infrastructure.Data.Identity
 {
-    public class EmailService : IIdentityMessageService
+    public class EmailService 
     {
-        public Task SendAsync(IdentityMessage message)
+        public Task SendAsync(MailMessage message)
         {
             SmtpClient client = new SmtpClient();
-            return client.SendMailAsync("kinisaj@gmail.com",
-                                        message.Destination,
-                                        message.Subject,
-                                        message.Body);
+            return client.SendMailAsync(message);
         }
     }
 }

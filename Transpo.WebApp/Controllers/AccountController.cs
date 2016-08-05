@@ -14,6 +14,7 @@ using System.Net;
 using Facebook;
 using Transpo.Infrastructure.Data.Entities;
 using System.Diagnostics;
+using System.IO;
 
 namespace Transpo.WebApp.Controllers
 {
@@ -109,7 +110,14 @@ namespace Transpo.WebApp.Controllers
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string body;
+                    using (var sr = new StreamReader(Server.MapPath("~\\EmailTemplates\\ConfirmMail.html")))
+                    {
+                        body = sr.ReadToEnd();
+                        body = body.Replace("[NAME]", user.User.Name);
+                        body = body.Replace("[confirmAccountUrl]", callbackUrl);
+                    }
+                    await UserManager.SendEmailAsync(user.Id, "Потврда на корисничка сметка", body);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -161,7 +169,15 @@ namespace Transpo.WebApp.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                string body;
+                using (var sr = new StreamReader(Server.MapPath("~\\EmailTemplates\\ForgetPassword.html")))
+                {
+                    body = sr.ReadToEnd();
+                    body = body.Replace("[NAME]", user.User.Name);
+                    body = body.Replace("[resetPasswordUrl]",callbackUrl);
+                }
+
+                await UserManager.SendEmailAsync(user.Id, "Заборавена лозинка", body);
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 

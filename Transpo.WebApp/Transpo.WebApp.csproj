@@ -304,6 +304,9 @@
     <Content Include="Content\themes\basic\assets\fonts\icons.svg" />
     <Content Include="Content\themes\default\assets\fonts\icons.svg" />
     <Content Include="Content\themes\default\assets\images\flags.png" />
+    <Content Include="EmailTemplates\ConfirmMail.html" />
+    <Content Include="EmailTemplates\RegistrirajSe.html" />
+    <Content Include="EmailTemplates\ForgetPassword.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\Backgrounds\1.jpg" />
@@ -316,6 +319,7 @@
     <Content Include="Images\Backgrounds\7.jpg" />
     <Content Include="Images\Backgrounds\8.jpg" />
     <Content Include="Images\Backgrounds\9.jpg" />
+    <Content Include="Images\favicon.ico" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\no_image.png" />
     <Content Include="Images\Backgrounds\Slika-min.jpg" />
