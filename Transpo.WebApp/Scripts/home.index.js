@@ -44,8 +44,10 @@ function introduction() {
     //var background = 'bg' + getRandomInt(1, 14);
     var background = 'bgmain';
     $header
-        .addClass(background)
+        //.addClass(background)
         .removeClass('zoomed');
+
+    $('#indexbg').removeClass('bgUnloaded').addClass('bgmain');
 }
 
 $(function () {

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<String>
+@{
     ViewBag.Title = "Login Failure";
 }
 <div class="ui container">
@@ -6,4 +7,8 @@
         <h2>@ViewBag.Title.</h2>
         <h3 class="text-danger">Unsuccessful login with service.</h3>
     </hgroup>
+    @foreach (var item in Model)
+    {
+        <span>@item</span>
+    }
 </div>

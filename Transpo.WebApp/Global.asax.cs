@@ -45,7 +45,7 @@ namespace Transpo.WebApp
             var emailService = new EmailService();
             emailService.SendEmail(new AppServices.DTOs.EmailDto
             {
-                Body = ex.ToString(),
+                Body = ex.ToString() + "<br/>" + ex.InnerException.ToString(),
                 FromEmail = "exceptions@kinisaj.mk",
                 Subject = "Kinisaj.mk: Exception occurred",
                 ToEmail = "exceptions@kinisaj.mk"
