@@ -4,8 +4,9 @@
 <link href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css" rel="stylesheet" type="text/css" />
 
 <div class="ui container">
-    @using (Html.BeginForm("CreateRide", "Rides", FormMethod.Get, new { @class = "ui form createrideform" }))
+    @using (Html.BeginForm("CreateRide", "Rides", FormMethod.Post, new { @class = "ui form createrideform" }))
     {
+        @Html.AntiForgeryToken()
         <div class="ui two column divided stackable grid">
             <div class="ten wide column">
                 <div class="ui large header">Внесете детали за патувањето</div>

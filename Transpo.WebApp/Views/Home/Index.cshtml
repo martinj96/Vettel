@@ -59,14 +59,18 @@
             }
         </div>
     </div>
-    <div class="ui container">
-        <div class="ui horizontal large divider" style="font-size:24px;">
-            Понудени превози
+
+    @if ((ViewData["Rides"] as IEnumerable<RideModel>).Count() > 0)
+    {
+        <div class="ui container">
+            <div class="ui horizontal large divider" style="font-size:24px;">
+                Понудени превози
+            </div>
+            <div class="ui segment" id="rideSearchGrid">
+                @{ Html.RenderPartial("~/Views/Shared/_SearchResultsGrid.cshtml", ViewData["Rides"]); }
+            </div>
         </div>
-        <div class="ui segment" id="rideSearchGrid">
-            @{ Html.RenderPartial("~/Views/Shared/_SearchResultsGrid.cshtml", ViewData["Rides"]); }
-        </div>
-    </div>
+    }
 
     <script src="~/Scripts/home.index.js"></script>
     <script src="~/Scripts/places-searchbox.js"></script>

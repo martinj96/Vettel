@@ -58,7 +58,9 @@ namespace Transpo.WebApp.Controllers
             Service.GetRideService().AddMeToRide(user.User, ride);
         }
 
+        [ValidateAntiForgeryToken]
         [Authorize]
+        [HttpPost]
         public ActionResult CreateRide(RideModel ride, string returnR)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
