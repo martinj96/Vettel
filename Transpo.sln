@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transpo.WebApp", "Transpo.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transpo.BusinessLogic", "BusinessLogic\Transpo.BusinessLogic.csproj", "{3F5FD2EB-009E-46E0-8A19-40037EB95B30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transpo.API", "Transpo.API\Transpo.API.csproj", "{EE14818D-374B-4DB3-8A65-DF18FACD132F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{3F5FD2EB-009E-46E0-8A19-40037EB95B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F5FD2EB-009E-46E0-8A19-40037EB95B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F5FD2EB-009E-46E0-8A19-40037EB95B30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE14818D-374B-4DB3-8A65-DF18FACD132F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE14818D-374B-4DB3-8A65-DF18FACD132F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE14818D-374B-4DB3-8A65-DF18FACD132F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE14818D-374B-4DB3-8A65-DF18FACD132F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

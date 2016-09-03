@@ -10,7 +10,7 @@ using Transpo.Infrastructure.Data.Identity;
 
 namespace Transpo.Infrastructure.Data
 {
-    public class TranspoDbContext : IdentityDbContext<AppUser>
+    public class TranspoDbContext : IdentityDbContext<AppUser>, IDisposable
     {
         public TranspoDbContext()
             : base("DefaultConnection")
