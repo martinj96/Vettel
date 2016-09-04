@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using Transpo.API.Models;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
 using Transpo.WebApp.Models;
@@ -14,29 +15,29 @@ namespace Transpo.API.Controllers
 {
     public class HomeController : BaseApiController
     {
-        // GET: Home
-        public IHttpActionResult Index(int id = 0)
-        {
-            var model = new SearchResultModel();
-            ViewData["Rides"] = model.Rides;
-            ViewBag.Login = id == 1;
+        //// GET: Home
+        //public IHttpActionResult Index(int id = 0)
+        //{
+        //    var model = new SearchResultModel();
+        //    ViewData["Rides"] = model.Rides;
+        //    ViewBag.Login = id == 1;
 
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
-                ViewBag.UnreadMessages = Service.GetMessageService().GetUnreadMessagesCount(userId);
-            }
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
+        //        ViewBag.UnreadMessages = Service.GetMessageService().GetUnreadMessagesCount(userId);
+        //    }
 
-            return View();
-        }
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        public IHttpActionResult LogOff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
+        //[HttpPost]
+        //public IHttpActionResult LogOff()
+        //{
+        //    FormsAuthentication.SignOut();
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         //public void CreateAuthenticationTicket(long facebookId)
         //{

@@ -3,78 +3,64 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using Transpo.API.Models;
 using Transpo.AppServices;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
 using Transpo.Infrastructure.Data;
 using Transpo.Infrastructure.Data.Entities;
-using Transpo.WebApp.Models;
+using Transpo.API.Filters;
 
 namespace Transpo.API.Controllers
 {
+    [BasicAuthentication]
     public class RidesController : BaseApiController
     {
         // GET: Rides
-
-        [Authorize]
-        public IHttpActionResult Create()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId()).User;
-
-            if (String.IsNullOrEmpty(user.Phone))
-            {
-                return RedirectToAction("Index", "Manage", new { @message = ManageController.ManageMessageId.PhoneRequired });
-            }
-
-            return View();
-        }
-
         [AllowAnonymous]
-        public IHttpActionResult Details(int id = 0)
+        [Route("api/rides/details")]
+        [HttpGet]
+        public IHttpActionResult Details(int id)
         {
-            if (id == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             Ride ride = Service.GetRideService().GetById(id);
             if (ride == null || ride.Active == false)
-                return Content("Invalid ride.. Place make sure you request an existing ride.");
+                return InternalServerError();
 
             RideDetailsViewModel viewModel = ConvertRideToViewModel(ride, id);
-            
-            return View(viewModel);
+
+            return Ok(viewModel);
         }
 
-        [Authorize]
-        public void AddMeToRide(int rideId)
-        {
-            var ride = Service.GetRideService().GetById(rideId);
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            //var user = _userService.GetUserById((HttpContext.User as CustomPrincipal).UserId);
-            Service.GetRideService().AddMeToRide(user.User, ride);
-        }
+        //public void AddMeToRide(int rideId)
+        //{
+        //    var ride = Service.GetRideService().GetById(rideId);
+        //    var user = UserManager.FindById(User.Identity.GetUserId());
+        //    //var user = _userService.GetUserById((HttpContext.User as CustomPrincipal).UserId);
+        //    Service.GetRideService().AddMeToRide(user.User, ride);
+        //}
 
-        [ValidateAntiForgeryToken]
         [Authorize]
+        [Route("api/rides/createRide")]
         [HttpPost]
-        public ActionResult CreateRide(RideModel ride, string returnR)
+        public IHttpActionResult CreateRide(RideModel ride, string returnR)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
 
             if (user == null)
-                throw new UnauthorizedAccessException();
+                return InternalServerError();
 
             var dto = ConvertRideModelToDto(ride, user.User.id, returnR);
             Ride r = Service.GetRideService().AddRide(dto);
 
-            return View("Details", ConvertRideToViewModel(r, r.id));
+            return Ok(ConvertRideToViewModel(r, r.id));
         }
 
         [Authorize]
+        [Route("api/rides/myrides")]
+        [HttpGet]
         public IHttpActionResult MyRides()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
@@ -84,10 +70,12 @@ namespace Transpo.API.Controllers
 
             var rides = new SearchResultModel(user.User);
 
-            return View(rides);
+            return Ok(rides);
         }
 
         [Authorize]
+        [Route("api/rides/deleteride")]
+        [HttpGet]
         public IHttpActionResult DeleteRide(int id)
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
@@ -96,18 +84,18 @@ namespace Transpo.API.Controllers
 
             if (user.User.id != ride.DriverId)
             {
-                return RedirectToAction("MyRides");
+                return InternalServerError();
             }
 
             Service.GetRideService().DeleteRide(id);
-            return RedirectToAction("MyRides");
+            return Ok();
         }
-        
+
         #region Helpers
         private RideDto ConvertRideModelToDto(RideModel ride, int userId, string returnRide)
         {
             var dto = new RideDto();
-            
+
             dto.Length = ride.Length;
             dto.Description = ride.Description;
             dto.Detour = ride.Detour;
@@ -131,20 +119,22 @@ namespace Transpo.API.Controllers
 
 
             int o = 0;
-            var cp = new CriticalPointDto {
+            var cp = new CriticalPointDto
+            {
                 Latitude = ride.StartPoint.Latitude,
                 Longitude = ride.StartPoint.Longitude,
                 Name = ride.StartPoint.Name
             };
             var ocpDto = new List<OrderedCriticalPointDto>();
-            ocpDto.Add(new OrderedCriticalPointDto {
+            ocpDto.Add(new OrderedCriticalPointDto
+            {
                 CriticalPoint = cp,
                 Order = o
             });
             o++;
             foreach (var point in ride.Waypoints)
-	        {
-                if(point.Latitude.CompareTo(Decimal.Zero) == 0 && point.Latitude.CompareTo(Decimal.Zero) == 0)
+            {
+                if (point.Latitude.CompareTo(Decimal.Zero) == 0 && point.Latitude.CompareTo(Decimal.Zero) == 0)
                     continue;
                 cp = new CriticalPointDto
                 {
@@ -152,12 +142,13 @@ namespace Transpo.API.Controllers
                     Longitude = point.Longitude,
                     Name = point.Name
                 };
-		        ocpDto.Add(new OrderedCriticalPointDto {
+                ocpDto.Add(new OrderedCriticalPointDto
+                {
                     CriticalPoint = cp,
                     Order = o
                 });
                 o++;
-	        }
+            }
             cp = new CriticalPointDto
             {
                 Latitude = ride.EndPoint.Latitude,
@@ -170,7 +161,7 @@ namespace Transpo.API.Controllers
                 Order = o
             });
             dto.Waypoints = ocpDto;
-            
+
             return dto;
         }
         private RideDetailsViewModel ConvertRideToViewModel(Ride ride, int id)
