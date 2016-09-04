@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

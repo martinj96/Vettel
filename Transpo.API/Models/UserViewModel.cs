@@ -5,7 +5,7 @@ using System.Text;
 using Transpo.Infrastructure.Data.Entities;
 using Transpo.Infrastructure.Data.Identity;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class UserViewModel
     {

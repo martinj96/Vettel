@@ -10,7 +10,7 @@ using Transpo.AppServices.Interfaces;
 using Transpo.Infrastructure.Data;
 using Transpo.Infrastructure.Data.Entities;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class SearchResultModel : SearchModel
     {

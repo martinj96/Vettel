@@ -42,7 +42,7 @@ namespace Transpo.API.Controllers
         {
             get
             {
-                return _signInManager ?? HttpContext.Current.GetOwinContext().Get<AppSignInManager>();
+                return _signInManager ?? Request.GetOwinContext().Get<AppSignInManager>();
             }
             private set
             {
@@ -54,7 +54,7 @@ namespace Transpo.API.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
+                return _userManager ?? Request.GetOwinContext().GetUserManager<AppUserManager>();
             }
             private set
             {

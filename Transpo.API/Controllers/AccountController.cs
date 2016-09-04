@@ -7,43 +7,31 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Transpo.WebApp.Models;
 using Transpo.Infrastructure.Data.Identity;
 using System.Net;
 using Transpo.Infrastructure.Data.Entities;
 using System.Diagnostics;
 using System.IO;
 using System.Web.Http;
+using Transpo.API.Models;
+using System.Net.Http;
+using System.Web.Hosting;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Transpo.API.Controllers
 {
-    [Authorize]
     public class AccountController : BaseApiController
     {
-
-
-        public AccountController()
-        {
-        }
-
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public IHttpActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        //
         // POST: /Account/Login
+        [Route("api/account/login")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IHttpActionResult> Login([FromBody] LoginViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Content(HttpStatusCode.BadRequest, model);
             }
 
             // This doesn't count login failures towards account lockout
@@ -52,77 +40,67 @@ namespace Transpo.API.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    return Ok(model);
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Неуспешен обид за најава.");
-                    return View(model);
+                    return Content(HttpStatusCode.BadRequest, model);
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public IHttpActionResult Register()
-        {
-            return View();
-        }
-
-        //
         // POST: /Account/Register
+        [Route("api/account/register")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> Register(RegisterViewModel model)
+        public async Task<IHttpActionResult> Register([FromBody] RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            var errors = new List<string>();
+
+            if (!ModelState.IsValid)
             {
-                var user = new AppUser {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    User = new User
-                    {
-                        Name = string.IsNullOrEmpty(model.Name) ? model.Email : model.Name,
-                        Email = model.Email,
-                        Age = model.Age,
-                        Gender = model.Gender,
-                        Phone = model.Phone
-                    }
-                };
-
-                var exists = await UserManager.FindByNameAsync(model.Email);
-                if (exists != null)
-                {
-                    ModelState.AddModelError("", "Емаилот веќе е регистриран.");
-                    return View(model);
-                }
-
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    string body;
-                    using (var sr = new StreamReader(Server.MapPath("~\\EmailTemplates\\ConfirmMail.html")))
-                    {
-                        body = sr.ReadToEnd();
-                        body = body.Replace("[NAME]", user.User.Name);
-                        body = body.Replace("[confirmAccountUrl]", callbackUrl);
-                    }
-                    await UserManager.SendEmailAsync(user.Id, "Потврда на корисничка сметка", body);
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
+                return BadRequest(ModelState);
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            var user = new AppUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                User = new User
+                {
+                    Name = string.IsNullOrEmpty(model.Name) ? model.Email : model.Name,
+                    Email = model.Email,
+                    Age = model.Age,
+                    Gender = model.Gender,
+                    Phone = model.Phone
+                }
+            };
+
+            var exists = await UserManager.FindByNameAsync(model.Email);
+            if (exists != null)
+            {
+                return Content(HttpStatusCode.Conflict, "Емаилот веќе е регистриран.");
+            }
+
+            var result = await UserManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = Request.GetRequestContext().VirtualPathRoot + @"/Account/ConfirmEmail?userId=" + user.Id + "&code=" + code;
+                string body;
+                using (var sr = new StreamReader(HostingEnvironment.MapPath("~\\EmailTemplates\\ConfirmMail.html")))
+                {
+                    body = sr.ReadToEnd();
+                    body = body.Replace("[NAME]", user.User.Name);
+                    body = body.Replace("[confirmAccountUrl]", callbackUrl);
+                }
+                await UserManager.SendEmailAsync(user.Id, "Потврда на корисничка сметка", body);
+
+                return Ok();
+            }
+            return GetErrorResult(result);       
         }
 
         //
@@ -132,22 +110,17 @@ namespace Transpo.API.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                return Content(HttpStatusCode.BadRequest, "Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            if (result.Succeeded)
+                return Ok();
+            else
+                return GetErrorResult(result);
         }
 
-        //
-        // GET: /Account/ForgotPassword
-        [AllowAnonymous]
-        public IHttpActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        //
         // POST: /Account/ForgotPassword
+        [Route("api/account/forgotpassword")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordViewModel model)
@@ -158,141 +131,115 @@ namespace Transpo.API.Controllers
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    return Ok();
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var callbackUrl = Request.GetRequestContext().VirtualPathRoot + @"/Account/ResetPassword?userId=" + user.Id + "&code=" + code;
+                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 string body;
-                using (var sr = new StreamReader(Server.MapPath("~\\EmailTemplates\\ForgetPassword.html")))
+                using (var sr = new StreamReader(HostingEnvironment.MapPath("~\\EmailTemplates\\ForgetPassword.html")))
                 {
                     body = sr.ReadToEnd();
                     body = body.Replace("[NAME]", user.User.Name);
-                    body = body.Replace("[resetPasswordUrl]",callbackUrl);
+                    body = body.Replace("[resetPasswordUrl]", callbackUrl);
                 }
 
                 await UserManager.SendEmailAsync(user.Id, "Заборавена лозинка", body);
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                return Ok();
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        //
-        // GET: /Account/ForgotPasswordConfirmation
-        [AllowAnonymous]
-        public IHttpActionResult ForgotPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public IHttpActionResult ResetPassword(string code)
-        {
-            return code == null ? View("Error") : View();
+            return Content(HttpStatusCode.BadRequest, model);
         }
 
         //
         // POST: /Account/ResetPassword
+        [Route("api/account/resetpassword")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return Content(HttpStatusCode.BadRequest, model);
             }
+
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return Ok();
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                return Ok();
             }
-            AddErrors(result);
-            return View();
+            return GetErrorResult(result);
         }
 
-        //
-        // GET: /Account/ResetPasswordConfirmation
-        [AllowAnonymous]
-        public IHttpActionResult ResetPasswordConfirmation()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
-        [AllowAnonymous]
-        public IHttpActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-        }
-
-        //
-        // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
-                return RedirectToAction("Login");
-            }
-
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return await ConfirmExternalLogin(GetExternalLoginViewModel(loginInfo), returnUrl);
-                    //return View("ExternalLoginConfirmation", GetExternalLoginViewModel(loginInfo));
-            }
-        }
 
         //
         // GET: /Account/IsTaken
+        [Route("api/account/istaken")]
+        [HttpGet]
         [AllowAnonymous]
-        public bool IsTaken(string email)
+        public bool IsTaken([FromUri] string email)
         {
             var result = UserManager.FindByName(email);
             return result != null;
         }
 
-        private ExternalLoginConfirmationViewModel GetExternalLoginViewModel(ExternalLoginInfo loginInfo)
+        [Route("api/account/registerexternal")]
+        [HttpPost]
+        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {
-            ExternalLoginConfirmationViewModel model = new ExternalLoginConfirmationViewModel();
-            var access_token = loginInfo.ExternalIdentity.Claims.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            // Get the information about the user from the external login provider
+            var info = await AuthenticationManager.GetExternalLoginInfoAsync();
 
-            var fb = new FacebookClient(access_token);
-            dynamic claims = fb.Get("/me?fields=email,name,gender,id");
+            if (info == null)
+            {
+                return InternalServerError();
+            }
 
-            model.Gender = claims.gender == "male" ? 1 : 2;
-            model.Email = claims.email;
-            model.Name = claims.name;
-            model.FacebookId = claims.id;
-            model.PictureUrl = GetFacebookPictureUrl(model.FacebookId);
+            var appUser = new AppUser
+            {
+                UserName = model.Email,
+                Email = model.Email
+            };
 
-            return model;
+            var access_token = info.ExternalIdentity.Claims.FirstOrDefault(x => x.Type == "FacebookAccessToken").Value;
+            var uri = @"graph.facebook.com/me?fields=fields=email,name,gender,id&access_token=" + access_token;
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(uri);
+            response.EnsureSuccessStatusCode();
+            dynamic claims = await response.Content.ReadAsAsync<dynamic>();
+
+            var user = new User
+            {
+                Gender = claims.gender == "male" ? 1 : 2,
+                Email = claims.email,
+                Name = claims.name,
+                FacebookId = claims.id,
+                PictureUrl = GetFacebookPictureUrl(claims.id)
+            };
+
+            appUser.User = user;
+
+            var result = await UserManager.CreateAsync(appUser);
+            if (result.Succeeded)
+            {
+                result = await UserManager.AddLoginAsync(appUser.Id, info.Login);
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+            return GetErrorResult(result);
         }
 
         private string GetFacebookPictureUrl(string facebookId)
@@ -317,43 +264,6 @@ namespace Transpo.API.Controllers
                 if (response != null) response.Close();
             }
             return pictureUrl;
-        }
-
-        //
-        // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                return await ConfirmExternalLogin(model, returnUrl);
-            }
-
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
-
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
-        public IHttpActionResult LogOff()
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
-        }
-
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
-        public IHttpActionResult ExternalLoginFailure()
-        {
-            return View();
         }
 
         protected override void Dispose(bool disposing)
@@ -384,7 +294,7 @@ namespace Transpo.API.Controllers
         {
             get
             {
-                return HttpContext.GetOwinContext().Authentication;
+                return Request.GetOwinContext().Authentication;
             }
         }
 
@@ -396,82 +306,102 @@ namespace Transpo.API.Controllers
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        public class ChallengeResult : IHttpActionResult
         {
-            if (Url.IsLocalUrl(returnUrl))
+            public ChallengeResult(string loginProvider, ApiController controller)
             {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
+                LoginProvider = loginProvider;
+                Request = controller.Request;
             }
 
             public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
+            public HttpRequestMessage Request { get; set; }
 
-            public override void ExecuteResult(ControllerContext context)
+            public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
             {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+                Request.GetOwinContext().Authentication.Challenge(LoginProvider);
+
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                response.RequestMessage = Request;
+                return Task.FromResult(response);
             }
         }
 
-        private async Task<ActionResult> ConfirmExternalLogin(ExternalLoginConfirmationViewModel model, string returnUrl)
+        private class ExternalLoginData
         {
-            // Get the information about the user from the external login provider
-            var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (info == null)
-            {
-                return View("ExternalLoginFailure");
-            }
-            var appUser = new AppUser
-            {
-                UserName = model.Email,
-                Email = model.Email
-            };
+            public string LoginProvider { get; set; }
+            public string ProviderKey { get; set; }
+            public string UserName { get; set; }
 
-            var user = new User
+            public IList<Claim> GetClaims()
             {
-                Name = model.Name,
-                PictureUrl = model.PictureUrl,
-                Gender = model.Gender,
-                Email = model.Email,
-                FacebookId = model.FacebookId
-            };
+                IList<Claim> claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, ProviderKey, null, LoginProvider));
 
-            appUser.User = user;
-
-            var result = await UserManager.CreateAsync(appUser);
-            if (result.Succeeded)
-            {
-                result = await UserManager.AddLoginAsync(appUser.Id, info.Login);
-                if (result.Succeeded)
+                if (UserName != null)
                 {
-                    await SignInManager.SignInAsync(appUser, isPersistent: false, rememberBrowser: false);
-                    return RedirectToLocal(returnUrl);
+                    claims.Add(new Claim(ClaimTypes.Name, UserName, null, LoginProvider));
                 }
-            }
-            AddErrors(result);
 
-            return View("ExternalLoginFailure");
+                return claims;
+            }
+
+            public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
+            {
+                if (identity == null)
+                {
+                    return null;
+                }
+
+                Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+
+                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer)
+                    || String.IsNullOrEmpty(providerKeyClaim.Value))
+                {
+                    return null;
+                }
+
+                if (providerKeyClaim.Issuer == ClaimsIdentity.DefaultIssuer)
+                {
+                    return null;
+                }
+
+                return new ExternalLoginData
+                {
+                    LoginProvider = providerKeyClaim.Issuer,
+                    ProviderKey = providerKeyClaim.Value,
+                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                };
+            }
+        }
+
+        private IHttpActionResult GetErrorResult(IdentityResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
+
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    foreach (string error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error);
+                    }
+                }
+
+                if (ModelState.IsValid)
+                {
+                    // No ModelState errors are available to send, so just return an empty BadRequest.
+                    return BadRequest();
+                }
+
+                return BadRequest(ModelState);
+            }
+
+            return null;
         }
         #endregion
     }

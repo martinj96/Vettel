@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class IndexViewModel
     {

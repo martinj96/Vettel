@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Transpo.AppServices.DTOs;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class RideDetailsViewModel
     {

@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,39 @@ namespace Transpo.API
             app.CreatePerOwinContext(() => new TranspoDbContext(connectionString));
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
             app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Home/Index/1")
+            });
+
+            var facebookAuthOptions = new FacebookAuthenticationOptions
+            {
+                AppId = ConfigurationManager.AppSettings["FacebookAppId"].ToString(),
+                AppSecret = ConfigurationManager.AppSettings["FacebookAppSecret"].ToString(),
+                Provider = new FacebookAuthenticationProvider
+                {
+                    OnAuthenticated = (context) =>
+                    {
+                        context.Identity.AddClaim(new Claim("FacebookAccessToken", context.AccessToken));
+                        foreach (var claim in context.User)
+                        {
+                            var claimType = string.Format("urn:facebook:{0}", claim.Key);
+                            string claimValue = claim.Value.ToString();
+                            if (!context.Identity.HasClaim(claimType, claimValue))
+                                context.Identity.AddClaim(new Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
+                        }
+
+                        return Task.FromResult(0);
+                    }
+                }
+            };
+            facebookAuthOptions.Scope.Add("email");
+
+            app.UseFacebookAuthentication(facebookAuthOptions);
         }
     }
 }

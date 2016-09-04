@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class SearchModel
     {
