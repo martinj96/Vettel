@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Transpo.API.Filters;
 
 namespace Transpo.API.Controllers
 {
     public class RidesController : BaseApiController
     {
-        [Route("rides/myrides")]
+        [Route("api/rides/myrides")]
         [HttpGet]
+        [BasicAuthentication]
         public IHttpActionResult MyRides()
         {
             var rides = Service.GetRideService();
