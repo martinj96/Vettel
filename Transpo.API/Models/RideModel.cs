@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Transpo.Infrastructure.Data.Entities;
 
-namespace Transpo.WebApp.Models
+namespace Transpo.API.Models
 {
     public class Point
     {

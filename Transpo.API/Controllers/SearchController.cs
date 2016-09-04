@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using Transpo.WebApp.Models;
+using Transpo.API.Filters;
+using Transpo.API.Models;
 
 namespace Transpo.API.Controllers
-{   
+{
     public class SearchController : BaseApiController
     {
         [Route("api/search/index")]
