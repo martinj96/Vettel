@@ -19,7 +19,7 @@ namespace Transpo.API.Controllers
 
         [Route("api/search/perform")]
         [HttpGet]
-        public IHttpActionResult PerformSearch([FromBody] SearchModel searchModel)
+        public IHttpActionResult PerformSearch([FromUri] SearchModel searchModel)
         {
             var model = new SearchResultModel(searchModel);
             return Ok(model);
@@ -27,7 +27,7 @@ namespace Transpo.API.Controllers
 
         [Route("api/search/performpartial")]
         [HttpGet]
-        public IHttpActionResult PerformSearchPartial([FromBody] SearchModel searchModel)
+        public IHttpActionResult PerformSearchPartial([FromUri] SearchModel searchModel)
         {
             var model = new SearchResultModel(searchModel);
             return Ok(model);

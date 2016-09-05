@@ -9,7 +9,6 @@ using System.Web.Security;
 using Transpo.API.Models;
 using Transpo.AppServices.DTOs;
 using Transpo.AppServices.Models;
-using Transpo.WebApp.Models;
 
 namespace Transpo.API.Controllers
 {

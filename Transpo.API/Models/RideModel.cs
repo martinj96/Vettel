@@ -41,6 +41,7 @@ namespace Transpo.API.Models
         public Time ReturnTimeDeparture { get; set; }
         public UserViewModel Driver { get; set; }
         public int RideId { get; set; }
+        public string ReturnRide { get; set; }
 
         public RideModel() { }
 

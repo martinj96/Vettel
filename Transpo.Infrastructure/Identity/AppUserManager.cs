@@ -51,7 +51,7 @@ namespace Transpo.Infrastructure.Data.Identity
         public override Task SendEmailAsync(string userId, string subject, string body)
         {
             var emailService = new EmailService();
-            MailMessage msg = new MailMessage("kinisaj@gmail.com",
+            MailMessage msg = new MailMessage("info@kinisaj.mk",
                                         this.FindById(userId).Email,
                                         subject,
                                         body);

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Transpo.AppServices.DTOs;
-using Transpo.WebApp.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
 using System.Web.Http;
 using Transpo.API.Filters;
+using Transpo.API.Models;
 
 namespace Transpo.API.Controllers
 {
@@ -19,7 +19,10 @@ namespace Transpo.API.Controllers
         [HttpPost]
         public void SendMessage([FromBody] MessageViewModel message)
         {
-            var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
+            var userId = user.User.id;
+
             MessageDto mDto = new MessageDto
             {
                 RecipientUserId = message.RecipientId,
@@ -39,15 +42,9 @@ namespace Transpo.API.Controllers
         [HttpGet]
         public IHttpActionResult Conversation([FromUri] int id = 0)
         {
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings["Messages"]) == false)
-            {
-                throw new NotImplementedException();
-            }
-
-            if (id == 0)
-                throw new ArgumentException();
-
-            var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
+            var userId = user.User.id;
             var messages = Service.GetMessageService().GetMessagesBetweenUsers(userId, id, markAsRead: true);
 
             List<MessageViewModel> model = new List<MessageViewModel>();
@@ -65,12 +62,9 @@ namespace Transpo.API.Controllers
         [HttpGet]
         public IHttpActionResult ConversationList()
         {
-            if (Convert.ToBoolean(ConfigurationManager.AppSettings["Messages"]) == false)
-            {
-                throw new NotImplementedException();
-            }
-
-            var userId = UserManager.FindById(User.Identity.GetUserId()).User.id;
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
+            var userId = user.User.id;
             //ViewBag.UserId = userId;
 
             var messages = Service.GetMessageService().GetMessagesForUser(userId);

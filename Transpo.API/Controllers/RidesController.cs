@@ -45,14 +45,15 @@ namespace Transpo.API.Controllers
         [Authorize]
         [Route("api/rides/createRide")]
         [HttpPost]
-        public IHttpActionResult CreateRide(RideModel ride, string returnR)
+        public IHttpActionResult CreateRide(RideModel ride)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
 
             if (user == null)
                 return InternalServerError();
 
-            var dto = ConvertRideModelToDto(ride, user.User.id, returnR);
+            var dto = ConvertRideModelToDto(ride, user.User.id, ride.ReturnRide);
             Ride r = Service.GetRideService().AddRide(dto);
 
             return Ok(ConvertRideToViewModel(r, r.id));
@@ -63,7 +64,8 @@ namespace Transpo.API.Controllers
         [HttpGet]
         public IHttpActionResult MyRides()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
 
             if (user == null)
                 throw new UnauthorizedAccessException();
@@ -78,7 +80,8 @@ namespace Transpo.API.Controllers
         [HttpGet]
         public IHttpActionResult DeleteRide(int id)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
 
             var ride = Service.GetRideService().GetById(id);
 

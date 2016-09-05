@@ -18,11 +18,21 @@ using System.Net.Http;
 using System.Web.Hosting;
 using System.Collections.Generic;
 using System.Threading;
+using Transpo.API.Filters;
 
 namespace Transpo.API.Controllers
 {
     public class AccountController : BaseApiController
     {
+        [Route("api/account/getuserinfo")]
+        [HttpGet]
+        [BasicAuthentication]
+        public IHttpActionResult GetUserInfo()
+        {
+            var user = ((ApiIdentity)HttpContext.Current.User.Identity).User;
+            return Ok(new UserViewModel(user));
+        }
+
         // POST: /Account/Login
         [Route("api/account/login")]
         [HttpPost]
