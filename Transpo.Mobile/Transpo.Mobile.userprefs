@@ -1,0 +1,3 @@
+﻿<Properties StartupItem="iOS/Transpo.Mobile.iOS.csproj">
+  <MonoDevelop.Ide.ItemProperties.Transpo.Mobile.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.64178A74-A954-4133-BE48-60111B397F57" />
+</Properties>

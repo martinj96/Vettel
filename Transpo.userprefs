@@ -1,0 +1,23 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Transpo.WebApp/Transpo.Mobile/App.xaml.cs">
+    <Files>
+      <File FileName="Transpo.WebApp/Transpo.Mobile/App.xaml.cs" Line="16" Column="27" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MainPage.xaml" Line="7" Column="26" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MainPage.xaml.cs" Line="16" Column="30" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MasterPage.xaml" Line="7" Column="17" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MasterPage.xaml.cs" Line="19" Column="34" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MasterPageItem.cs" Line="3" Column="11" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MasterPageCS.cs" Line="36" Column="17" />
+      <File FileName="Transpo.WebApp/Transpo.Mobile/MainPageCS.cs" Line="14" Column="48" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Applications.Transpo.WebApp PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <StartupItems>
+    <String>Transpo.WebApp/iOS/Transpo.Mobile.iOS.csproj</String>
+  </StartupItems>
+</Properties>
