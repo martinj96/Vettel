@@ -25,7 +25,7 @@
 
 //        //
 //        // GET: /Manage/Index
-//        [Route("api/manage/index")]
+//        [Route("manage/index")]
 //        [HttpGet]
 //        public async Task<IHttpActionResult> Index()
 //        {
@@ -42,7 +42,7 @@
 
 //        //
 //        // POST: /Manage/RemoveLogin
-//        [Route("api/manage/removelogin")]
+//        [Route("manage/removelogin")]
 //        [HttpPost]
 //        public async Task<IHttpActionResult> RemoveLogin([FromBody] string loginProvider, [FromBody] string providerKey)
 //        {
@@ -66,7 +66,7 @@
 
 //        //
 //        // POST: /Manage/ChangePassword
-//        [Route("api/manage/changepassword")]
+//        [Route("manage/changepassword")]
 //        [HttpPost]
 //        public async Task<IHttpActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
 //        {
@@ -90,7 +90,7 @@
 
 //        //
 //        // POST: /Manage/SetPassword
-//        [Route("api/manage/setpassword")]
+//        [Route("manage/setpassword")]
 //        [HttpPost]
 //        public async Task<IHttpActionResult> SetPassword([FromBody] SetPasswordViewModel model)
 //        {
@@ -124,7 +124,7 @@
 
 //        //
 //        // GET: /Manage/ManageLogins
-//        [Route("api/manage/managelogins")]
+//        [Route("manage/managelogins")]
 //        [HttpGet]
 //        public async Task<IHttpActionResult> ManageLogins()
 //        {
@@ -144,7 +144,7 @@
 
 //        //
 //        // POST: /Manage/LinkLogin
-//        [Route("api/manage/linklogin")]
+//        [Route("manage/linklogin")]
 //        [HttpPost]
 //        public IHttpActionResult LinkLogin([FromBody] string provider)
 //        {

@@ -10,14 +10,14 @@ namespace Transpo.API.Controllers
 {
     public class SearchController : BaseApiController
     {
-        [Route("api/search/index")]
+        [Route("search/index")]
         [HttpGet]
         public IHttpActionResult Index()
         {
             return Ok(new SearchResultModel());
         }
 
-        [Route("api/search/perform")]
+        [Route("search/perform")]
         [HttpGet]
         public IHttpActionResult PerformSearch([FromUri] SearchModel searchModel)
         {
@@ -25,7 +25,7 @@ namespace Transpo.API.Controllers
             return Ok(model);
         }
 
-        [Route("api/search/performpartial")]
+        [Route("search/performpartial")]
         [HttpGet]
         public IHttpActionResult PerformSearchPartial([FromUri] SearchModel searchModel)
         {
@@ -33,7 +33,7 @@ namespace Transpo.API.Controllers
             return Ok(model);
         }
 
-        [Route("api/search/all")]
+        [Route("search/all")]
         [HttpGet]
         public IHttpActionResult GetAllRides()
         {

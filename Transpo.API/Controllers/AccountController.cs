@@ -24,7 +24,7 @@ namespace Transpo.API.Controllers
 {
     public class AccountController : BaseApiController
     {
-        [Route("api/account/getuserinfo")]
+        [Route("account/getuserinfo")]
         [HttpGet]
         [BasicAuthentication]
         public IHttpActionResult GetUserInfo()
@@ -34,7 +34,7 @@ namespace Transpo.API.Controllers
         }
 
         // POST: /Account/Login
-        [Route("api/account/login")]
+        [Route("account/login")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> Login([FromBody] LoginViewModel model)
@@ -58,7 +58,7 @@ namespace Transpo.API.Controllers
         }
 
         // POST: /Account/Register
-        [Route("api/account/register")]
+        [Route("account/register")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> Register([FromBody] RegisterViewModel model)
@@ -130,7 +130,7 @@ namespace Transpo.API.Controllers
         }
 
         // POST: /Account/ForgotPassword
-        [Route("api/account/forgotpassword")]
+        [Route("account/forgotpassword")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordViewModel model)
@@ -167,7 +167,7 @@ namespace Transpo.API.Controllers
 
         //
         // POST: /Account/ResetPassword
-        [Route("api/account/resetpassword")]
+        [Route("account/resetpassword")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> ResetPassword(ResetPasswordViewModel model)
@@ -194,7 +194,7 @@ namespace Transpo.API.Controllers
 
         //
         // GET: /Account/IsTaken
-        [Route("api/account/istaken")]
+        [Route("account/istaken")]
         [HttpGet]
         [AllowAnonymous]
         public bool IsTaken([FromUri] string email)
@@ -203,7 +203,7 @@ namespace Transpo.API.Controllers
             return result != null;
         }
 
-        [Route("api/account/registerexternal")]
+        [Route("account/registerexternal")]
         [HttpPost]
         public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
         {

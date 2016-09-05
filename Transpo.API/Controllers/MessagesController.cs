@@ -15,7 +15,7 @@ namespace Transpo.API.Controllers
     [BasicAuthentication]
     public class MessagesController : BaseApiController
     {
-        [Route("api/messages/send")]
+        [Route("messages/send")]
         [HttpPost]
         public void SendMessage([FromBody] MessageViewModel message)
         {
@@ -38,7 +38,7 @@ namespace Transpo.API.Controllers
         }
 
         // GET: Messages/Conversation
-        [Route("api/messages/conversation")]
+        [Route("messages/conversation")]
         [HttpGet]
         public IHttpActionResult Conversation([FromUri] int id = 0)
         {
@@ -58,7 +58,7 @@ namespace Transpo.API.Controllers
             return Ok(model);
         }
 
-        [Route("api/messages/conversationlist")]
+        [Route("messages/conversationlist")]
         [HttpGet]
         public IHttpActionResult ConversationList()
         {

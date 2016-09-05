@@ -21,7 +21,7 @@ namespace Transpo.API.Controllers
     {
         // GET: Rides
         [AllowAnonymous]
-        [Route("api/rides/details")]
+        [Route("rides/details")]
         [HttpGet]
         public IHttpActionResult Details(int id)
         {
@@ -43,7 +43,7 @@ namespace Transpo.API.Controllers
         //}
 
         [Authorize]
-        [Route("api/rides/create")]
+        [Route("rides/create")]
         [HttpPost]
         public IHttpActionResult Create([FromBody] RideModel ride)
         {
@@ -60,7 +60,7 @@ namespace Transpo.API.Controllers
         }
 
         [Authorize]
-        [Route("api/rides/myrides")]
+        [Route("rides/myrides")]
         [HttpGet]
         public IHttpActionResult MyRides()
         {
@@ -76,7 +76,7 @@ namespace Transpo.API.Controllers
         }
 
         [Authorize]
-        [Route("api/rides/deleteride")]
+        [Route("rides/deleteride")]
         [HttpGet]
         public IHttpActionResult DeleteRide(int id)
         {
