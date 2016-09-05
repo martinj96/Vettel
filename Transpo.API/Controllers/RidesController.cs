@@ -43,9 +43,9 @@ namespace Transpo.API.Controllers
         //}
 
         [Authorize]
-        [Route("api/rides/createRide")]
+        [Route("api/rides/create")]
         [HttpPost]
-        public IHttpActionResult CreateRide(RideModel ride)
+        public IHttpActionResult Create([FromBody] RideModel ride)
         {
             var identity = (HttpContext.Current.User.Identity);
             var user = ((ApiIdentity)identity);
@@ -169,14 +169,15 @@ namespace Transpo.API.Controllers
         }
         private RideDetailsViewModel ConvertRideToViewModel(Ride ride, int id)
         {
+            var identity = (HttpContext.Current.User.Identity);
+            var user = ((ApiIdentity)identity);
+
             var viewModel = new RideDetailsViewModel();
             viewModel.Driver = new UserViewModel(ride.Driver);
             viewModel.Ride = new RideViewModel(ride);
             viewModel.RideId = id;
             viewModel.Points = Service.GetRideService().GetRidesSortedCriticalPoints(id);
-            viewModel.UserIsRider = User.Identity.IsAuthenticated
-                ? ride.Driver.id == UserManager.FindById(User.Identity.GetUserId()).User.id
-                : false;
+            viewModel.UserIsRider = ride.Driver.id == user.User.id;
             //var user = UserManager.FindById(User.Identity.GetUserId()).User;
             ////var user = (HttpContext.User as CustomPrincipal);
             ///*if( userId has access){
