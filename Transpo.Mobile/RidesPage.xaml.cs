@@ -23,6 +23,19 @@ namespace Transpo.Mobile
 			var obj = JsonConvert.DeserializeObject<SearchResultModel>(json);
 
 			lvRides.ItemsSource = obj.Rides;
+			lvRides.ItemSelected += OnSelection;
+		}
+
+		void OnSelection(object sender, SelectedItemChangedEventArgs e)
+		{
+			if (e.SelectedItem == null)
+			{
+				return;
+			}
+
+			RideDetailsPage page = new RideDetailsPage();
+			page.BindingContext = (RideModel)e.SelectedItem;
+			Navigation.PushAsync(page);
 		}
 	}
 }

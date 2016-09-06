@@ -3,13 +3,13 @@
 			 xmlns:local="clr-namespace:Transpo.Mobile;assembly=Transpo.Mobile"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 			 x:Class="Transpo.Mobile.RidesPage"
-			 Title="Rides Page">
+			 Title="Превози">
 	<ContentPage.Content>
 		<StackLayout>
 			<ListView x:Name="lvRides" VerticalOptions="FillAndExpand">
 				<ListView.ItemTemplate>
 					<DataTemplate>
-						<local:RideNativeCell StartPoint="{Binding StartPoint.Name}" EndPoint="{Binding EndPoint.Name}" Price="{Binding PricePerPassenger}" Seats="{Binding SeatsLeft}" Departure="{Binding DepartureDate}" />
+						<local:RideNativeCell StartPoint="{Binding StartPoint.Name}" EndPoint="{Binding EndPoint.Name}" Price="{Binding PricePerPassenger}" Seats="{Binding SeatsLeft}" Departure="{Binding DepartureDateSimpleText}" />
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
