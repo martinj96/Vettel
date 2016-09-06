@@ -3,7 +3,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 			 x:Class="Transpo.Mobile.MasterPage"
 			 Padding="0,40,0,0"
-			 Icon=""
+			 Icon="hamburger.png"
 			 Title="Rides">
 	<ContentPage.Content>
 		<StackLayout VerticalOptions="FillAndExpand">

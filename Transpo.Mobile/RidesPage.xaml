@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+			 xmlns:local="clr-namespace:Transpo.Mobile;assembly=Transpo.Mobile"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
 			 x:Class="Transpo.Mobile.RidesPage"
 			 Title="Rides Page">
 	<ContentPage.Content>
 		<StackLayout>
-			<Label Text="Rides list data goes here" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+			<ListView x:Name="lvRides" VerticalOptions="FillAndExpand">
+				<ListView.ItemTemplate>
+					<DataTemplate>
+						<local:RideNativeCell StartPoint="{Binding StartPoint.Name}" EndPoint="{Binding EndPoint.Name}" Price="{Binding PricePerPassenger}" Seats="{Binding SeatsLeft}" Departure="{Binding DepartureDate}" />
+					</DataTemplate>
+				</ListView.ItemTemplate>
+			</ListView>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

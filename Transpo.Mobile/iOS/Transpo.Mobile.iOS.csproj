@@ -127,6 +127,8 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="RideNativeiOSCellRenderer.cs" />
+    <Compile Include="RideNativeiOSCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\hamburger.png" />
