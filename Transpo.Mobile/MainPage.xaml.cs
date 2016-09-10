@@ -5,9 +5,21 @@ namespace Transpo.Mobile
 {
 	public partial class MainPage : MasterDetailPage
 	{
+		public void NavigateToRides()
+		{
+			masterPage.ListView.SelectedItem = null;
+			Detail = new NavigationPage(new RidesPage());
+			IsPresented = false;
+		}
+
 		public MainPage()
 		{
 			InitializeComponent();
+
+			MessagingCenter.Subscribe<ContentPage>(this, "NavigateToRides", (s) =>
+			{
+				NavigateToRides();
+			});
 
 			masterPage.ListView.ItemSelected += OnItemSelected;
 

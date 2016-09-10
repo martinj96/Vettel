@@ -9,11 +9,11 @@ public class RideNativeiOSCell : UITableViewCell
 	public RideNativeiOSCell(NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 	{
 		startPoint = new UILabel() {
-			Font = UIFont.FromName("Helvetica Neue", 13f)
+			Font = UIFont.FromName("Helvetica Neue", 14f)
 		};
 
 		endPoint = new UILabel() {
-			Font = UIFont.FromName("Helvetica Neue", 13f),
+			Font = UIFont.FromName("Helvetica Neue", 14f),
 			TextAlignment = UITextAlignment.Right
 		};
 

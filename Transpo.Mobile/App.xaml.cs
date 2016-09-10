@@ -1,9 +1,19 @@
-﻿using Xamarin.Forms;
+﻿using PCLStorage;
+using Xamarin.Auth;
+using Xamarin.Forms;
 
 namespace Transpo.Mobile
 {
 	public partial class App : Application
 	{
+		public static string AppName
+		{
+			get
+			{
+				return "Kinisaj";
+			}
+		}
+
 		public App()
 		{
 			InitializeComponent();
@@ -14,11 +24,13 @@ namespace Transpo.Mobile
 		protected override void OnStart()
 		{
 			// Handle when your app starts
+
 		}
 
 		protected override void OnSleep()
 		{
 			// Handle when your app sleeps
+
 		}
 
 		protected override void OnResume()

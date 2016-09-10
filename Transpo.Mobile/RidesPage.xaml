@@ -6,7 +6,7 @@
 			 Title="Превози">
 	<ContentPage.Content>
 		<StackLayout>
-			<ListView x:Name="lvRides" VerticalOptions="FillAndExpand">
+			<ListView x:Name="lvRides" VerticalOptions="FillAndExpand" RowHeight="70" >
 				<ListView.ItemTemplate>
 					<DataTemplate>
 						<local:RideNativeCell StartPoint="{Binding StartPoint.Name}" EndPoint="{Binding EndPoint.Name}" Price="{Binding PricePerPassenger}" Seats="{Binding SeatsLeft}" Departure="{Binding DepartureDateSimpleText}" />

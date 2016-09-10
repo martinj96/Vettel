@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Transpo.Mobile.RegisterPage" Title="Регистрација">
+	<ContentPage.Content>
+		<StackLayout>
+			<BoxView Color="Gray" HeightRequest="2"></BoxView>
+			<Entry x:Name="email" Placeholder="Email"></Entry>
+			<Entry x:Name="password" IsPassword="true" Placeholder="Лозинка"></Entry>
+			<Entry x:Name="confirmPassword" IsPassword="true" Placeholder="Потврди лозинка"></Entry>
+			<Entry x:Name="name" Placeholder="Име"></Entry>
+			<Entry x:Name="phone" Placeholder="Телефон"></Entry>
+			<BoxView Color="Gray" HeightRequest="2"></BoxView>
+			<Label TextColor="Red" Text="Внесовте погрешни податоци" FontSize="12" IsVisible="false" x:Name="lblError" HorizontalTextAlignment="Center"></Label>
+			<Button x:Name="btnRegister" Text="Регистрирај се" Clicked="OnRegisterSubmit"></Button>
+			<ActivityIndicator Color="Gray" IsRunning="false" x:Name="loader"></ActivityIndicator>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
