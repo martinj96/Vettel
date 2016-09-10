@@ -26,6 +26,23 @@ namespace Transpo.Mobile
 			lvRides.ItemSelected += OnSelection;
 		}
 
+		public RidesPage(float fromLat, float fromLon, float toLat, float toLon)
+		{
+			InitializeComponent();
+
+			var client = new HttpClient();
+			client.BaseAddress = new Uri("http://api.kinisaj.mk/");
+			var response = client.GetAsync("search/perform?FromLongitude=" + fromLon
+										  + "&FromLatitude=" + fromLat
+										  + "&ToLongitude=" + toLon
+										  + "&ToLatitude=" + toLat).Result;
+			var json = response.Content.ReadAsStringAsync().Result;
+			var obj = JsonConvert.DeserializeObject<SearchResultModel>(json);
+
+			lvRides.ItemsSource = obj.Rides;
+			lvRides.ItemSelected += OnSelection;
+		}
+
 		void OnSelection(object sender, SelectedItemChangedEventArgs e)
 		{
 			if (e.SelectedItem == null)

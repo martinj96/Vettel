@@ -1,25 +1,19 @@
 ﻿<Properties StartupItem="iOS/Transpo.Mobile.iOS.csproj">
-  <MonoDevelop.Ide.Workbench ActiveDocument="MainPage.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RidesPage.xaml.cs">
     <Files>
-      <File FileName="MainPage.xaml.cs" Line="24" Column="37" />
-      <File FileName="MasterPage.xaml.cs" Line="26" Column="37" />
-      <File FileName="SearchPage.xaml" Line="1" Column="1" />
-      <File FileName="SearchPage.xaml.cs" Line="1" Column="1" />
-      <File FileName="LoginPage.xaml" Line="11" Column="54" />
-      <File FileName="LoginPage.xaml.cs" Line="51" Column="18" />
-      <File FileName="RidesPage.xaml.cs" Line="14" Column="55" />
-      <File FileName="LogoutPage.xaml" Line="1" Column="1" />
-      <File FileName="LogoutPage.xaml.cs" Line="16" Column="47" />
-      <File FileName="App.xaml.cs" Line="17" Column="1" />
+      <File FileName="SearchPage.xaml.cs" Line="5" Column="1" />
+      <File FileName="SearchPage.xaml" Line="5" Column="3" />
+      <File FileName="iOS/SearchPageRenderer.cs" Line="124" Column="33" />
+      <File FileName="iOS/RideNativeiOSCellRenderer.cs" Line="1" Column="1" />
+      <File FileName="RidesPage.xaml.cs" Line="35" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/App.xaml.cs" line="27" column="1" />
-      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/App.xaml.cs" line="17" column="1" />
+      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/RidesPage.xaml.cs" line="35" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Transpo.Mobile.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.b86ba0c67525e15d63c14a36e3d58f8132b6aace" />
+  <MonoDevelop.Ide.ItemProperties.Transpo.Mobile.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.64178A74-A954-4133-BE48-60111B397F57" />
 </Properties>

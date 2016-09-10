@@ -11,6 +11,10 @@ namespace Transpo.Mobile
 		{
 			InitializeComponent();
 		}
+
+		public void PushPage()
+		{
+		}
 	}
 }
 

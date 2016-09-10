@@ -125,6 +125,12 @@
       <HintPath>..\packages\Xamarin.Auth.1.3.1.1\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
     <Reference Include="System.Json" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="GPA">
+      <HintPath>..\packages\DurianCode.iOS.Places.1.0.6092.33554\lib\xamarinios10\GPA.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Transpo.Mobile.csproj">
@@ -152,6 +158,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="RideNativeiOSCellRenderer.cs" />
     <Compile Include="RideNativeiOSCell.cs" />
+    <Compile Include="SearchPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\hamburger.png" />
