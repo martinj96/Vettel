@@ -9,10 +9,10 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(SearchPage), typeof(SearchPageRenderer))]
+[assembly: ExportRenderer(typeof(CreateRidePage), typeof(CreateRidePageRenderer))]
 namespace Transpo.Mobile.iOS
 {
-	public class SearchPageRenderer : PageRenderer
+	public class CreateRidePageRenderer : PageRenderer
 	{
 		public UIButton fromLocationButton;
 		public UIButton toLocationButton;
@@ -22,6 +22,7 @@ namespace Transpo.Mobile.iOS
 		public UINavigationController placesViewContainer;
 		public PlacesViewController placesViewController;
 		public nfloat fromLat, fromLon, toLat, toLon;
+		public string fromName, toName;
 		public int selected;
 
 		public override void ViewDidLoad()
@@ -112,13 +113,13 @@ namespace Transpo.Mobile.iOS
 			searchButton = new UIButton();
 			searchButton.TranslatesAutoresizingMaskIntoConstraints = false;
 			searchButton.Frame = new CGRect(10, 145, w - 20, h);
-			searchButton.SetTitle("Пребарај", UIControlState.Normal);
+			searchButton.SetTitle("Внеси информации", UIControlState.Normal);
 			searchButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
 			searchButton.Alpha = 0.0f;
 
 			searchButton.TouchUpInside += (sender, e) =>
 			{
-				((Page)Element).Navigation.PushAsync(new RidesPage((float)fromLat, (float)fromLon, (float)toLat, (float)toLon));	
+				((Page)Element).Navigation.PushAsync(new CreateRideDetailsPage((float)fromLat, (float)fromLon, (float)toLat, (float)toLon, fromName, toName));
 			};
 
 			View.AddSubviews(new UIView[]
@@ -143,6 +144,7 @@ namespace Transpo.Mobile.iOS
 			fromLabel.Text = String.Format("Од: {0}", place.name);
 			fromLat = Convert.ToSingle(place.latitude);
 			fromLon = Convert.ToSingle(place.longitude);
+			fromName = place.name;
 			selected++;
 			if (selected > 1)
 				searchButton.Alpha = 1.0f;
@@ -160,6 +162,7 @@ namespace Transpo.Mobile.iOS
 			toLabel.Text = String.Format("До: {0}", place.name);
 			toLat = Convert.ToSingle(place.latitude);
 			toLon = Convert.ToSingle(place.longitude);
+			toName = place.name;
 			selected++;
 			if (selected > 1)
 				searchButton.Alpha = 1.0f;

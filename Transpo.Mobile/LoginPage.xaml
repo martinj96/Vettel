@@ -3,7 +3,7 @@
 	<ContentPage.Content>
 		<StackLayout>
 			<BoxView Color="Gray" HeightRequest="2"></BoxView>
-			<Entry x:Name="email" Placeholder="Email"></Entry>
+			<Entry x:Name="email" Placeholder="Email" Keyboard="Email"></Entry>
 			<Entry x:Name="password" IsPassword="true" Placeholder="Лозинка"></Entry>
 			<BoxView Color="Gray" HeightRequest="2"></BoxView>
 			<Label TextColor="Red" Text="Внесовте погрешни податоци" FontSize="12" IsVisible="false" x:Name="lblError" HorizontalTextAlignment="Center"></Label>

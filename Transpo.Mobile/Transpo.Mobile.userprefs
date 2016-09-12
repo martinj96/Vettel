@@ -1,17 +1,24 @@
 ﻿<Properties StartupItem="iOS/Transpo.Mobile.iOS.csproj">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RidesPage.xaml.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="CreateRideDetailsPage.xaml.cs">
     <Files>
-      <File FileName="SearchPage.xaml.cs" Line="5" Column="1" />
+      <File FileName="CreateRidePage.xaml" Line="4" Column="24" />
+      <File FileName="CreateRidePage.xaml.cs" Line="1" Column="1" />
       <File FileName="SearchPage.xaml" Line="5" Column="3" />
-      <File FileName="iOS/SearchPageRenderer.cs" Line="124" Column="33" />
-      <File FileName="iOS/RideNativeiOSCellRenderer.cs" Line="1" Column="1" />
-      <File FileName="RidesPage.xaml.cs" Line="35" Column="1" />
+      <File FileName="iOS/SearchPageRenderer.cs" Line="13" Column="1" />
+      <File FileName="CreateRideDetailsPage.xaml.cs" Line="120" Column="5" />
+      <File FileName="../Transpo.Models/RideModel.cs" Line="1" Column="1" />
+      <File FileName="CreateRideDetailsPage.xaml" Line="8" Column="38" />
+      <File FileName="MasterPage.xaml.cs" Line="26" Column="23" />
+      <File FileName="RegisterPage.xaml.cs" Line="123" Column="1" />
+      <File FileName="LoginPage.xaml.cs" Line="53" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/RidesPage.xaml.cs" line="35" column="1" />
+      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/CreateRideDetailsPage.xaml.cs" line="121" column="1" />
+      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/CreateRideDetailsPage.xaml.cs" line="119" column="1" />
+      <Breakpoint file="/Users/tomistojkovski/Developer/Transpo/Vettel/Transpo.Mobile/LoginPage.xaml.cs" line="53" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

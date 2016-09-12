@@ -3,7 +3,7 @@
 	<ContentPage.Content>
 		<StackLayout>
 			<BoxView Color="Gray" HeightRequest="2"></BoxView>
-			<Entry x:Name="email" Placeholder="Email"></Entry>
+			<Entry x:Name="email" Placeholder="Email" Keyboard="Email"></Entry>
 			<Entry x:Name="password" IsPassword="true" Placeholder="Лозинка"></Entry>
 			<Entry x:Name="confirmPassword" IsPassword="true" Placeholder="Потврди лозинка"></Entry>
 			<Entry x:Name="name" Placeholder="Име"></Entry>

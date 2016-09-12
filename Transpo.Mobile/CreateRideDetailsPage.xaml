@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="Transpo.Mobile.CreateRideDetailsPage"
+		Title="Информации">
+	<ContentPage.Content>
+		<StackLayout>
+			<DatePicker x:Name="departureDate"></DatePicker>
+			<TimePicker x:Name="departureTime" Format="HH:mm"></TimePicker>
+			<Entry x:Name="price" Placeholder="Цена (MKD)" Keyboard="Numeric"></Entry>
+			<Entry x:Name="seatsLeft" Placeholder="Слободни места" Keyboard="Numeric"></Entry>
+			<Entry x:Name="description" Placeholder="Додатни информации"></Entry>
+			<Label x:Name="lblError" TextColor="Red" IsVisible="false" Text="Внесовте погрешни податоци"></Label>
+			<Button x:Name="btnCreateRide" Text="Понуди" Clicked="CreateRide"></Button>
+			<ActivityIndicator Color="Gray" IsRunning="false" x:Name="loader"></ActivityIndicator>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

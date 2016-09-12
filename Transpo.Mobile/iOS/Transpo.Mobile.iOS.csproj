@@ -159,6 +159,8 @@
     <Compile Include="RideNativeiOSCellRenderer.cs" />
     <Compile Include="RideNativeiOSCell.cs" />
     <Compile Include="SearchPageRenderer.cs" />
+    <Compile Include="CreateRidePageRenderer.cs" />
+    <Compile Include="TimePicker24HRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\hamburger.png" />

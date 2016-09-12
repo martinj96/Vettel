@@ -45,6 +45,12 @@ namespace Transpo.Mobile
 			{
 				masterPageItems.Add(new MasterPageItem
 				{
+					Title = "Понуди превоз",
+					TargetType = typeof(CreateRidePage)
+				});
+
+				masterPageItems.Add(new MasterPageItem
+				{
 					Title = "Одјави се",
 					TargetType = typeof(LogoutPage)
 				});

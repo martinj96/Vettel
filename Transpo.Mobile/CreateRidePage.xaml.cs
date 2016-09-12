@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace Transpo.Mobile
 {
-	public partial class SearchPage : ContentPage
+	public partial class CreateRidePage : ContentPage
 	{
-		public SearchPage()
+		public CreateRidePage()
 		{
 			InitializeComponent();
 		}
