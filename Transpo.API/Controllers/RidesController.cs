@@ -42,7 +42,6 @@ namespace Transpo.API.Controllers
         //    Service.GetRideService().AddMeToRide(user.User, ride);
         //}
 
-        [Authorize]
         [Route("rides/create")]
         [HttpPost]
         public IHttpActionResult Create([FromBody] RideModel ride)
@@ -59,7 +58,6 @@ namespace Transpo.API.Controllers
             return Ok(ConvertRideToViewModel(r, r.id));
         }
 
-        [Authorize]
         [Route("rides/myrides")]
         [HttpGet]
         public IHttpActionResult MyRides()
@@ -75,7 +73,6 @@ namespace Transpo.API.Controllers
             return Ok(rides);
         }
 
-        [Authorize]
         [Route("rides/deleteride")]
         [HttpGet]
         public IHttpActionResult DeleteRide(int id)
