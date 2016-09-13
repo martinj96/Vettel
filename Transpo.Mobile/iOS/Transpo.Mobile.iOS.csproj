@@ -29,6 +29,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <MtouchExtraArgs>-linkskip=System.Net -linkskip=System.Windows</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <Optimize>true</Optimize>
@@ -85,6 +86,7 @@
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
     <CodesignProvision>510464b6-0c37-456d-b4a0-b10c654aa5e3</CodesignProvision>
+    <MtouchExtraArgs>-v -v -v -v</MtouchExtraArgs>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -141,12 +143,47 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Image.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %283%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %284%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %285%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %286%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %288%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %289%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2810%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2811%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2812%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2813%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2814%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2815%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2816%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2817%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2818%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2819%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2820%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2821%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2822%29.png" />
+    <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Drawing %2823%29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-Small.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-Small%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-Small%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-Small-40%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-Small-40%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-40%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-60%403x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-40%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-72.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-72%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon-76%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -165,6 +202,15 @@
   <ItemGroup>
     <BundleResource Include="Resources\hamburger.png" />
     <BundleResource Include="Resources\hamburger%402x.png" />
+    <BundleResource Include="Resources\Login.png" />
+    <BundleResource Include="Resources\Logout.png" />
+    <BundleResource Include="Resources\Plus.png" />
+    <BundleResource Include="Resources\Search.png" />
+    <BundleResource Include="Resources\Sedan.png" />
+    <BundleResource Include="Resources\Kinisaj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.0.1.6495\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.0.1.6495\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

@@ -47,8 +47,8 @@ namespace Transpo.Mobile.iOS
 				placesViewController.apiKey = "AIzaSyDWag8hplmavNY64vFn_jPaUU9gl4AKGV4";
 
 				// 2. (OPTIONAL) Set the search criteria to match your needs
-				//placesViewController.SetPlaceType(PlaceType.Cities);
-				//placesViewController.SetLocationBias(new LocationBias(40.7058316, -74.2581935, 1000000));
+				placesViewController.SetPlaceType(PlaceType.Cities);
+				placesViewController.SetLocationBias(new LocationBias(42.00691, 20.97153, 1000000));
 
 				// 3. Subscribe to PlaceSelected delegate to get place details
 				placesViewController.PlaceSelected += HandleFromPlaceSelection;
@@ -81,6 +81,7 @@ namespace Transpo.Mobile.iOS
 
 				// 2. (OPTIONAL) Set the search criteria to match your needs
 				placesViewController.SetPlaceType(PlaceType.Cities);
+				placesViewController.SetLocationBias(new LocationBias(42.00691, 20.97153, 1000000));
 				//placesViewController.SetLocationBias(new LocationBias(40.7058316, -74.2581935, 1000000));
 
 				// 3. Subscribe to PlaceSelected delegate to get place details
@@ -141,10 +142,10 @@ namespace Transpo.Mobile.iOS
 			var place = new Place(placeData);
 			Console.WriteLine($"Place: {place.name}, Coordinates: {place.latitude},{place.longitude}");
 			Console.WriteLine(place.raw); // prints the full place details json result
-			fromLabel.Text = String.Format("Од: {0}", place.name);
+			fromLabel.Text = String.Format("Од: {0}", (string)placeData["result"]["formatted_address"]);
 			fromLat = Convert.ToSingle(place.latitude);
 			fromLon = Convert.ToSingle(place.longitude);
-			fromName = place.name;
+			fromName = (string)placeData["result"]["formatted_address"];
 			selected++;
 			if (selected > 1)
 				searchButton.Alpha = 1.0f;
@@ -159,10 +160,10 @@ namespace Transpo.Mobile.iOS
 			var place = new Place(placeData);
 			Console.WriteLine($"Place: {place.name}, Coordinates: {place.latitude},{place.longitude}");
 			Console.WriteLine(place.raw); // prints the full place details json result
-			toLabel.Text = String.Format("До: {0}", place.name);
+			toLabel.Text = String.Format("До: {0}", (string)placeData["result"]["formatted_address"]);
 			toLat = Convert.ToSingle(place.latitude);
 			toLon = Convert.ToSingle(place.longitude);
-			toName = place.name;
+			toName = (string)placeData["result"]["formatted_address"];
 			selected++;
 			if (selected > 1)
 				searchButton.Alpha = 1.0f;

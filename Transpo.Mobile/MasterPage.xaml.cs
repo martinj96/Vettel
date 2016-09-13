@@ -24,12 +24,13 @@ namespace Transpo.Mobile
 			masterPageItems.Add(new MasterPageItem
 			{
 				Title = "Превози",
-				//IconSource = "contacts.png",
+				IconSource = "Sedan.png",
 				TargetType = typeof(RidesPage)
 			});
 			masterPageItems.Add(new MasterPageItem
 			{
 				Title = "Пребарај",
+				IconSource = "Search.png",
 				TargetType = typeof(SearchPage)
 			});
 
@@ -38,6 +39,7 @@ namespace Transpo.Mobile
 				masterPageItems.Add(new MasterPageItem
 				{
 					Title = "Најави се",
+					IconSource = "Login.png",
 					TargetType = typeof(LoginPage)
 				});
 			}
@@ -46,12 +48,14 @@ namespace Transpo.Mobile
 				masterPageItems.Add(new MasterPageItem
 				{
 					Title = "Понуди превоз",
+					IconSource = "Plus.png",
 					TargetType = typeof(CreateRidePage)
 				});
 
 				masterPageItems.Add(new MasterPageItem
 				{
 					Title = "Одјави се",
+					IconSource = "Logout.png",
 					TargetType = typeof(LogoutPage)
 				});
 			}

@@ -79,13 +79,13 @@ namespace Transpo.Mobile
 			}
 
 			RideModel model = new RideModel();
-			model.StartPoint = new Transpo.Models.Point
+			model.StartPoint = new Models.Point
 			{
 				Latitude = (decimal)fromLat,
 				Longitude = (decimal)fromLon,
 				Name = fromName
 			};
-			model.EndPoint = new Transpo.Models.Point
+			model.EndPoint = new Models.Point
 			{
 				Latitude = (decimal)toLat,
 				Longitude = (decimal)toLon,
@@ -107,6 +107,7 @@ namespace Transpo.Mobile
 			}
 			UserViewModel user = JsonConvert.DeserializeObject<UserViewModel>(UserInfo);
 			model.Driver = user;
+			model.Waypoints = new List<Models.Point>();
 
 			var client = new HttpClient();
 			client.BaseAddress = new Uri("http://api.kinisaj.mk/");
